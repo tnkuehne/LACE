@@ -1,0 +1,50 @@
+name: Lighthouse
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: sveltekit/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd sveltekit
+          npm install
+
+      - name: Install Lighthouse CI
+        run: |
+          cd sveltekit
+          npm install @lhci/cli
+
+      - name: Build site
+        env:
+          ADAPTER_ENV: node
+        run: |
+          cd sveltekit
+          npm run build
+
+      - name: Run Lighthouse
+        run: |
+          cd sveltekit
+          npx lhci autorun
+        # Ensure there's a "lhci autorun" script in your package.json
+        # configure https://github.com/apps/lighthouse-ci for this repo
+        # to display Lighthouse results below PRs
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

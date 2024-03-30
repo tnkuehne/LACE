@@ -5,9 +5,9 @@ services:
     ports:
       - 8055:8055
     volumes:
-      - ./database:/directus/database
-      - ./uploads:/directus/uploads
-      - ./extensions:/directus/extensions
+      - ./directus/database:/directus/database
+      - ./directus/uploads:/directus/uploads
+      - ./directus/extensions:/directus/extensions
     environment:
       KEY: "replace-with-random-value"
       SECRET: "replace-with-random-value"

@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/sveltekit/'
+    schedule:
+      interval: 'daily'
+    groups:
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@typescript-eslint/*"
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: 'daily'

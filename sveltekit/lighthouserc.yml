@@ -1,0 +1,11 @@
+ci:
+  collect:
+    startServerCommand: 'npm run preview'
+    url:
+      - 'http://localhost:4173/'
+  assert:
+    presets: lighthouse:no-pwa
+    assertions:
+      categories:performance: [error, { minScore: 0.9 }]
+  upload:
+    target: temporary-public-storage

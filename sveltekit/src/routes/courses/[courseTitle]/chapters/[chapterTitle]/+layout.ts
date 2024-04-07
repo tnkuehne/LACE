@@ -4,7 +4,7 @@ import getDirectusInstance from '$lib/directus';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch, params }) => {
-    const { courseTitle } = params;
+    const { courseTitle, chapterTitle } = params;
     const directus = getDirectusInstance(fetch);
 
     try {
@@ -16,9 +16,14 @@ export const load: PageLoad = async ({ fetch, params }) => {
             })
         );
 
+        // mark the chapter that is currently being viewed
+        response.forEach((chapter) => {
+            chapter.active = chapter.Title === chapterTitle;
+        });
+
         if (response && response.length > 0) {
             return {
-                chapters: response
+                chapters: response,
             };
         } else {
             throw error(404, 'Not found');

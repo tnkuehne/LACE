@@ -8,9 +8,15 @@
         {#if data.chapters.length > 0}
             <ul>
                 {#each data.chapters as chapter}
-                    <li>
-                        <a href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}>{chapter.Title}</a>
-                    </li>
+                    {#if chapter.active}
+                        <li>
+                            <a href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`} class="font-bold">{chapter.Title}</a>
+                        </li>
+                    {:else}
+                        <li>
+                            <a href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}>{chapter.Title}</a>
+                        </li>
+                    {/if}
                 {/each}
             </ul>
         {:else}

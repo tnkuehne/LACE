@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex flex-col items-center">
-    <h1 class="text-4xl font-bold">Chapter Title</h1>
+    <h1 class="text-4xl font-bold">{data.slides[0].Chapter.Title}</h1>
     <Separator />
     <div class="w-4/5 mx-auto">
         {#if data.slides.length > 0}

@@ -3,6 +3,11 @@
     export let data;
     import * as Carousel from '$lib/components/ui/carousel/index.js';
     import {Separator} from "$lib/components/ui/separator";
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        localStorage.setItem('lastVisitedChapter', data.slides[0].Chapter.Title);
+    });
 </script>
 
 <div class="flex flex-col items-center">

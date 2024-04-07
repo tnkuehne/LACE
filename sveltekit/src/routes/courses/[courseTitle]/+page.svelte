@@ -1,4 +1,11 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+
+    let lastVisitedChapter: String | null = null;
+
+    onMount(() => {
+        lastVisitedChapter = localStorage.getItem('lastVisitedChapter');
+    });
     export let data;
 </script>
 
@@ -6,7 +13,7 @@
     <ul>
         {#each data.chapters as chapter}
             <li>
-                <a href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}>{chapter.Title}</a>
+                <a href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`} class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>{chapter.Title}</a>
             </li>
         {/each}
     </ul>

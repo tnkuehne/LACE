@@ -1,25 +1,15 @@
 <script lang="ts">
-    import {onMount} from 'svelte';
-    import getDirectusInstance from '$lib/directus';
-    import {readItems} from '@directus/sdk';
-
-    interface Course {
-        id: string;
-        Title: string;
-        Description: string;
-    }
-
-    let courses: Course[] = [];
-
-    onMount(async () => {
-        courses = await getDirectusInstance().request(readItems('Courses')) as Course[];
-    });
+    export let data;
 </script>
 
-<ul>
-    {#each courses as { id, Title }}
-        <li>
-            <a href={`/courses/${Title}`}>{Title}</a>
-        </li>
-    {/each}
-</ul>
+{#if data.courses.length > 0}
+    <ul>
+        {#each data.courses as course}
+            <li>
+                <a href={`/courses/${course.Title}`}>{course.Title}</a>
+            </li>
+        {/each}
+    </ul>
+{:else}
+    <p>No courses available.</p>
+{/if}

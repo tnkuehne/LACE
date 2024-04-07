@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import {onMount} from 'svelte';
+    import * as Card from "$lib/components/ui/card";
+    import {Button} from "$lib/components/ui/button";
 
     let lastVisitedChapter: String | null = null;
 
@@ -9,14 +11,29 @@
     export let data;
 </script>
 
+<h1 class="text-2xl font-bold text-center">Chapters</h1>
 {#if data.chapters.length > 0}
-    <ul>
+    <div class="flex flex-col gap-4 p-4">
         {#each data.chapters as chapter}
-            <li>
-                <a href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`} class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>{chapter.Title}</a>
-            </li>
+            <Card.Root class={chapter.Title === lastVisitedChapter ? 'border-2 border-blue-500' : ''}>
+                <Card.Header>
+                    <Card.Title>{chapter.Title}</Card.Title>
+                    <Card.Description>{chapter.Description}</Card.Description>
+                </Card.Header>
+                <Card.Footer>
+                    {#if lastVisitedChapter === chapter.Title}
+                        <Button href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}
+                                class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>Resume
+                        </Button>
+                    {:else}
+                        <Button href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}
+                                class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>Start
+                        </Button>
+                    {/if}
+                </Card.Footer>
+            </Card.Root>
         {/each}
-    </ul>
+    </div>
 {:else}
     <p>No chapters available for this course.</p>
 {/if}

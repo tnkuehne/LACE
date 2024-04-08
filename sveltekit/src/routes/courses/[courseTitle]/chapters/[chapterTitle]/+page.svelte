@@ -1,28 +1,23 @@
 <script lang="ts">
 
     import Quiz from "./Quiz.svelte";
-
-    export let data;
     import * as Carousel from '$lib/components/ui/carousel/index.js';
     import {Separator} from "$lib/components/ui/separator";
     import { onMount } from 'svelte';
+    import type { Question, Slide } from '$lib/types';
+
+
+
+    interface Data {
+        slides: Slide[];
+        quizzes: Question[]; // Ensure this is always expected to be an array
+    }
+
+    export let data: Data;
 
     onMount(() => {
         localStorage.setItem('lastVisitedChapter', data.slides[0].Chapter.Title);
     });
-    let questions = [
-        {
-            question: "What is the primary goal of a Zero-Knowledge Proof (ZKP)?",
-            answers: [
-                {text: "To allow a party to prove possession of a certain information without revealing the information itself."},
-                {text: "To encrypt data for secure transmission over public networks."},
-                {text: "To increase the efficiency of blockchain transactions by reducing their size."},
-                {text: "To authenticate users without the need for passwords."},
-            ],
-            correct: [0] // This is an array of indices of the correct answers
-        },
-        // Include additional questions as needed
-    ];
 </script>
 
 <div class="flex flex-col items-center justify-center">
@@ -33,12 +28,14 @@
             <div class="p-100">
                 <Carousel.Root>
                     <Carousel.Content class="items-center">
-                    <Carousel.Item>
-                            <Quiz {questions} />
-                    </Carousel.Item>
                         {#each data.slides as slide}
                             <Carousel.Item>
                                 <img src={`http://localhost:8055/assets/${slide.image}`} alt="Slide {slide.Chapter}">
+                            </Carousel.Item>
+                        {/each}
+                        {#each data.quizzes as quiz}
+                            <Carousel.Item>
+                                <Quiz question={quiz} />
                             </Carousel.Item>
                         {/each}
                     </Carousel.Content>

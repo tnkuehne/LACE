@@ -1,14 +1,11 @@
 <script lang="ts">
-    import {onMount} from 'svelte';
     import * as Card from "$lib/components/ui/card";
     import {Button} from "$lib/components/ui/button";
+    import { progressStore} from "$lib/stores/progressStore";
 
-    let lastVisitedChapter: String | null = null;
-
-    onMount(() => {
-        lastVisitedChapter = localStorage.getItem('lastVisitedChapter');
-    });
     export let data;
+
+    $: lastVisitedChapter = $progressStore;
 </script>
 
 <h1 class="text-2xl font-bold text-center">Chapters</h1>

@@ -3,8 +3,8 @@
     import Quiz from "./Quiz.svelte";
     import * as Carousel from '$lib/components/ui/carousel/index.js';
     import {Separator} from "$lib/components/ui/separator";
-    import {onMount} from 'svelte';
     import type {Question, Slide} from '$lib/types';
+    import { progressStore } from '$lib/stores/progressStore';
 
 
     interface Data {
@@ -14,9 +14,10 @@
 
     export let data: Data;
 
-    onMount(() => {
-        localStorage.setItem('lastVisitedChapter', data.slides[0].Chapter.Title);
-    });
+    $: if (data.slides.length > 0) {
+        progressStore.setProgress(data.slides[0].Chapter.Title);
+    }
+
 </script>
 
 <div>

@@ -1,11 +1,17 @@
 <script lang="ts">
+    import { progressStore } from '$lib/stores/progressStore';
     import * as Card from "$lib/components/ui/card";
-    import {Button} from "$lib/components/ui/button";
-    import { progressStore} from "$lib/stores/progressStore";
+    import { Button } from "$lib/components/ui/button";
 
     export let data;
 
-    $: lastVisitedChapter = $progressStore;
+    let lastVisitedChapter = '';
+
+    // Using a reactive statement to watch changes in data.courseId
+    $: {
+        const progress = progressStore.getProgress(data.chapters[0].Course.id);
+        lastVisitedChapter = progress ? progress.lastVisitedChapter : '';
+    }
 </script>
 
 <h1 class="text-2xl font-bold text-center">Chapters</h1>
@@ -18,15 +24,10 @@
                     <Card.Description>{chapter.Description}</Card.Description>
                 </Card.Header>
                 <Card.Footer>
-                    {#if lastVisitedChapter === chapter.Title}
-                        <Button href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}
-                                class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>Resume
-                        </Button>
-                    {:else}
-                        <Button href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}
-                                class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>Start
-                        </Button>
-                    {/if}
+                    <Button href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}
+                            class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>
+                        {lastVisitedChapter === chapter.Title ? 'Resume' : 'Start'}
+                    </Button>
                 </Card.Footer>
             </Card.Root>
         {/each}

@@ -10,5 +10,5 @@ export interface Question {
 
 export interface Slide {
     image: string;
-    Chapter: { Title: string; };
+    Chapter: { Title: string; Course: { id: string } };
 }

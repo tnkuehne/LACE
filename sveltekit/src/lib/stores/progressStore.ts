@@ -1,24 +1,26 @@
-import {writable} from 'svelte/store';
-import {browser} from '$app/environment';
+import { writable } from 'svelte/store';
+import { browser } from '$app/environment';
 
 function createProgressStore() {
-    const {subscribe, set} = writable<string | null>(null);
+    const { subscribe, set, update } = writable({});
 
     return {
         subscribe,
-        setProgress: (chapterTitle: string) => {
+        setProgress: (courseId: string, chapterTitle: string) => {
             if (browser) {
-                localStorage.setItem('progress', chapterTitle);
-                set(chapterTitle);
+                const newProgress = { lastVisitedChapter: chapterTitle };
+                localStorage.setItem(`progress_${courseId}`, JSON.stringify(newProgress));
+                update(currentProgress => {
+                    return { ...currentProgress, [courseId]: newProgress };
+                });
             }
         },
-        initialize: () => {
+        getProgress: (courseId: string) => {
             if (browser) {
-                const chapter = localStorage.getItem('progress');
-                if (chapter) {
-                    set(chapter);
-                }
+                const progress = localStorage.getItem(`progress_${courseId}`);
+                return progress ? JSON.parse(progress) : null;
             }
+            return null;
         }
     };
 }

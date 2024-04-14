@@ -17,7 +17,7 @@ services:
       DB_FILENAME: "/directus/database/data.db"
       WEBSOCKETS_ENABLED: "true"
       CORS_ENABLED: "true"
-      CORS_ORIGIN: "http://localhost:5173"
+      CORS_ORIGIN: "http://localhost:5174"
       CORS_METHODS: "GET,POST,PATCH,DELETE"
       CORS_ALLOWED_HEADERS: "Content-Type,Authorization"
       CORS_EXPOSED_HEADERS: "Content-Range"

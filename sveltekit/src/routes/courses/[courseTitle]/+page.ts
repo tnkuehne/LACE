@@ -10,9 +10,9 @@ export const load: PageLoad = async ({ fetch, params }) => {
     try {
         // Use the readItems method from the Directus SDK
         const response = await directus.request(
-            readItems('Chapters', {
-                filter: { Course: { Title: courseTitle} },
-                fields: ['*', 'Course.*'], // Specify the fields you want to retrieve
+            readItems('kapitel', {
+                filter: { kurs: { Title: courseTitle} },
+                fields: ['*', 'kurs.*'], // Specify the fields you want to retrieve
             })
         );
 
@@ -21,7 +21,9 @@ export const load: PageLoad = async ({ fetch, params }) => {
                 chapters: response
             };
         } else {
-            throw error(404, 'Not found');
+            return {
+                chapters: []
+            }
         }
     } catch (err) {
         console.error('Error fetching chapters:', err);

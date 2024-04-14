@@ -10,9 +10,9 @@ export const load: PageLoad = async ({ fetch, params }) => {
     try {
         // Use the readItems method from the Directus SDK
         const response = await directus.request(
-            readItems('Chapters', {
-                filter: { Course: { Title: courseTitle} },
-                fields: ['*', 'Course.*'], // Specify the fields you want to retrieve
+            readItems('kapitel', {
+                fields: ['*', 'kurs.*', 'content.*.*.*'],
+                filter: { kurs: { Title: courseTitle} },
             })
         );
 
@@ -22,7 +22,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
         // mark the chapter that is currently being viewed
         response.forEach((chapter) => {
             count++;
-            if (chapter.Title === chapterTitle) {
+            if (chapter.title === chapterTitle) {
                 chapter.active = true;
                 chapter.index = count;
                 activeChapter = count;

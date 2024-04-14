@@ -16,14 +16,25 @@ export const load: PageLoad = async ({ fetch, params }) => {
             })
         );
 
+        let count: number = 0;
+        let activeChapter: number = 0;
+
         // mark the chapter that is currently being viewed
         response.forEach((chapter) => {
-            chapter.active = chapter.Title === chapterTitle;
+            count++;
+            if (chapter.Title === chapterTitle) {
+                chapter.active = true;
+                chapter.index = count;
+                activeChapter = count;
+            }
         });
+
+        let progress: number = (activeChapter / count) * 100;
 
         if (response && response.length > 0) {
             return {
                 chapters: response,
+                progress: progress,
             };
         } else {
             throw error(404, 'Not found');

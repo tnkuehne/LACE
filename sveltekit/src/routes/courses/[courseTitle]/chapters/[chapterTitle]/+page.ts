@@ -13,7 +13,7 @@ export const load: PageLoad = async ({fetch, params}) => {
         const response = await directus.request(
             readItems('Slides', {
                 filter: {Chapter: {Title: chapterTitle}},
-                fields: ['*', 'Chapter.*'], // Specify the fields you want to retrieve
+                fields: ['*', 'Chapter.*.*'], // Specify the fields you want to retrieve
             })
         );
 

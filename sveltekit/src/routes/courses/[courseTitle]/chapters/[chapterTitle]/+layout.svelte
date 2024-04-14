@@ -1,12 +1,14 @@
 <script lang="ts">
     import {Separator} from "$lib/components/ui/separator";
+    import { Progress } from "$lib/components/ui/progress";
 
     export let data;
 </script>
 
 <div class="flex flex-row items-stretch">
-    <div class="basis-1/4">
+    <div class="basis-1/4 p-2">
         <h2 class="text-2xl font-bold">Chapters</h2>
+        <Progress value={data.progress} />
         {#if data.chapters.length > 0}
             <ul>
                 {#each data.chapters as chapter}

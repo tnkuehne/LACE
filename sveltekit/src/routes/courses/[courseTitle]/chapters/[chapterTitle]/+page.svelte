@@ -15,7 +15,7 @@
     export let data: Data;
 
     $: if (data.slides.length > 0) {
-        progressStore.setProgress(data.slides[0].Chapter.Course.id, data.slides[0].Chapter.Title);
+        progressStore.setProgress(data.slides[0].Chapter.Course.id, data.slides[0].Chapter.id);
     }
 
 </script>

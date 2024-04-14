@@ -18,7 +18,7 @@
 {#if data.chapters.length > 0}
     <div class="flex flex-col gap-4 p-4">
         {#each data.chapters as chapter}
-            <Card.Root class={chapter.Title === lastVisitedChapter ? 'border-2 border-blue-500' : ''}>
+            <Card.Root class={chapter.id === lastVisitedChapter ? 'border-2 border-blue-500' : ''}>
                 <Card.Header>
                     <Card.Title>{chapter.Title}</Card.Title>
                     <Card.Description>{chapter.Description}</Card.Description>

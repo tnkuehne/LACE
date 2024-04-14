@@ -8,7 +8,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 
     try {
         // Use the readItems method from the Directus SDK
-        const response = await getDirectusInstance().request(readItems('Courses'));
+        const response = await directus.request(readItems('Courses'));
 
         if (response && response.length > 0) {
             return {

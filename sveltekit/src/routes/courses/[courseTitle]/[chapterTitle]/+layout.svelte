@@ -13,7 +13,7 @@
             <ul>
                 {#each data.chapters as chapter}
                     <li>
-                        <a href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`} class={chapter.active ? 'font-bold' : ''}>{chapter.Title}</a>
+                        <a href={`/courses/${chapter.kurs.Title}/${chapter.title}`} class={chapter.active ? 'font-bold' : ''}>{chapter.title}</a>
                     </li>
                 {/each}
             </ul>

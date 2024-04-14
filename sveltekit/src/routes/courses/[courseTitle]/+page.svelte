@@ -9,8 +9,10 @@
 
     // Using a reactive statement to watch changes in data.courseId
     $: {
-        const progress = progressStore.getProgress(data.chapters[0].Course.id);
-        lastVisitedChapter = progress ? progress.lastVisitedChapter : '';
+        if(data.chapters.length > 0) {
+            const progress = progressStore.getProgress(data.chapters[0].kurs.id);
+            lastVisitedChapter = progress ? progress.lastVisitedChapter : '';
+        }
     }
 </script>
 
@@ -20,11 +22,11 @@
         {#each data.chapters as chapter}
             <Card.Root class={chapter.id === lastVisitedChapter ? 'border-2 border-blue-500' : ''}>
                 <Card.Header>
-                    <Card.Title>{chapter.Title}</Card.Title>
+                    <Card.Title>{chapter.title}</Card.Title>
                     <Card.Description>{chapter.Description}</Card.Description>
                 </Card.Header>
                 <Card.Footer>
-                    <Button href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}
+                    <Button href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
                             class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>
                         {lastVisitedChapter === chapter.Title ? 'Resume' : 'Start'}
                     </Button>

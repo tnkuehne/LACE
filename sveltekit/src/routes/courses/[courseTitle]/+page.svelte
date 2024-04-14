@@ -24,7 +24,7 @@
                     <Card.Description>{chapter.Description}</Card.Description>
                 </Card.Header>
                 <Card.Footer>
-                    <Button href={`/courses/${chapter.Course.Title}/chapters/${chapter.Title}`}
+                    <Button href={`/courses/${chapter.Course.Title}/${chapter.Title}`}
                             class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}>
                         {lastVisitedChapter === chapter.Title ? 'Resume' : 'Start'}
                     </Button>

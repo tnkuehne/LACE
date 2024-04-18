@@ -17,29 +17,8 @@ export const load: PageLoad = async ({ fetch, params }) => {
             })
         );
 
-        // Process content to maintain order and transform quizzes
-        const content = response[0].content.map((item: any) => {
-            if (item.collection === 'mcQuiz' && item.item && item.item.answers) {
-                // Transform quiz items into Question format
-                const question: Question = {
-                    question: item.item.question,
-                    answers: item.item.answers.map((answer: any) => ({
-                        text: answer.text,
-                        correct: answer.correct
-                    })),
-                    correct: item.item.answers
-                        .map((answer: any, index: number) => answer.correct ? index : -1)
-                        .filter((index: number) => index !== -1)
-                };
-                return { ...item, item: question };
-            } else {
-                // Return other types of content unchanged
-                return item;
-            }
-        });
-
         return {
-            chapter: {...response[0], content},
+            chapter: response[0],
         };
     } catch (err) {
         console.error('Error fetching chapters:', err);

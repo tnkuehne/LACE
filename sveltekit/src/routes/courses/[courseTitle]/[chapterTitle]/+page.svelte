@@ -32,7 +32,7 @@
                             </Carousel.Item>
                         {:else if content.collection === 'mcQuiz'}
                             <Carousel.Item class="flex justify-center items-center">
-                                <McQuiz question={content.item}/>
+                                <McQuiz question={content.item.question} answers={content.item.answers}/>
                             </Carousel.Item>
                         {:else if content.collection === 'orderQuiz'}
                             <Carousel.Item class="flex justify-center items-center">

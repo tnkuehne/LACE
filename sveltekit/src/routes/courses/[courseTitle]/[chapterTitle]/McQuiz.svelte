@@ -2,10 +2,10 @@
     import {Button} from "$lib/components/ui/button/index.js";
     import * as Card from "$lib/components/ui/card";
     import {Badge} from "$lib/components/ui/badge";
-    import type {Question} from "$lib/types";
 
+    export let question: string;
+    export let answers: {text: string, correct: boolean, sort: null}[];
 
-    export let question: Question;
     let selectedAnswers: number[] = []; // Explicitly define the type as number[]
     let incorrectAnswers: number[] = []; // Array to store incorrect answers
     let isCorrect: boolean | null = null; // Initialize as null
@@ -24,11 +24,11 @@
 
     function submitAnswer() {
         // Sort the arrays before comparing, as order doesn't matter
-        isCorrect = JSON.stringify(selectedAnswers.sort()) === JSON.stringify(question.correct.sort());
+        isCorrect = JSON.stringify(selectedAnswers.sort()) === JSON.stringify(answers.filter(answer => answer.correct).map((_, index) => index));
 
         // If the answer is incorrect, find the incorrect answers
         if (!isCorrect) {
-            incorrectAnswers = selectedAnswers.filter(answer => !question.correct.includes(answer));
+            incorrectAnswers = selectedAnswers.filter(answer => !answers[answer].correct);
         } else {
             incorrectAnswers = [];
         }
@@ -38,7 +38,7 @@
 <Card.Root class="inline-block">
     <Card.Header>
         <Card.Title>
-            {question.question}
+            {question}
         </Card.Title>
         {#if isCorrect}
             <div class="inline-block">
@@ -51,7 +51,7 @@
     </Card.Header>
     <Card.Content>
         <div class="flex flex-col space-y-2 items-start">
-            {#each question.answers as {text}, index}
+            {#each answers as {text}, index}
                 <Button
                         variant={incorrectAnswers.includes(index) ? 'destructive' : (selectedAnswers.includes(index) ? 'secondary' : 'outline')}
                         on:click={() => selectAnswer(index)}>

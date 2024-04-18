@@ -25,14 +25,14 @@
 
     function onDragOver(e: DragEvent) {
         // @ts-ignore
-        const id = e.target.dataset?.id;
+        const sort = e.target.dataset?.sort;
         const dragged = getDraggedParent(e.target);
-        isOver = dragged?.id ?? false;
+        isOver = dragged?.sort ?? false;
     }
 
     function onDragLeave(e: DragEvent) {
         const dragged = getDraggedParent(e.target);
-        isOver === dragged.id && (isOver = false);
+        isOver === dragged.sort && (isOver = false);
     }
 
     function onDrop(e: DragEvent) {
@@ -54,12 +54,12 @@
 
 {#if list?.length}
     <ul class="list-none p-0 flex flex-col items-center">
-        {#each list as item, index (item.id)}
+        {#each list as item, index (item.sort)}
             <li
                     class="border-2 border-dashed border-transparent p-2 transition-all max-w-md w-full"
-                    class:over={item.id === isOver}
+                    class:over={item.sort === isOver}
                     data-index={index}
-                    data-id={item.id}
+                    data-sort={item.sort}
                     draggable="true"
                     on:dragstart={onDragStart}
                     on:dragover|preventDefault={onDragOver}

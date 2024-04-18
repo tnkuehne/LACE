@@ -1,9 +1,10 @@
 <script lang="ts">
-    import Quiz from "./Quiz.svelte";
+    import McQuiz from "./McQuiz.svelte";
     import * as Carousel from '$lib/components/ui/carousel/index.js';
     import { Separator } from "$lib/components/ui/separator";
     import type { Question, Slide } from '$lib/types';
     import { progressStore } from '$lib/stores/progressStore';
+    import OrderQuiz from "./OrderQuiz.svelte";
 
     export let data;
 
@@ -26,7 +27,7 @@
                             </Carousel.Item>
                         {:else if content.collection === 'mcQuiz'}
                             <Carousel.Item class="flex justify-center items-center">
-                                <Quiz question={content.item}/>
+                                <McQuiz question={content.item}/>
                             </Carousel.Item>
                         {/if}
                     {/each}

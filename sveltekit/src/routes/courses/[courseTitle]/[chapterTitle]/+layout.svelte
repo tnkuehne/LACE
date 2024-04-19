@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex flex-row items-stretch">
-    <div class="basis-1/4 p-2">
+    <div class="basis-1/4 p-2 bg-gray-50">
         <h2 class="text-2xl font-bold">Chapters</h2>
         <Progress value={data.progress} />
         {#if data.chapters.length > 0}
@@ -21,8 +21,6 @@
             <p>No chapters available for this course.</p>
         {/if}
     </div>
-    <!-- Separator with Tailwind CSS for visible styling -->
-    <div class="w-px bg-gray-300 mx-4"></div>
     <div class="basis-3/4">
         <slot/>
     </div>

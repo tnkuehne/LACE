@@ -13,33 +13,12 @@ export const load: PageLoad = async ({ fetch, params }) => {
         const response = await directus.request(
             readItems('kapitel', {
                 filter: {title: chapterTitle},
-                fields: ['*', 'content.collection', 'content.item.bild', 'content.item.answers.text', 'content.item.answers.correct', 'content.item.question', 'kurs.*'], // Specify the fields you want to retrieve
+                fields: ['*', 'content.collection', 'content.item.bild', 'content.item.answers.text', 'content.item.answers.correct', 'content.item.question', 'kurs.*', 'content.item.answers.sort'], // Specify the fields you want to retrieve
             })
         );
 
-        // Process content to maintain order and transform quizzes
-        const content = response[0].content.map((item: any) => {
-            if (item.collection === 'mcQuiz' && item.item && item.item.answers) {
-                // Transform quiz items into Question format
-                const question: Question = {
-                    question: item.item.question,
-                    answers: item.item.answers.map((answer: any) => ({
-                        text: answer.text,
-                        correct: answer.correct
-                    })),
-                    correct: item.item.answers
-                        .map((answer: any, index: number) => answer.correct ? index : -1)
-                        .filter((index: number) => index !== -1)
-                };
-                return { ...item, item: question };
-            } else {
-                // Return other types of content unchanged
-                return item;
-            }
-        });
-
         return {
-            chapter: {...response[0], content},
+            chapter: response[0],
         };
     } catch (err) {
         console.error('Error fetching chapters:', err);

@@ -1,17 +1,28 @@
-import { error } from '@sveltejs/kit';
-import { readItems } from '@directus/sdk';
+import {error} from '@sveltejs/kit';
+import {readItems} from '@directus/sdk';
 import getDirectusInstance from '$lib/directus';
-import type { PageLoad } from './$types';
+import type {PageLoad} from './$types';
 
-export const load: PageLoad = async ({ fetch, params }) => {
-    const { courseTitle } = params;
+export const load: PageLoad = async ({fetch, params}) => {
+    const {courseTitle} = params;
     const directus = getDirectusInstance(fetch);
 
     try {
         // Use the readItems method from the Directus SDK
         const response = await directus.request(
             readItems('kapitel', {
-                filter: { kurs: { Title: courseTitle} },
+                filter: {
+                    "_and": [
+                        {
+                            kurs: {
+                                Title: courseTitle
+                            },
+                            parent: {
+                                "_null": true
+                            },
+                        }
+                    ]
+                },
                 fields: ['*', 'kurs.*'], // Specify the fields you want to retrieve
             })
         );

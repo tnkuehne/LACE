@@ -11,7 +11,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
         // Use the readItems method from the Directus SDK
         const response = await directus.request(
             readItems('kapitel', {
-                fields: ['*', 'kurs.*', 'content.*.*.*'],
+                fields: ['*', 'kurs.*', 'content.*.*.*', 'parent.title'],
                 filter: { kurs: { Title: courseTitle} },
             })
         );

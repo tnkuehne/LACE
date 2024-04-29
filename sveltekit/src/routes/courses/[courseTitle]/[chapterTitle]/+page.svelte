@@ -14,9 +14,14 @@
 </script>
 
 <div>
-    <h1 class="text-4xl font-bold text-center">{data.chapter.title}</h1>
-    <Separator/>
-    <div class="w-4/5 mx-auto">
+    <div class="space-y-2">
+        {#if data.chapter.parent}
+            <span class="text-sm font-bold text-blue-500">{data.chapter.parent.title}</span>
+        {/if}
+        <h1 class="text-2xl font-bold">{data.chapter.title}</h1>
+        <Separator/>
+    </div>
+    <div class="w-5/6 mx-auto">
         {#if data.chapter.content && data.chapter.content.length > 0}
             <Carousel.Root
                     opts={{

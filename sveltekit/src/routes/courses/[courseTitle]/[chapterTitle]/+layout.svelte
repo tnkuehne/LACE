@@ -10,9 +10,9 @@
 <div class="flex min-h-screen">
     <div class="w-1/4 bg-neutral-50 p-8">
         <h2 class="text-2xl font-bold mb-8">{data.chapters[0].kurs.Title}</h2>
-        <h4 class="text-gray-500 pb-4">Your progress</h4>
+        <h4 class="text-gray-500 mb-4 text-sm font-medium">Your progress</h4>
         <div class="mb-4">
-            <div class="text-xs mt-2 font-medium">
+            <div class="text-sm mt-2 font-medium">
                 <span>{data.progress.toFixed(0)}% completed</span>
             </div>
             <Progress class="bg-gray-200 rounded-full" value={data.progress} />
@@ -25,8 +25,8 @@
                         <Accordion.Item value="item-{index}">
                             <Accordion.Trigger>
                                 <div class="flex items-center space-x-2">
-                                    <Checkbox />
-                                    <Label class="text-sm font-medium text-gray-700">
+                                    <Checkbox checked disabled/>
+                                    <Label class="text-sm font-medium">
                                         <a href={`/courses/${chapter.kurs.Title}/${chapter.title}`} class="hover:text-blue-500">
                                             {chapter.title}
                                         </a>
@@ -38,13 +38,13 @@
                                     {#if subchapter.parent?.title === chapter.title}
                                         <div class="flex items-start space-x-2">
                                             <div class="grid place-items-center">
-                                                <Checkbox class="h-4 w-4 text-blue-600" />
+                                                <Checkbox class="h-4 w-4 text-blue-600" checked="indeterminate" disabled/>
                                                 <!-- Add vertical line below checkbox -->
                                                 {#if subIndex !== data.chapters.filter(item => item.parent?.title === chapter.title).length - 1}
                                                     <div class="my-2 border-l-2 border-gray-300 h-6"></div>
                                                 {/if}
                                             </div>
-                                            <Label class="text-sm text-gray-700">
+                                            <Label class="text-sm">
                                                 <a href={`/courses/${subchapter.kurs.Title}/${subchapter.title}`} class="hover:text-blue-500">
                                                     {subchapter.title}
                                                 </a>

@@ -16,9 +16,9 @@
 <div>
     <div class="space-y-2">
         {#if data.chapter.parent}
-            <span class="text-sm font-bold text-blue-500">{data.chapter.parent.title}</span>
+            <span class="text-sm font-medium text-blue-500">{data.chapter.parent.title}</span>
         {/if}
-        <h1 class="text-2xl font-bold">{data.chapter.title}</h1>
+        <h1 class="text-2xl font-medium">{data.chapter.title}</h1>
         <Separator/>
     </div>
     <div class="w-5/6 mx-auto pt-16">

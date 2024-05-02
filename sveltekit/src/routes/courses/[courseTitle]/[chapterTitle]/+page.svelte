@@ -21,7 +21,7 @@
         <h1 class="text-2xl font-bold">{data.chapter.title}</h1>
         <Separator/>
     </div>
-    <div class="w-5/6 mx-auto">
+    <div class="w-5/6 mx-auto pt-16">
         {#if data.chapter.content && data.chapter.content.length > 0}
             <Carousel.Root
                     opts={{

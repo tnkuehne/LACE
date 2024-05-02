@@ -29,7 +29,7 @@
     }
 </script>
 
-<Card.Root class="inline-block">
+<Card.Root class="inline-block border-0 shadow-none">
     <Card.Header>
         <Card.Title>
             {question}

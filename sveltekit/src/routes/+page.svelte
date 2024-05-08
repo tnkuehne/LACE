@@ -1,3 +1,7 @@
+<script>
+    import CourseCard from "./CourseCard.svelte";
+</script>
+
 <div class="relative w-full h-[60vh] flex">
     <div class="absolute top-0 right-0">
         <!-- Largest Circle -->
@@ -17,7 +21,7 @@
     <img src="http://localhost:5173/grainy.png" alt="Overlay" class="mix-blend-overlay w-full h-full">
 
     <!-- Text Overlay -->
-    <div class="absolute left-1/4 max-w-3/4 space-y-64 pt-8">
+    <div class="absolute inset-x-0 mx-auto max-w-screen-xl space-y-64 pt-8">
         <h1 class="text-6xl font-bold uppercase text-primary">LACE</h1>
         <div class="space-y-4">
             <div class="space-y-2">
@@ -32,3 +36,17 @@
         </div>
     </div>
 </div>
+<div class="bg-gray-50 h-screen">
+    <div class="flex flex-col items-center justify-center pt-16 space-y-8 w-full max-w-screen-xl mx-auto">
+        <div class="space-y-4">
+            <h2 class="text-6xl font-bold text-center">Courses</h2>
+            <p class="text-gray-600 text-center">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</p>
+        </div>
+        <div class="flex flex-row justify-center space-x-4">
+            <CourseCard />
+            <CourseCard />
+            <CourseCard />
+        </div>
+    </div>
+</div>
+

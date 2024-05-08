@@ -15,6 +15,10 @@
     let count = 0;
     let current = 0;
 
+    $: if (api && data) {
+        api.scrollTo(0); // Scroll to the first slide
+    }
+
     $: if (api) {
         count = api.scrollSnapList().length;
         current = api.selectedScrollSnap() + 1;
@@ -26,7 +30,6 @@
     // Check if the current slide is the last one
     $: if (current === count && current > 0) {
         progressStore.completeChapter(data.chapter.kurs.id, data.chapter.id);
-        console.log('Chapter completed');
     }
 </script>
 
@@ -43,7 +46,6 @@
                 bind:api
                 opts={{
                         watchDrag: false,
-                        startIndex: 0,
                       }}
         >
             <Carousel.Content class="flex">

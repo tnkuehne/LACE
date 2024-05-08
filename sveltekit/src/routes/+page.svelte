@@ -1,4 +1,15 @@
 <div class="relative w-full h-[60vh] flex">
+    <div class="absolute top-0 right-0">
+        <!-- Largest Circle -->
+        <div class="w-[64rem] h-[64rem] rounded-full border-8 border-black opacity-5 flex items-center justify-center -my-96 -mx-72">
+            <!-- Medium Circle -->
+            <div class="w-[48rem] h-[48rem] rounded-full border-8 border-black opacity-100 flex items-center justify-center -my-88 -mx-66">
+                <!-- Smallest Circle -->
+                <div class="w-[32rem] h-[32rem] rounded-full border-8 border-black opacity-100 -my-64 -mx-48">
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Gradient Background -->
     <div class="absolute inset-0 bg-gradient-to-br from-40% from-blue-500 to-90% to-purple-500 opacity-30"></div>
 

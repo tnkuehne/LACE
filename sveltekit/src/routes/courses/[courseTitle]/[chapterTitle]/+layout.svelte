@@ -41,7 +41,7 @@
                                             <div class="grid place-items-center">
                                                 <Checkbox class="h-4 w-4 text-blue-600" checked={subchapter.active ? "indeterminate" : !!$progressStore[subchapter.kurs.id]?.completedChapters.includes(subchapter.id)} disabled/>
                                                 <!-- Add vertical line below checkbox -->
-                                                {#if subIndex !== data.chapters.filter(item => item.parent?.title === chapter.title).length - 1}
+                                                {#if subchapter !== data.chapters.filter(item => item.parent?.title === chapter.title).slice(-1)[0]}
                                                     <div class="my-2 border-l-2 {$progressStore[subchapter.kurs.id]?.completedChapters.includes(subchapter.id) ? 'border-blue-600' : 'border-gray-300'} h-6"></div>
                                                 {/if}
                                             </div>

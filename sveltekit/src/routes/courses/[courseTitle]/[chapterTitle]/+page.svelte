@@ -14,9 +14,19 @@
     let api: CarouselAPI;
     let count = 0;
     let current = 0;
+    let nextChapterUrl = '';
 
     $: if (api && data) {
         api.scrollTo(0); // Scroll to the first slide
+        const currentChapterIndex = data.chapters.findIndex(chapter => chapter.id === data.chapter.id);
+        console.log("Chapter: ", currentChapterIndex, "/", data.chapters.length - 1)
+        if (currentChapterIndex !== -1 && currentChapterIndex < data.chapters.length - 1) {
+            const nextChapter = data.chapters[currentChapterIndex + 1];
+            nextChapterUrl = `/courses/${data.chapter.kurs.Title}/${nextChapter.title}`;
+        } else {
+            nextChapterUrl = "";
+        }
+        console.log(nextChapterUrl);
     }
 
     $: if (api) {
@@ -24,12 +34,14 @@
         current = api.selectedScrollSnap() + 1;
         api.on("select", () => {
             current = api.selectedScrollSnap() + 1;
+            console.log("slide: ", current, "/", count);
         });
     }
 
     // Check if the current slide is the last one
     $: if (current === count && current > 0) {
         progressStore.completeChapter(data.chapter.kurs.id, data.chapter.id);
+        console.log("Chapter completed");
     }
 </script>
 
@@ -66,7 +78,7 @@
                     {/if}
                 {/each}
                 <Carousel.Item class="flex justify-center items-center">
-                    <ChapterFinal/>
+                    <ChapterFinal {nextChapterUrl}/>
                 </Carousel.Item>
             </Carousel.Content>
             <Carousel.Previous/>

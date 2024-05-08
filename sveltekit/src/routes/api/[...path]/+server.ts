@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, url }) => {
-    const apiUrl = `http://localhost:8055/${params.path}${url.search}`;
+    const apiUrl = `http://directus:8055/${params.path}${url.search}`;
 
     try {
         const response = await fetch(apiUrl);

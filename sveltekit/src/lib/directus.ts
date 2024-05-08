@@ -7,7 +7,7 @@ type FetchFunction = typeof fetch;
 
 function getDirectusInstance(fetch?: FetchFunction) {
     const options = fetch ? { globals: { fetch } } : {};
-    return createDirectus('http://localhost:8055/', options).with(rest());
+    return createDirectus(`${PUBLIC_APIURL}`, options).with(rest({ credentials: 'include' }));
 }
 
 export default getDirectusInstance;

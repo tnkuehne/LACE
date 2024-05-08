@@ -64,7 +64,7 @@
                 {#each data.chapter.content as content, index}
                     {#if content.collection === 'folien'}
                         <Carousel.Item>
-                            <img src={`http://localhost:8055/assets/${content.item.bild}`}
+                            <img src={`api/assets/${content.item.bild}`}
                                  alt={`Slide ${index + 1}`}>
                         </Carousel.Item>
                     {:else if content.collection === 'mcQuiz'}

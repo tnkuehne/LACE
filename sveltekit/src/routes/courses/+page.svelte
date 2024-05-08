@@ -14,7 +14,7 @@
                     <Card.Description>{course.Description}</Card.Description>
                 </Card.Header>
                 <Card.Content>
-                    <img src={`http://localhost:8055/assets/${course.Image}?width=200`} alt="Slide {course.Title}">
+                    <img src={`api/assets/${course.Image}?width=200`} alt="Slide {course.Title}">
                 </Card.Content>
                 <Card.Footer class="justify-end">
                     <Button href={`/courses/${course.Title}`}>Start</Button>

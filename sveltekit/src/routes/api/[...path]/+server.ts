@@ -1,31 +1,39 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, url }) => {
-    // Construct the URL directly using params.path and url.search
     const apiUrl = `http://localhost:8055/${params.path}${url.search}`;
 
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-            // Throw an HTTP error with the status code and message from the API response
+            // Handle HTTP error responses
             throw new Error(`API responded with status ${response.status}: ${response.statusText}`);
         }
-        const data = await response.json();
 
-        // Return the data as a JSON response
-        return new Response(JSON.stringify(data), {
-            status: 200, // You can mirror the API's status or use 200 if it's simpler
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        // Check the content type to decide how to handle the data
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.startsWith('application/json')) {
+            const data = await response.json();
+            return new Response(JSON.stringify(data), {
+                status: response.status,
+                headers: { 'Content-Type': 'application/json' }
+            });
+        } else if (contentType.startsWith('image/') || contentType === 'application/pdf') {
+            // Forward binary data like images or PDFs
+            const blob = await response.blob();
+            return new Response(blob, {
+                status: response.status,
+                headers: { 'Content-Type': contentType }
+            });
+        } else {
+            // Handle other content types or return a generic error/message
+            return new Response('Content type not supported', { status: 415 });
+        }
     } catch (err) {
-        // Handle errors, possibly network errors or the fetch itself failing
+        // Handle fetch errors or other errors
         return new Response(JSON.stringify({ error: err.message }), {
             status: 500,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
     }
 };

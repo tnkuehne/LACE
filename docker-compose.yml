@@ -1,6 +1,8 @@
 services:
   directus:
     image: directus/directus:10.11.0
+    networks:
+      - custom-app-network
     ports:
       - 8055:8055
     volumes:
@@ -15,10 +17,20 @@ services:
       DB_CLIENT: "sqlite3"
       DB_FILENAME: "/directus/database/data.db"
       WEBSOCKETS_ENABLED: "true"
-      CORS_ENABLED: "true"
-      CORS_ORIGIN: "http://localhost:5173"
-      CORS_METHODS: "GET,POST,PATCH,DELETE"
-      CORS_ALLOWED_HEADERS: "Content-Type,Authorization"
-      CORS_EXPOSED_HEADERS: "Content-Range"
-      CORS_CREDENTIALS: "true"
-      CORS_MAX_AGE: "18000"
+
+  sveltekit:
+    build: ./sveltekit
+    networks:
+      - custom-app-network
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./sveltekit:/app
+    environment:
+      NODE_ENV: "development"
+      PUBLIC_APIURL: "http://localhost:5173/api"
+      PRIVATE_APIURL: "http://directus:8055"
+    command: npm run dev -- --host
+
+networks:
+  custom-app-network:

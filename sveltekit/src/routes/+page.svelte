@@ -38,8 +38,12 @@
 		<div class="w-full max-w-screen-xl space-y-12 p-4 pb-16 pt-8 md:space-y-32 lg:space-y-64">
 			<div class="flex justify-start">
 				<div class="space-y-64">
-					<h1 class="text-4xl uppercase md:text-6xl text-blue-800 font-bold leading-none tracking-[0.12em] lining-nums tabular-nums font-sansation">LACE</h1>
-					<div class="space-y-8 w-4/5">
+					<h1
+						class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 md:text-6xl"
+					>
+						LACE
+					</h1>
+					<div class="w-4/5 space-y-8">
 						<div class="space-y-2">
 							<p class="text-4xl font-bold md:text-6xl">{data.landing.title}</p>
 							<p class="text-4xl font-bold md:text-6xl">{data.landing.subtitle}</p>

@@ -35,7 +35,7 @@
 
 	<!-- Text Content within a centered max width container -->
 	<div class="relative flex w-full justify-center">
-		<div class="w-full max-w-screen-xl space-y-12 p-4 pb-16 pt-8 md:space-y-32 lg:space-y-64">
+		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-16 pt-8 md:space-y-32 lg:space-y-64">
 			<div class="flex justify-start">
 				<div class="space-y-64">
 					<h1
@@ -59,7 +59,7 @@
 </div>
 <div class="min-h-screen bg-gray-50">
 	<div
-		class="mx-auto flex w-full max-w-screen-xl flex-col items-center justify-center space-y-8 p-4 pt-16"
+		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-8 p-4 pt-16"
 	>
 		<div class="space-y-4">
 			<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing.courses_title}</h2>

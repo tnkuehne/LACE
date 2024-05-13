@@ -40,8 +40,8 @@
 			</div>
 		</Card.Title>
 	</Card.Header>
-	<Card.Content class="flex flex-grow flex-col items-center justify-center">
-		<Card.Description class="text-3xl font-bold text-black">{title}</Card.Description>
+	<Card.Content class="flex flex-grow flex-col items-center justify-center text-center space-y-4">
+		<p class="text-3xl font-bold text-black">{title}</p>
 		<p class="text-gray-500">
 			{description}
 		</p>

@@ -2,7 +2,7 @@
     import CourseCard from "./CourseCard.svelte";
 </script>
 
-<div class="relative w-full h-auto lg:h-[60vh] flex flex-col lg:flex-row">
+<div class="relative w-full flex flex-col lg:flex-row">
     <div class="absolute top-0 right-0">
         <!-- Largest Circle -->
         <div class="w-[32rem] h-[32rem] md:w-[48rem] md:h-[48rem] lg:w-[64rem] lg:h-[64rem] rounded-full border-8 border-black opacity-5 flex items-center justify-center -my-32 -mx-24 md:-my-48 md:-mx-36 lg:-my-96 lg:-mx-72">
@@ -18,20 +18,27 @@
     <div class="absolute inset-0 bg-gradient-to-br from-40% from-blue-500 to-90% to-purple-500 opacity-30"></div>
 
     <!-- Image Overlay -->
-    <img src="http://localhost:5173/grainy.png" alt="Overlay" class="mix-blend-overlay w-full h-full object-cover">
+    <img src="http://localhost:5173/grainy.png" alt="Overlay"
+         class="absolute inset-0 mix-blend-overlay w-full h-full object-cover">
 
-    <!-- Text Overlay -->
-    <div class="absolute inset-x-0 top-0 mx-auto max-w-screen-xl p-4 space-y-12 md:space-y-32 lg:space-y-64 pt-8">
-        <h1 class="text-4xl md:text-6xl font-bold uppercase text-primary">LACE</h1>
-        <div class="space-y-4">
-            <div class="space-y-2">
-                <p class="text-4xl md:text-6xl font-bold">Learn. Apply. Comply.</p>
-                <p class="text-4xl md:text-6xl font-bold">Continuing Education Materials on </p>
-                <p class="text-4xl md:text-6xl font-bold">Privacy-Enhancing Technologies</p>
-            </div>
-            <div class="space-y-2">
-                <p class="text-xl md:text-3xl">Support your organization in adapting</p>
-                <p class="text-xl md:text-3xl">to Privacy Enhancing Technologies</p>
+    <!-- Text Content within a centered max width container -->
+    <div class="relative w-full flex justify-center">
+        <div class="pb-16 p-4 space-y-12 md:space-y-32 lg:space-y-64 pt-8 max-w-screen-xl w-full">
+            <div class="flex justify-start">
+                <div class="space-y-64">
+                    <h1 class="text-4xl md:text-6xl font-bold uppercase text-primary">LACE</h1>
+                    <div class="space-y-8">
+                        <div class="space-y-2">
+                            <p class="text-4xl md:text-6xl font-bold">Learn. Apply. Comply.</p>
+                            <p class="text-4xl md:text-6xl font-bold">Continuing Education Materials on </p>
+                            <p class="text-4xl md:text-6xl font-bold">Privacy-Enhancing Technologies</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-xl md:text-3xl">Support your organization in adapting</p>
+                            <p class="text-xl md:text-3xl">to Privacy Enhancing Technologies</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -40,12 +47,13 @@
     <div class="flex flex-col items-center justify-center pt-16 space-y-8 w-full max-w-screen-xl mx-auto p-4">
         <div class="space-y-4">
             <h2 class="text-4xl lg:text-6xl font-bold text-center">Courses</h2>
-            <p class="text-lg lg:text-base text-gray-600 text-center">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</p>
+            <p class="text-lg lg:text-base text-gray-600 text-center">Lorem ipsum dolor sit amet, consetetur sadipscing
+                elitr, sed diam nonumy eirmod tempor invidunt ut labore</p>
         </div>
         <div class="flex flex-col lg:flex-row justify-center lg:space-x-4 space-y-4 lg:space-y-0">
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
+            <CourseCard/>
+            <CourseCard/>
+            <CourseCard/>
         </div>
     </div>
 </div>

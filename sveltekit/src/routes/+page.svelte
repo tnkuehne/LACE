@@ -1,5 +1,7 @@
 <script>
 	import CourseCard from './CourseCard.svelte';
+
+	export let data;
 </script>
 
 <div class="relative flex w-full flex-col lg:flex-row">
@@ -64,10 +66,17 @@
 				invidunt ut labore
 			</p>
 		</div>
-		<div class="flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0">
-			<CourseCard />
-			<CourseCard />
-			<CourseCard />
+		<div class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0">
+			{#each data.courses as course}
+				<div class="w-full p-2">
+					<CourseCard
+						title={course.Title}
+						description={course.Description}
+						buttonText="Learn More 🡢"
+						icon={course.icon}
+					/>
+				</div>
+			{/each}
 		</div>
 	</div>
 </div>

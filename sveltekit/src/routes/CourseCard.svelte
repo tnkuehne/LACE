@@ -1,27 +1,29 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import WandSparkles from 'lucide-svelte/icons/wand-sparkles';
+	import * as icons from 'lucide-svelte';
+
+	export let title: string;
+	export let description: string;
+	export let buttonText: string;
+	export let icon: string;
 </script>
 
-<Card.Root class="flex flex-col items-center justify-center">
+<Card.Root class="flex h-full flex-col items-center justify-center">
 	<Card.Header>
 		<Card.Title>
 			<div class="flex h-16 w-16 items-center justify-center rounded-lg bg-orange-200">
-				<WandSparkles class="h-6 w-6 stroke-orange-500" />
+				<svelte:component this={icons[icon]} {...$$props} class="h-6 w-6 stroke-orange-500" />
 			</div>
 		</Card.Title>
 	</Card.Header>
-	<Card.Content class="flex flex-col items-center justify-center">
-		<Card.Description class="text-3xl font-bold text-black"
-			>Basics of PETs for Non-technical</Card.Description
-		>
+	<Card.Content class="flex flex-grow flex-col items-center justify-center">
+		<Card.Description class="text-3xl font-bold text-black">{title}</Card.Description>
 		<p class="text-gray-500">
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-			invidunt ut labore et dolore magna aliquyam erat, sed
+			{description}
 		</p>
 	</Card.Content>
-	<Card.Footer>
-		<Button variant="link">Learn More 🡢</Button>
+	<Card.Footer class="mt-auto">
+		<Button variant="link">{buttonText}</Button>
 	</Card.Footer>
 </Card.Root>

@@ -13,7 +13,7 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"prepare": "cd .. && HUSKY_GIT_DIR=.git husky sveltekit/.husky"
+		"prepare": "cd .. && husky sveltekit/.husky"
 	},
 	"devDependencies": {
 		"@directus/sdk": "^15.0.3",
@@ -49,12 +49,6 @@
 		"vitest": "^1.2.0"
 	},
 	"type": "module",
-	"husky": {
-		"hooks": {
-			"pre-commit": "npx lint-staged",
-			"pre-push": "npm test"
-		}
-	},
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx,svelte}": [
 			"eslint --fix",

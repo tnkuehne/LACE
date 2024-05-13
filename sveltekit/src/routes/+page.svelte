@@ -74,6 +74,7 @@
 						description={course.Description}
 						buttonText="Learn More 🡢"
 						icon={course.icon}
+						color={course.color}
 					/>
 				</div>
 			{/each}

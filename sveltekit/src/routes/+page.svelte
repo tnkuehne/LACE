@@ -23,7 +23,7 @@
 	</div>
 	<!-- Gradient Background -->
 	<div
-		class="absolute inset-0 bg-gradient-to-br from-blue-500 from-40% to-purple-500 to-90% opacity-30"
+		class="absolute inset-0 bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% opacity-30"
 	></div>
 
 	<!-- Image Overlay -->

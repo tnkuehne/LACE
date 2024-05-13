@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { readItems } from '@directus/sdk';
+import { readItems, readSingleton } from '@directus/sdk';
 import getDirectusInstance from '$lib/directus';
 import type { PageLoad } from './$types';
 
@@ -7,18 +7,17 @@ export const load: PageLoad = async ({ fetch, params }) => {
 	const directus = getDirectusInstance(fetch);
 
 	try {
-		// Use the readItems method from the Directus SDK
-		const response = await directus.request(readItems('Courses'));
+		const [coursesResponse, landingResponse] = await Promise.all([
+			directus.request(readItems('Courses')),
+			directus.request(readSingleton('landing'))
+		]);
 
-		if (response && response.length > 0) {
-			return {
-				courses: response
-			};
-		} else {
-			throw error(404, 'Not found');
-		}
+		return {
+			courses: coursesResponse || [],
+			landing: landingResponse || {}
+		};
 	} catch (err) {
-		console.error('Error fetching courses:', err);
-		throw error(500, 'Internal Server Error');
+		console.error('Error fetching data:', err);
+		throw error(500, `Internal Server Error: ${err.message || err}`);
 	}
 };

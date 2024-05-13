@@ -38,16 +38,14 @@
 		<div class="w-full max-w-screen-xl space-y-12 p-4 pb-16 pt-8 md:space-y-32 lg:space-y-64">
 			<div class="flex justify-start">
 				<div class="space-y-64">
-					<h1 class="text-4xl font-bold uppercase text-primary md:text-6xl">LACE</h1>
-					<div class="space-y-8">
+					<h1 class="text-4xl uppercase md:text-6xl text-blue-800 font-bold leading-none tracking-[0.12em] lining-nums tabular-nums font-sansation">LACE</h1>
+					<div class="space-y-8 w-4/5">
 						<div class="space-y-2">
-							<p class="text-4xl font-bold md:text-6xl">Learn. Apply. Comply.</p>
-							<p class="text-4xl font-bold md:text-6xl">Continuing Education Materials on</p>
-							<p class="text-4xl font-bold md:text-6xl">Privacy-Enhancing Technologies</p>
+							<p class="text-4xl font-bold md:text-6xl">{data.landing.title}</p>
+							<p class="text-4xl font-bold md:text-6xl">{data.landing.subtitle}</p>
 						</div>
 						<div class="space-y-2">
-							<p class="text-xl md:text-3xl">Support your organization in adapting</p>
-							<p class="text-xl md:text-3xl">to Privacy Enhancing Technologies</p>
+							<p class="text-xl md:text-3xl">{data.landing.description}</p>
 						</div>
 					</div>
 				</div>
@@ -60,10 +58,9 @@
 		class="mx-auto flex w-full max-w-screen-xl flex-col items-center justify-center space-y-8 p-4 pt-16"
 	>
 		<div class="space-y-4">
-			<h2 class="text-center text-4xl font-bold lg:text-6xl">Courses</h2>
+			<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing.courses_title}</h2>
 			<p class="text-center text-lg text-gray-600 lg:text-base">
-				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-				invidunt ut labore
+				{data.landing.courses_description}
 			</p>
 		</div>
 		<div class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0">
@@ -72,7 +69,7 @@
 					<CourseCard
 						title={course.Title}
 						description={course.Description}
-						buttonText="Learn More 🡢"
+						buttonText={data.landing.courses_action_button_text}
 						icon={course.icon}
 						color={course.color}
 					/>

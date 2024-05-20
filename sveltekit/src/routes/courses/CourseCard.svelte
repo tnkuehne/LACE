@@ -6,19 +6,39 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import * as Accordion from '$lib/components/ui/accordion';
+	import Share2 from 'lucide-svelte/icons/share-2';
+	import { Button } from '$lib/components/ui/button';
+	import { toast } from 'svelte-sonner';
 
 	export let course;
 	export let chapters;
+
+	function copyCourseLink() {
+		const courseLink = `${env.PUBLIC_URL}/courses/${course.Title}`;
+		navigator.clipboard
+			.writeText(courseLink)
+			.then(() => {
+				toast('Course link copied to clipboard!');
+			})
+			.catch((err) => {
+				console.error('Failed to copy course link: ', err);
+			});
+	}
 </script>
 
 <Card.Root class="flex flex-grow flex-col">
-	<Card.Header class="flex-grow-0">
+	<Card.Header class="flex flex-col">
 		<img
 			src={`${env.PUBLIC_APIURL}/assets/${course.Image}`}
 			alt="Slide {course.Title}"
 			class="h-48 w-full object-cover"
 		/>
-		<Card.Title>{course.Title}</Card.Title>
+		<div class="mt-2 flex items-center justify-between">
+			<Card.Title class="text-left">{course.Title}</Card.Title>
+			<Button variant="ghost" size="icon" class="ml-auto cursor-pointer" on:click={copyCourseLink}>
+				<Share2 />
+			</Button>
+		</div>
 	</Card.Header>
 	<Separator class="h-1 bg-blue-400" />
 	<Card.Content class="flex flex-grow flex-col justify-between">

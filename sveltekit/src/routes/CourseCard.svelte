@@ -24,7 +24,9 @@
 	}
 </script>
 
-<Card.Root class="flex h-full flex-col items-center justify-center">
+<Card.Root
+	class="flex h-full flex-col items-center justify-center rounded-2xl border-teal-50 shadow-2xl shadow-indigo-500/10"
+>
 	<Card.Header>
 		<Card.Title>
 			<div
@@ -40,9 +42,9 @@
 			</div>
 		</Card.Title>
 	</Card.Header>
-	<Card.Content class="flex flex-grow flex-col items-center justify-center text-center space-y-4">
+	<Card.Content class="flex flex-grow flex-col items-center justify-center space-y-4 text-center">
 		<p class="text-3xl font-bold text-black">{title}</p>
-		<p class="text-gray-500">
+		<p class="text-sm text-gray-500">
 			{description}
 		</p>
 	</Card.Content>

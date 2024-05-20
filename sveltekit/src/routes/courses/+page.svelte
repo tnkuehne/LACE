@@ -1,31 +1,24 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
-	import { env } from '$env/dynamic/public';
+	import CourseCard from './CourseCard.svelte';
 
 	export let data;
 </script>
 
-{#if data.courses.length > 0}
-	<div class="flex flex-row place-content-center gap-4">
-		{#each data.courses as course}
-			<Card.Root>
-				<Card.Header>
-					<Card.Title>{course.Title}</Card.Title>
-					<Card.Description>{course.Description}</Card.Description>
-				</Card.Header>
-				<Card.Content>
-					<img
-						src={`${env.PUBLIC_APIURL}/assets/${course.Image}?width=200`}
-						alt="Slide {course.Title}"
-					/>
-				</Card.Content>
-				<Card.Footer class="justify-end">
-					<Button href={`/courses/${course.Title}`}>Start</Button>
-				</Card.Footer>
-			</Card.Root>
-		{/each}
+<div class="bg-blueGray-50 min-h-screen">
+	<div class="mx-auto max-w-screen-2xl">
+		<h1
+			class="md:text-6x font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800"
+		>
+			LACE
+		</h1>
+		<h2 class="text-2xl font-bold">My Courses</h2>
+		<div class="flex flex-row flex-wrap place-content-center gap-4">
+			{#each data.courses as course}
+				<CourseCard
+					{course}
+					chapters={data.chapters.filter((chapter) => chapter.kurs.Title === course.Title)}
+				/>
+			{/each}
+		</div>
 	</div>
-{:else}
-	<p>No courses available.</p>
-{/if}
+</div>

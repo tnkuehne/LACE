@@ -7,7 +7,7 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import * as Accordion from '$lib/components/ui/accordion';
 	import Share2 from 'lucide-svelte/icons/share-2';
-	import Play from 'lucide-svelte/icons/play';
+	import CirclePlay from 'lucide-svelte/icons/circle-play';
 	import { Button } from '$lib/components/ui/button';
 	import { toast } from 'svelte-sonner';
 
@@ -39,32 +39,35 @@
 </script>
 
 <Card.Root class="flex flex-grow flex-col">
-	<Card.Header class="flex flex-col">
-		<img
-			src={`${env.PUBLIC_APIURL}/assets/${course.Image}`}
-			alt="Slide {course.Title}"
-			class="h-48 w-full object-cover"
-		/>
-		<div class="mt-2 flex items-center justify-between">
+	<img
+		src={`${env.PUBLIC_APIURL}/assets/${course.Image}`}
+		alt="Slide {course.Title}"
+		class="h-48 w-full rounded-t-lg object-cover object-center"
+	/>
+	<Card.Header class="flex flex-col pb-0 pl-6">
+		<div class="flex flex-col">
 			<Card.Title class="text-left">{course.Title}</Card.Title>
-			<div class="flex flex-row">
-				<Button variant="ghost" href={firstNotCompletedChapterUrl}>
-					<Play />
-				</Button>
-				<Button
-					variant="ghost"
-					size="icon"
-					class="ml-auto cursor-pointer"
-					on:click={copyCourseLink}
-				>
-					<Share2 />
-				</Button>
+			<div class="flex flex-row justify-between">
+				<span class="text-gray-500">Lectures</span>
+				<div class="flex flex-row">
+					<Button variant="ghost" href={firstNotCompletedChapterUrl}>
+						<CirclePlay class="h-4 w-4" />
+					</Button>
+					<Button
+						variant="ghost"
+						size="icon"
+						class="ml-auto cursor-pointer"
+						on:click={copyCourseLink}
+					>
+						<Share2 class="h-4 w-4" />
+					</Button>
+				</div>
 			</div>
 		</div>
 	</Card.Header>
 	<Separator class="h-1 bg-blue-400" />
 	<Card.Content class="flex flex-grow flex-col justify-between">
-		<Accordion.Root value="item-1" class="flex-grow">
+		<Accordion.Root value="item-0" class="flex-grow">
 			{#each chapters as chapter, index}
 				{#if chapter.parent === null}
 					<Accordion.Item value="item-{index}">

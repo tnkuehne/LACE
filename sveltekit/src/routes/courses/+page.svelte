@@ -12,12 +12,14 @@
 			LACE
 		</h1>
 		<h2 class="text-2xl font-bold">My Courses</h2>
-		<div class="flex flex-row flex-wrap place-content-center gap-4">
+		<div class="-mx-2 flex flex-row flex-wrap justify-center">
 			{#each data.courses as course}
-				<CourseCard
-					{course}
-					chapters={data.chapters.filter((chapter) => chapter.kurs.Title === course.Title)}
-				/>
+				<div class="w-full px-2 sm:w-1/2 lg:w-1/3">
+					<CourseCard
+						{course}
+						chapters={data.chapters.filter((chapter) => chapter.kurs.Title === course.Title)}
+					/>
+				</div>
 			{/each}
 		</div>
 	</div>

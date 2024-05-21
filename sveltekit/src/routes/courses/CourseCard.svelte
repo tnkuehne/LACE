@@ -7,6 +7,7 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import * as Accordion from '$lib/components/ui/accordion';
 	import Share2 from 'lucide-svelte/icons/share-2';
+	import Play from 'lucide-svelte/icons/play';
 	import { Button } from '$lib/components/ui/button';
 	import { toast } from 'svelte-sonner';
 
@@ -24,6 +25,17 @@
 				console.error('Failed to copy course link: ', err);
 			});
 	}
+
+	function getFirstNotCompletedChapter() {
+		for (let chapter of chapters) {
+			if (!progressStore.isChapterCompleted(course.id, chapter.id)) {
+				return `/courses/${course.Title}/${chapter.title}`;
+			}
+		}
+		return null;
+	}
+
+	$: firstNotCompletedChapterUrl = getFirstNotCompletedChapter();
 </script>
 
 <Card.Root class="flex flex-grow flex-col">
@@ -35,9 +47,19 @@
 		/>
 		<div class="mt-2 flex items-center justify-between">
 			<Card.Title class="text-left">{course.Title}</Card.Title>
-			<Button variant="ghost" size="icon" class="ml-auto cursor-pointer" on:click={copyCourseLink}>
-				<Share2 />
-			</Button>
+			<div class="flex flex-row">
+				<Button variant="ghost" href={firstNotCompletedChapterUrl}>
+					<Play />
+				</Button>
+				<Button
+					variant="ghost"
+					size="icon"
+					class="ml-auto cursor-pointer"
+					on:click={copyCourseLink}
+				>
+					<Share2 />
+				</Button>
+			</div>
 		</div>
 	</Card.Header>
 	<Separator class="h-1 bg-blue-400" />

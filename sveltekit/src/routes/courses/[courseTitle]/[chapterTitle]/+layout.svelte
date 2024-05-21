@@ -4,99 +4,125 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Label } from '$lib/components/ui/label';
 	import { progressStore } from '$lib/stores/progressStore';
+	import Menu from 'lucide-svelte/icons/menu';
+	import X from 'lucide-svelte/icons/x';
+	import { Button } from '$lib/components/ui/button';
 
 	export let data;
+	let menu = false;
+
+	function toggleMenu() {
+		menu = !menu;
+	}
 </script>
 
+<nav
+	class="fixed inset-x-0 bottom-0 z-50 flex justify-between bg-neutral-50 p-2 md:relative md:inset-auto md:z-auto md:hidden"
+>
+	<h1
+		class="md:text-6x font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800"
+	>
+		LACE
+	</h1>
+	<Button variant="outline" size="icon" on:click={toggleMenu} class="md:hidden">
+		{#if menu}
+			<X class="h-4 w-4" />
+		{:else}
+			<Menu class="h-4 w-4" />
+		{/if}
+	</Button>
+</nav>
+
 <div class="flex min-h-screen">
-	<div class="w-1/4 bg-neutral-50 p-8">
-		<h2 class="mb-8 text-2xl font-bold">{data.chapters[0].kurs.Title}</h2>
+	<!-- Sidebar Menu -->
+	<div
+		class={`fixed inset-x-0 bottom-0 bg-neutral-50 dark:bg-blue-950 ${menu ? 'block' : 'hidden'} z-40 h-3/4 p-8 md:relative md:block md:h-auto md:w-1/4`}
+	>
+		<h2 class="text-2xl font-bold">{data.chapters[0].kurs.Title}</h2>
 		<h4 class="mb-4 text-sm font-medium text-gray-500">Your progress</h4>
 		<div class="mb-4">
 			<div class="mt-2 text-sm font-medium">
-				<span
-					>{progressStore
+				<span>
+					{progressStore
 						.getCourseProgress(data.chapters[0].kurs.id, data.chapters.length)
-						.toFixed(0)}% completed</span
-				>
+						.toFixed(0)}% completed
+				</span>
 			</div>
 			<Progress
-				class="rounded-full bg-gray-200"
+				class="rounded-full bg-gray-200 dark:bg-gray-800"
 				value={progressStore.getCourseProgress(data.chapters[0].kurs.id, data.chapters.length)}
 			/>
 		</div>
 
-		{#if data.chapters.length > 0}
-			<Accordion.Root>
-				{#each data.chapters as chapter, index}
-					{#if chapter.parent === null}
-						<Accordion.Item value="item-{index}">
-							<Accordion.Trigger>
-								<div class="flex items-center space-x-2">
-									<Checkbox
-										checked={chapter.active
-											? 'indeterminate'
-											: !!$progressStore[chapter.kurs.id]?.completedChapters.includes(chapter.id)}
-										disabled
-									/>
-									<Label class="text-sm font-medium">
-										<a
-											href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
-											class="hover:text-blue-500"
-										>
-											{chapter.title}
-										</a>
-									</Label>
-								</div>
-							</Accordion.Trigger>
-							<Accordion.Content class="pt-4">
-								{#each data.chapters as subchapter, subIndex}
-									{#if subchapter.parent?.title === chapter.title}
-										<div class="flex items-start space-x-2">
-											<div class="grid place-items-center">
-												<Checkbox
-													class="h-4 w-4 text-blue-600"
-													checked={subchapter.active
-														? 'indeterminate'
-														: !!$progressStore[subchapter.kurs.id]?.completedChapters.includes(
-																subchapter.id
-															)}
-													disabled
-												/>
-												<!-- Add vertical line below checkbox -->
-												{#if subchapter !== data.chapters
-														.filter((item) => item.parent?.title === chapter.title)
-														.slice(-1)[0]}
-													<div
-														class="my-2 border-l-2 {$progressStore[
-															subchapter.kurs.id
-														]?.completedChapters.includes(subchapter.id)
-															? 'border-blue-600'
-															: 'border-gray-300'} h-6"
-													></div>
-												{/if}
-											</div>
-											<Label class="text-sm">
-												<a
-													href={`/courses/${subchapter.kurs.Title}/${subchapter.title}`}
-													class="hover:text-blue-500"
-												>
-													{subchapter.title}
-												</a>
-											</Label>
+		<Accordion.Root>
+			{#each data.chapters as chapter, index}
+				{#if chapter.parent === null}
+					<Accordion.Item value="item-{index}">
+						<Accordion.Trigger>
+							<div class="flex items-center space-x-2">
+								<Checkbox
+									checked={chapter.active
+										? 'indeterminate'
+										: !!$progressStore[chapter.kurs.id]?.completedChapters.includes(chapter.id)}
+									disabled
+								/>
+								<Label class="text-sm font-medium">
+									<a
+										href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
+										class="hover:text-blue-500"
+									>
+										{chapter.title}
+									</a>
+								</Label>
+							</div>
+						</Accordion.Trigger>
+						<Accordion.Content class="pt-4">
+							{#each data.chapters as subchapter}
+								{#if subchapter.parent?.title === chapter.title}
+									<div class="flex items-start space-x-2">
+										<div class="grid place-items-center">
+											<Checkbox
+												class="h-4 w-4 text-blue-600"
+												checked={subchapter.active
+													? 'indeterminate'
+													: !!$progressStore[subchapter.kurs.id]?.completedChapters.includes(
+															subchapter.id
+														)}
+												disabled
+											/>
+											<!-- Add vertical line below checkbox -->
+											{#if subchapter !== data.chapters
+													.filter((item) => item.parent?.title === chapter.title)
+													.slice(-1)[0]}
+												<div
+													class="my-2 border-l-2 {$progressStore[
+														subchapter.kurs.id
+													]?.completedChapters.includes(subchapter.id)
+														? 'border-blue-600'
+														: 'border-gray-300'} h-6"
+												></div>
+											{/if}
 										</div>
-									{/if}
-								{/each}
-							</Accordion.Content>
-						</Accordion.Item>
-					{/if}
-				{/each}
-			</Accordion.Root>
-		{:else}
-			<p class="text-gray-500">No chapters available for this course.</p>
-		{/if}
+										<Label class="text-sm">
+											<a
+												href={`/courses/${subchapter.kurs.Title}/${subchapter.title}`}
+												class="hover:text-blue-500"
+											>
+												{subchapter.title}
+											</a>
+										</Label>
+									</div>
+								{/if}
+							{/each}
+						</Accordion.Content>
+					</Accordion.Item>
+				{/if}
+			{/each}
+		</Accordion.Root>
 	</div>
-	<div class="w-3/4 p-16">
+
+	<!-- Main Content -->
+	<div class="p-16 md:w-3/4">
 		<slot />
 	</div>
 </div>

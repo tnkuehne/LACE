@@ -39,7 +39,7 @@
 			<div class="flex justify-start">
 				<div class="space-y-64">
 					<h1
-						class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 md:text-6xl"
+						class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"
 					>
 						LACE
 					</h1>
@@ -57,7 +57,7 @@
 		</div>
 	</div>
 </div>
-<div class="min-h-screen bg-gray-50">
+<div class="bg-blueGray-50 min-h-screen">
 	<div
 		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-8 p-4 pt-16"
 	>

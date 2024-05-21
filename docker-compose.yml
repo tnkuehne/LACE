@@ -30,6 +30,7 @@ services:
     environment:
       NODE_ENV: "development"
       PUBLIC_APIURL: "http://localhost:5173/api"
+      PUBLIC_URL: "http://localhost:5173"
       PRIVATE_APIURL: "http://directus:8055"
     command: npm run dev -- --host
 

@@ -1,2 +1,2 @@
 cd sveltekit
-npm lint-staged
+npx lint-staged

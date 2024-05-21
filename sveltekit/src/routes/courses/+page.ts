@@ -3,22 +3,25 @@ import { readItems } from '@directus/sdk';
 import getDirectusInstance from '$lib/directus';
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ fetch, params }) => {
+export const load: PageLoad = async ({ fetch }) => {
 	const directus = getDirectusInstance(fetch);
 
 	try {
-		// Use the readItems method from the Directus SDK
-		const response = await directus.request(readItems('Courses'));
+		const [coursesResponse, chaptersResponse] = await Promise.all([
+			directus.request(readItems('Courses')),
+			directus.request(
+				readItems('kapitel', {
+					fields: ['*', 'kurs.*', 'content.*.*.*', 'parent.title']
+				})
+			)
+		]);
 
-		if (response && response.length > 0) {
-			return {
-				courses: response
-			};
-		} else {
-			throw error(404, 'Not found');
-		}
+		return {
+			courses: coursesResponse || [],
+			chapters: chaptersResponse || []
+		};
 	} catch (err) {
-		console.error('Error fetching courses:', err);
-		throw error(500, 'Internal Server Error');
+		console.error('Error fetching data:', err);
+		throw error(500, `Internal Server Error: ${err.message || err}`);
 	}
 };

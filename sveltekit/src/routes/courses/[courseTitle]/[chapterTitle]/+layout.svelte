@@ -7,6 +7,7 @@
 	import Menu from 'lucide-svelte/icons/menu';
 	import X from 'lucide-svelte/icons/x';
 	import { Button } from '$lib/components/ui/button';
+	import { page } from '$app/stores';
 
 	export let data;
 	let menu = false;
@@ -60,12 +61,12 @@
 					<Accordion.Item value="item-{index}">
 						<Accordion.Trigger>
 							<div class="flex items-center space-x-2">
-								<Checkbox
-									checked={chapter.active
+								<!--<Checkbox
+									checked={chapter.title === $page.data.chapterTitle
 										? 'indeterminate'
 										: !!$progressStore[chapter.kurs.id]?.completedChapters.includes(chapter.id)}
 									disabled
-								/>
+								/>-->
 								<Label class="text-sm font-medium">
 									<a
 										href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
@@ -83,7 +84,7 @@
 										<div class="grid place-items-center">
 											<Checkbox
 												class="h-4 w-4 text-blue-600"
-												checked={subchapter.active
+												checked={subchapter.title === $page.data.chapterTitle
 													? 'indeterminate'
 													: !!$progressStore[subchapter.kurs.id]?.completedChapters.includes(
 															subchapter.id

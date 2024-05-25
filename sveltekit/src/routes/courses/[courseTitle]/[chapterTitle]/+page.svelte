@@ -1,7 +1,7 @@
 <script lang="ts">
 	import McQuiz from './McQuiz.svelte';
 	import { type CarouselAPI } from '$lib/components/ui/carousel/context.js';
-	import * as Carousel from '$lib/components/ui/carousel/index.js';
+	import * as Carousel from '$lib/components/ui/carousel';
 	import { Separator } from '$lib/components/ui/separator';
 	import { progressStore } from '$lib/stores/progressStore';
 	import OrderQuiz from './OrderQuiz.svelte';

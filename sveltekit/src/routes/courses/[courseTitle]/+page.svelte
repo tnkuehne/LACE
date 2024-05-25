@@ -17,25 +17,21 @@
 </script>
 
 <h1 class="text-center text-2xl font-bold">Chapters</h1>
-{#if data.chapters.length > 0}
-	<div class="flex flex-col gap-4 p-4">
-		{#each data.chapters as chapter}
-			<Card.Root class={chapter.id === lastVisitedChapter ? 'border-2 border-blue-500' : ''}>
-				<Card.Header>
-					<Card.Title>{chapter.title}</Card.Title>
-					<Card.Description>{chapter.Description}</Card.Description>
-				</Card.Header>
-				<Card.Footer>
-					<Button
-						href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
-						class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}
-					>
-						{lastVisitedChapter === chapter.Title ? 'Resume' : 'Start'}
-					</Button>
-				</Card.Footer>
-			</Card.Root>
-		{/each}
-	</div>
-{:else}
-	<p>No chapters available for this course.</p>
-{/if}
+<div class="flex flex-col gap-4 p-4">
+	{#each data.chapters as chapter}
+		<Card.Root class={chapter.id === lastVisitedChapter ? 'border-2 border-blue-500' : ''}>
+			<Card.Header>
+				<Card.Title>{chapter.title}</Card.Title>
+				<Card.Description>{chapter.Description}</Card.Description>
+			</Card.Header>
+			<Card.Footer>
+				<Button
+					href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
+					class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}
+				>
+					{lastVisitedChapter === chapter.Title ? 'Resume' : 'Start'}
+				</Button>
+			</Card.Footer>
+		</Card.Root>
+	{/each}
+</div>

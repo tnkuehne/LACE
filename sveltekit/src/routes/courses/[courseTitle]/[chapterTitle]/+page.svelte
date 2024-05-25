@@ -64,8 +64,9 @@
 					{#if content.collection === 'folien'}
 						<Carousel.Item>
 							<img
-								src={`${env.PUBLIC_APIURL}/assets/${content.item.bild}`}
+								src={`${env.PUBLIC_APIURL}/assets/${content.item.bild}?format=webp`}
 								alt={`Slide ${index + 1}`}
+								loading="lazy"
 							/>
 						</Carousel.Item>
 					{:else if content.collection === 'mcQuiz'}

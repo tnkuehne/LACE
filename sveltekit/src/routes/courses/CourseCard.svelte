@@ -13,13 +13,14 @@
 
 	export let course;
 	export let chapters;
+	export let toast_text;
 
 	function copyCourseLink() {
 		const courseLink = `${env.PUBLIC_URL}/courses/${course.Title}`;
 		navigator.clipboard
 			.writeText(courseLink)
 			.then(() => {
-				toast('Course link copied to clipboard!');
+				toast(toast_text);
 			})
 			.catch((err) => {
 				console.error('Failed to copy course link: ', err);

@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk';
+import { readItems, readSingleton } from '@directus/sdk';
 import getDirectusInstance from '$lib/directus';
 import type { PageLoad } from './$types';
 
@@ -23,6 +23,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 				},
 				fields: ['*', 'kurs.*'] // Specify the fields you want to retrieve
 			})
-		)
+		),
+		settings: await directus.request(readSingleton('course_page'))
 	};
 };

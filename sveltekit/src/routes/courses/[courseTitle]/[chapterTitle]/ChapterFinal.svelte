@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Card from '$lib/components/ui/card';
-	import { progressStore } from '$lib/stores/progressStore';
 
 	export let nextChapterUrl = '';
 
@@ -11,7 +9,7 @@
 		if (nextChapterUrl) {
 			goto(nextChapterUrl);
 		} else {
-			goto('/'); // Navigate to home page or course list
+			goto('/courses'); // Navigate to home page or course list
 		}
 	}
 </script>

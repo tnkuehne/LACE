@@ -1,6 +1,6 @@
 import type { PageLoad } from './$types';
 import getDirectusInstance from '$lib/directus';
-import { readItems } from '@directus/sdk';
+import { readItems, readSingleton } from '@directus/sdk';
 
 export const load: PageLoad = async ({ fetch, params }) => {
 	const { chapterTitle } = params;
@@ -23,6 +23,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 				] // Specify the fields you want to retrieve
 			})
 		),
-		chapterTitle
+		chapterTitle,
+		settings: await directus.request(readSingleton('learning_page'))
 	};
 };

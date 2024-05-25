@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import SortableList from '$lib/components/ui/sortableList/SortableList.svelte';
 
@@ -42,7 +42,7 @@
 		{/if}
 	</Card.Header>
 	<Card.Content>
-		<SortableList list={answers} on:sort={handleSort} let:item let:index>
+		<SortableList list={answers} on:sort={handleSort} let:item>
 			<Button variant={isCorrect === false ? 'destructive' : 'outline'}>
 				{item.text}
 			</Button>

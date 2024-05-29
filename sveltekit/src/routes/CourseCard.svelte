@@ -43,12 +43,12 @@
 		</Card.Title>
 	</Card.Header>
 	<Card.Content class="flex flex-grow flex-col items-center justify-center space-y-4 text-center">
-		<p class="text-3xl font-bold">{title}</p>
+		<a class="text-3xl font-bold" href="/courses/{title}">{title}</a>
 		<p class="text-sm text-gray-500">
 			{description}
 		</p>
 	</Card.Content>
 	<Card.Footer class="mt-auto">
-		<Button variant="link">{buttonText}</Button>
+		<Button variant="link" href="/courses/{title}">{buttonText}</Button>
 	</Card.Footer>
 </Card.Root>

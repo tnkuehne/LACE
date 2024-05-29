@@ -47,7 +47,9 @@
 	/>
 	<Card.Header class="flex flex-col pb-0 pl-6">
 		<div class="flex flex-col">
-			<Card.Title class="text-left">{course.Title}</Card.Title>
+			<Card.Title class="text-left hover:text-blue-600">
+				<a href={`/courses/${course.Title}`}>{course.Title}</a>
+			</Card.Title>
 			<div class="flex flex-row justify-between">
 				<span class="text-gray-500">Lectures</span>
 				<div class="flex flex-row">

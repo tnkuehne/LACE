@@ -7,6 +7,7 @@
 	import OrderQuiz from './OrderQuiz.svelte';
 	import ChapterFinal from './ChapterFinal.svelte';
 	import { env } from '$env/dynamic/public';
+	import { toast } from 'svelte-sonner';
 
 	export let data;
 
@@ -40,6 +41,7 @@
 	// Check if the current slide is the last one
 	$: if (current === count && current > 0) {
 		progressStore.completeChapter(chapter.kurs.id, chapter.id);
+		toast.success('Progress saved!');
 		console.log('Chapter completed');
 	}
 </script>

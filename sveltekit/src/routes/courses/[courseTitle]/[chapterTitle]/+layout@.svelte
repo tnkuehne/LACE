@@ -8,6 +8,7 @@
 	import X from 'lucide-svelte/icons/x';
 	import { Button } from '$lib/components/ui/button';
 	import { page } from '$app/stores';
+	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
 
 	export let data;
 	let menu = false;
@@ -39,8 +40,18 @@
 	<div
 		class={`fixed inset-x-0 bottom-0 bg-neutral-50 dark:bg-blue-950 ${menu ? 'block' : 'hidden'} z-40 h-3/4 p-8 md:relative md:block md:h-auto md:w-1/4`}
 	>
-		<h2 class="text-2xl font-bold">{data.chapters[0].kurs.Title}</h2>
-		<h4 class="mb-4 text-sm font-medium text-gray-500">Your progress</h4>
+		<div class="flex flex-row items-center gap-2">
+			<Button
+				variant="outline"
+				size="icon"
+				href={$page.url.pathname.split('/').slice(0, -1).join('/')}
+			>
+				<ChevronLeft class="h-4 w-4" />
+			</Button>
+			<h2 class="text-2xl font-bold">{data.chapters[0].kurs.Title}</h2>
+		</div>
+
+		<h4 class="mb-4 mt-8 text-sm font-medium text-gray-500">Your progress</h4>
 		<div class="mb-4">
 			<div class="mt-2 text-sm font-medium">
 				<span>

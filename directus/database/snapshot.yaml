@@ -1,6 +1,6 @@
 version: 1
-directus: 10.11.0
-vendor: sqlite
+directus: 10.11.1
+vendor: postgres
 collections:
   - collection: Content
     meta:
@@ -164,6 +164,10 @@ collections:
       versioning: false
     schema:
       name: courses_page
+  - collection: directus_sync_id_map
+    meta: null
+    schema:
+      name: directus_sync_id_map
   - collection: folien
     meta:
       accountability: all
@@ -188,6 +192,30 @@ collections:
       versioning: false
     schema:
       name: folien
+  - collection: ip2city
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: ip2city
+      color: null
+      display_template: null
+      group: Data
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: ip2city
   - collection: kapitel
     meta:
       accountability: all
@@ -356,6 +384,30 @@ collections:
       versioning: false
     schema:
       name: orderQuiz
+  - collection: page_views
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: page_views
+      color: null
+      display_template: null
+      group: Data
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 2
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: page_views
   - collection: quiz_data
     meta:
       accountability: all
@@ -373,7 +425,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 1
+      sort: 3
       sort_field: null
       translations: null
       unarchive_value: null
@@ -397,7 +449,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 2
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -405,83 +457,6 @@ collections:
     schema:
       name: quiz_data_answers
 fields:
-  - collection: Courses
-    field: id
-    type: uuid
-    meta:
-      collection: Courses
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: Courses
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: Courses
-    field: Title
-    type: string
-    meta:
-      collection: Courses
-      conditions: null
-      display: null
-      display_options: null
-      field: Title
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: Title
-      table: Courses
-      data_type: varchar
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
   - collection: Courses
     field: Description
     type: text
@@ -546,9 +521,9 @@ fields:
     schema:
       name: Image
       table: Courses
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -560,61 +535,36 @@ fields:
       foreign_key_table: directus_files
       foreign_key_column: id
   - collection: Courses
-    field: status
+    field: Title
     type: string
     meta:
       collection: Courses
       conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: Published
-            value: published
-            color: '#6644FF'
-            foreground: '#6644FF'
-          - text: Draft
-            value: draft
-            color: '#4F5464'
-            foreground: '#4F5464'
-            background: '#F0F4F9'
-          - text: Archived
-            value: archived
-            color: '#FFA439'
-            foreground: '#FFA439'
-        showAsDot: true
-      field: status
+      display: null
+      display_options: null
+      field: Title
       group: null
       hidden: false
-      interface: select-dropdown
+      interface: input
       note: null
-      options:
-        choices:
-          - text: Published
-            value: published
-            color: '#6644FF'
-          - text: Draft
-            value: draft
-            color: '#4F5464'
-          - text: Archived
-            value: archived
-            color: '#FFA439'
+      options: null
       readonly: false
-      required: false
-      sort: 5
+      required: true
+      sort: 2
       special: null
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: status
+      name: Title
       table: Courses
-      data_type: varchar
-      default_value: draft
+      data_type: character varying
+      default_value: null
       max_length: 255
       numeric_precision: null
       numeric_scale: null
-      is_nullable: false
+      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -647,7 +597,7 @@ fields:
     schema:
       name: color
       table: Courses
-      data_type: varchar
+      data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
@@ -699,7 +649,7 @@ fields:
     schema:
       name: icon
       table: Courses
-      data_type: varchar
+      data_type: character varying
       default_value: BookOpenText
       max_length: 255
       numeric_precision: null
@@ -712,11 +662,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: answers
+  - collection: Courses
     field: id
     type: uuid
     meta:
-      collection: answers
+      collection: Courses
       conditions: null
       display: null
       display_options: null
@@ -737,10 +687,10 @@ fields:
       width: full
     schema:
       name: id
-      table: answers
-      data_type: char
+      table: Courses
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -751,30 +701,28 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: answers
+  - collection: Courses
     field: status
     type: string
     meta:
-      collection: answers
+      collection: Courses
       conditions: null
       display: labels
       display_options:
         choices:
-          - text: $t:published
+          - text: Published
             value: published
-            color: var(--theme--primary)
-            foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
+            color: '#6644FF'
+            foreground: '#6644FF'
+          - text: Draft
             value: draft
-            color: var(--theme--foreground)
-            foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
+            color: '#4F5464'
+            foreground: '#4F5464'
+            background: '#F0F4F9'
+          - text: Archived
             value: archived
-            color: var(--theme--warning)
-            foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
+            color: '#FFA439'
+            foreground: '#FFA439'
         showAsDot: true
       field: status
       group: null
@@ -783,18 +731,18 @@ fields:
       note: null
       options:
         choices:
-          - text: $t:published
+          - text: Published
             value: published
-            color: var(--theme--primary)
-          - text: $t:draft
+            color: '#6644FF'
+          - text: Draft
             value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
+            color: '#4F5464'
+          - text: Archived
             value: archived
-            color: var(--theme--warning)
+            color: '#FFA439'
       readonly: false
       required: false
-      sort: 2
+      sort: 5
       special: null
       translations: null
       validation: null
@@ -802,251 +750,13 @@ fields:
       width: full
     schema:
       name: status
-      table: answers
-      data_type: varchar
+      table: Courses
+      data_type: character varying
       default_value: draft
       max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: sort
-    type: integer
-    meta:
-      collection: answers
-      conditions: null
-      display: null
-      display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: answers
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: user_created
-    type: string
-    meta:
-      collection: answers
-      conditions: null
-      display: user
-      display_options: null
-      field: user_created
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - user-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_created
-      table: answers
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: answers
-    field: date_created
-    type: timestamp
-    meta:
-      collection: answers
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 5
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: answers
-      data_type: datetime
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: user_updated
-    type: string
-    meta:
-      collection: answers
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 6
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: answers
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: answers
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: answers
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 7
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: answers
-      data_type: datetime
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: text
-    type: string
-    meta:
-      collection: answers
-      conditions: null
-      display: null
-      display_options: null
-      field: text
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: text
-      table: answers
-      data_type: varchar
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -1094,34 +804,36 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: answers
-    field: fk_mcquiz
-    type: uuid
+    field: date_created
+    type: timestamp
     meta:
       collection: answers
       conditions: null
-      display: null
-      display_options: null
-      field: fk_mcquiz
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
       group: null
-      hidden: false
-      interface: input
+      hidden: true
+      interface: datetime
       note: null
       options: null
-      readonly: false
+      readonly: true
       required: false
-      sort: 10
+      sort: 5
       special:
-        - uuid
+        - cast-timestamp
+        - date-created
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: fk_mcquiz
+      name: date_created
       table: answers
-      data_type: char
+      data_type: timestamp with time zone
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -1130,8 +842,49 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: mcQuiz
-      foreign_key_column: id
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: answers
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: answers
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: answers
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: answers
     field: fk2
     type: uuid
@@ -1158,9 +911,9 @@ fields:
     schema:
       name: fk2
       table: answers
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -1171,6 +924,346 @@ fields:
       has_auto_increment: false
       foreign_key_table: mcQuiz
       foreign_key_column: id
+  - collection: answers
+    field: fk_mcquiz
+    type: uuid
+    meta:
+      collection: answers
+      conditions: null
+      display: null
+      display_options: null
+      field: fk_mcquiz
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: fk_mcquiz
+      table: answers
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: mcQuiz
+      foreign_key_column: id
+  - collection: answers
+    field: id
+    type: uuid
+    meta:
+      collection: answers
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: answers
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: answers
+    field: sort
+    type: integer
+    meta:
+      collection: answers
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: answers
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: answers
+    field: status
+    type: string
+    meta:
+      collection: answers
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: $t:published
+            value: published
+            color: var(--theme--primary)
+            foreground: var(--theme--primary)
+            background: var(--theme--primary-background)
+          - text: $t:draft
+            value: draft
+            color: var(--theme--foreground)
+            foreground: var(--theme--foreground)
+            background: var(--theme--background-normal)
+          - text: $t:archived
+            value: archived
+            color: var(--theme--warning)
+            foreground: var(--theme--warning)
+            background: var(--theme--warning-background)
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: $t:published
+            value: published
+            color: var(--theme--primary)
+          - text: $t:draft
+            value: draft
+            color: var(--theme--foreground)
+          - text: $t:archived
+            value: archived
+            color: var(--theme--warning)
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: answers
+      data_type: character varying
+      default_value: draft
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: answers
+    field: text
+    type: string
+    meta:
+      collection: answers
+      conditions: null
+      display: null
+      display_options: null
+      field: text
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: text
+      table: answers
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: answers
+    field: user_created
+    type: uuid
+    meta:
+      collection: answers
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_created
+      table: answers
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: answers
+    field: user_updated
+    type: uuid
+    meta:
+      collection: answers
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: answers
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: course_page
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: course_page
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: course_page
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: course_page
     field: id
     type: uuid
@@ -1197,9 +1290,9 @@ fields:
     schema:
       name: id
       table: course_page
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -1262,7 +1355,7 @@ fields:
     schema:
       name: status
       table: course_page
-      data_type: varchar
+      data_type: character varying
       default_value: draft
       max_length: 255
       numeric_precision: null
@@ -1277,194 +1370,9 @@ fields:
       foreign_key_column: null
   - collection: course_page
     field: user_updated
-    type: string
-    meta:
-      collection: course_page
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 3
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: course_page
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: course_page
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: course_page
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: course_page
-      data_type: datetime
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: courses_page
-    field: id
     type: uuid
     meta:
-      collection: courses_page
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: courses_page
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: courses_page
-    field: status
-    type: string
-    meta:
-      collection: courses_page
-      conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-            foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-            foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-            foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
-        showAsDot: true
-      field: status
-      group: null
-      hidden: false
-      interface: select-dropdown
-      note: null
-      options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: status
-      table: courses_page
-      data_type: varchar
-      default_value: draft
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: courses_page
-    field: user_updated
-    type: string
-    meta:
-      collection: courses_page
+      collection: course_page
       conditions: null
       display: user
       display_options: null
@@ -1486,49 +1394,8 @@ fields:
       width: half
     schema:
       name: user_updated
-      table: courses_page
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: courses_page
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: courses_page
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: courses_page
-      data_type: datetime
+      table: course_page
+      data_type: uuid
       default_value: null
       max_length: null
       numeric_precision: null
@@ -1539,13 +1406,13 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: courses_page
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: course_page
     field: title
     type: string
     meta:
-      collection: courses_page
+      collection: course_page
       conditions: null
       display: null
       display_options: null
@@ -1565,8 +1432,8 @@ fields:
       width: full
     schema:
       name: title
-      table: courses_page
-      data_type: varchar
+      table: course_page
+      data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
@@ -1604,7 +1471,7 @@ fields:
     schema:
       name: Toast_text
       table: courses_page
-      data_type: varchar
+      data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
@@ -1617,11 +1484,52 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: folien
+  - collection: courses_page
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: courses_page
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: courses_page
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: courses_page
     field: id
     type: uuid
     meta:
-      collection: folien
+      collection: courses_page
       conditions: null
       display: null
       display_options: null
@@ -1642,10 +1550,10 @@ fields:
       width: full
     schema:
       name: id
-      table: folien
-      data_type: char
+      table: courses_page
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -1656,11 +1564,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: folien
+  - collection: courses_page
     field: status
     type: string
     meta:
-      collection: folien
+      collection: courses_page
       conditions: null
       display: labels
       display_options:
@@ -1707,8 +1615,8 @@ fields:
       width: full
     schema:
       name: status
-      table: folien
-      data_type: varchar
+      table: courses_page
+      data_type: character varying
       default_value: draft
       max_length: 255
       numeric_precision: null
@@ -1721,34 +1629,34 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: folien
-    field: sort
-    type: integer
+  - collection: courses_page
+    field: title
+    type: string
     meta:
-      collection: folien
+      collection: courses_page
       conditions: null
       display: null
       display_options: null
-      field: sort
+      field: title
       group: null
-      hidden: true
+      hidden: false
       interface: input
       note: null
       options: null
       readonly: false
       required: false
-      sort: 3
+      sort: 5
       special: null
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: sort
-      table: folien
-      data_type: integer
+      name: title
+      table: courses_page
+      data_type: character varying
       default_value: null
-      max_length: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -1759,92 +1667,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: folien
-    field: user_created
-    type: string
-    meta:
-      collection: folien
-      conditions: null
-      display: user
-      display_options: null
-      field: user_created
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - user-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_created
-      table: folien
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: folien
-    field: date_created
-    type: timestamp
-    meta:
-      collection: folien
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 5
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: folien
-      data_type: datetime
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: folien
+  - collection: courses_page
     field: user_updated
-    type: string
+    type: uuid
     meta:
-      collection: folien
+      collection: courses_page
       conditions: null
       display: user
       display_options: null
@@ -1857,7 +1684,7 @@ fields:
         template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
       readonly: true
       required: false
-      sort: 6
+      sort: 3
       special:
         - user-updated
       translations: null
@@ -1866,10 +1693,10 @@ fields:
       width: half
     schema:
       name: user_updated
-      table: folien
-      data_type: char
+      table: courses_page
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -1880,36 +1707,115 @@ fields:
       has_auto_increment: false
       foreign_key_table: directus_users
       foreign_key_column: id
-  - collection: folien
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: folien
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 7
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
+  - collection: directus_sessions
+    field: next_token
+    type: string
+    meta: null
     schema:
-      name: date_updated
-      table: folien
-      data_type: datetime
+      name: next_token
+      table: directus_sessions
+      data_type: character varying
       default_value: null
+      max_length: 64
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: directus_sync_id_map
+    field: id
+    type: integer
+    meta: null
+    schema:
+      name: id
+      table: directus_sync_id_map
+      data_type: integer
+      default_value: nextval('directus_sync_id_map_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: directus_sync_id_map
+    field: table
+    type: string
+    meta: null
+    schema:
+      name: table
+      table: directus_sync_id_map
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: directus_sync_id_map
+    field: sync_id
+    type: string
+    meta: null
+    schema:
+      name: sync_id
+      table: directus_sync_id_map
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: directus_sync_id_map
+    field: local_id
+    type: string
+    meta: null
+    schema:
+      name: local_id
+      table: directus_sync_id_map
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: directus_sync_id_map
+    field: created_at
+    type: dateTime
+    meta: null
+    schema:
+      name: created_at
+      table: directus_sync_id_map
+      data_type: timestamp without time zone
+      default_value: CURRENT_TIMESTAMP
       max_length: null
       numeric_precision: null
       numeric_scale: null
@@ -1947,9 +1853,9 @@ fields:
     schema:
       name: bild
       table: folien
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -1960,11 +1866,93 @@ fields:
       has_auto_increment: false
       foreign_key_table: directus_files
       foreign_key_column: id
-  - collection: kapitel
+  - collection: folien
+    field: date_created
+    type: timestamp
+    meta:
+      collection: folien
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - cast-timestamp
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: folien
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: folien
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: folien
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: folien
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: folien
     field: id
     type: uuid
     meta:
-      collection: kapitel
+      collection: folien
       conditions: null
       display: null
       display_options: null
@@ -1985,10 +1973,10 @@ fields:
       width: full
     schema:
       name: id
-      table: kapitel
-      data_type: char
+      table: folien
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -1999,11 +1987,49 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: kapitel
+  - collection: folien
+    field: sort
+    type: integer
+    meta:
+      collection: folien
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: folien
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: folien
     field: status
     type: string
     meta:
-      collection: kapitel
+      collection: folien
       conditions: null
       display: labels
       display_options:
@@ -2050,8 +2076,8 @@ fields:
       width: full
     schema:
       name: status
-      table: kapitel
-      data_type: varchar
+      table: folien
+      data_type: character varying
       default_value: draft
       max_length: 255
       numeric_precision: null
@@ -2064,49 +2090,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: kapitel
-    field: sort
-    type: integer
-    meta:
-      collection: kapitel
-      conditions: null
-      display: null
-      display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: kapitel
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: kapitel
+  - collection: folien
     field: user_created
-    type: string
+    type: uuid
     meta:
-      collection: kapitel
+      collection: folien
       conditions: null
       display: user
       display_options: null
@@ -2128,10 +2116,10 @@ fields:
       width: half
     schema:
       name: user_created
-      table: kapitel
-      data_type: char
+      table: folien
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -2142,6 +2130,488 @@ fields:
       has_auto_increment: false
       foreign_key_table: directus_users
       foreign_key_column: id
+  - collection: folien
+    field: user_updated
+    type: uuid
+    meta:
+      collection: folien
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: folien
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: ip2city
+    field: city_name
+    type: string
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: city_name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: city_name
+      table: ip2city
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: continent_code
+    type: string
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: continent_code
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: continent_code
+      table: ip2city
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: country_iso
+    type: string
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: country_iso
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: country_iso
+      table: ip2city
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: first_ip
+    type: string
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: first_ip
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: first_ip
+      table: ip2city
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: id
+    type: uuid
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: ip2city
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: last_ip
+    type: string
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: last_ip
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: last_ip
+      table: ip2city
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: latitude
+    type: float
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: latitude
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: latitude
+      table: ip2city
+      data_type: real
+      default_value: null
+      max_length: null
+      numeric_precision: 24
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: longitude
+    type: float
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: longitude
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: longitude
+      table: ip2city
+      data_type: real
+      default_value: null
+      max_length: null
+      numeric_precision: 24
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: state_name
+    type: string
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: state_name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: state_name
+      table: ip2city
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: first_ip_int
+    type: bigInteger
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: first_ip_int
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: first_ip_int
+      table: ip2city
+      data_type: bigint
+      default_value: null
+      max_length: null
+      numeric_precision: 64
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: ip2city
+    field: last_ip_int
+    type: bigInteger
+    meta:
+      collection: ip2city
+      conditions: null
+      display: null
+      display_options: null
+      field: last_ip_int
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 11
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: last_ip_int
+      table: ip2city
+      data_type: bigint
+      default_value: null
+      max_length: null
+      numeric_precision: 64
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel
+    field: content
+    type: alias
+    meta:
+      collection: kapitel
+      conditions: null
+      display: null
+      display_options: null
+      field: content
+      group: null
+      hidden: false
+      interface: list-m2a
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 13
+      special:
+        - m2a
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
   - collection: kapitel
     field: date_created
     type: timestamp
@@ -2170,7 +2640,7 @@ fields:
     schema:
       name: date_created
       table: kapitel
-      data_type: datetime
+      data_type: timestamp with time zone
       default_value: null
       max_length: null
       numeric_precision: null
@@ -2183,46 +2653,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: kapitel
-    field: user_updated
-    type: string
-    meta:
-      collection: kapitel
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 6
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: kapitel
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
   - collection: kapitel
     field: date_updated
     type: timestamp
@@ -2251,47 +2681,9 @@ fields:
     schema:
       name: date_updated
       table: kapitel
-      data_type: datetime
+      data_type: timestamp with time zone
       default_value: null
       max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: kapitel
-    field: title
-    type: string
-    meta:
-      collection: kapitel
-      conditions: null
-      display: null
-      display_options: null
-      field: title
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: title
-      table: kapitel
-      data_type: varchar
-      default_value: null
-      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -2341,8 +2733,47 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: kapitel
+    field: id
+    type: uuid
+    meta:
+      collection: kapitel
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: kapitel
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel
     field: kurs
-    type: string
+    type: uuid
     meta:
       collection: kapitel
       conditions: null
@@ -2368,9 +2799,9 @@ fields:
     schema:
       name: kurs
       table: kapitel
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -2382,31 +2813,8 @@ fields:
       foreign_key_table: Courses
       foreign_key_column: id
   - collection: kapitel
-    field: content
-    type: alias
-    meta:
-      collection: kapitel
-      conditions: null
-      display: null
-      display_options: null
-      field: content
-      group: null
-      hidden: false
-      interface: list-m2a
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 13
-      special:
-        - m2a
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-  - collection: kapitel
     field: parent
-    type: string
+    type: uuid
     meta:
       collection: kapitel
       conditions: null
@@ -2432,87 +2840,11 @@ fields:
     schema:
       name: parent
       table: kapitel
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: kapitel
-      foreign_key_column: id
-  - collection: kapitel_content_1
-    field: id
-    type: integer
-    meta:
-      collection: kapitel_content_1
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 1
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: kapitel_content_1
-      data_type: integer
+      data_type: uuid
       default_value: null
       max_length: null
       numeric_precision: null
       numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: true
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: kapitel_content_1
-    field: kapitel_id
-    type: string
-    meta:
-      collection: kapitel_content_1
-      conditions: null
-      display: null
-      display_options: null
-      field: kapitel_id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: kapitel_id
-      table: kapitel_content_1
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
       is_nullable: true
       is_unique: false
       is_primary_key: false
@@ -2521,18 +2853,18 @@ fields:
       has_auto_increment: false
       foreign_key_table: kapitel
       foreign_key_column: id
-  - collection: kapitel_content_1
-    field: item
-    type: string
+  - collection: kapitel
+    field: sort
+    type: integer
     meta:
-      collection: kapitel_content_1
+      collection: kapitel
       conditions: null
       display: null
       display_options: null
-      field: item
+      field: sort
       group: null
       hidden: true
-      interface: null
+      interface: input
       note: null
       options: null
       readonly: false
@@ -2544,10 +2876,231 @@ fields:
       validation_message: null
       width: full
     schema:
-      name: item
-      table: kapitel_content_1
-      data_type: varchar
+      name: sort
+      table: kapitel
+      data_type: integer
       default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel
+    field: status
+    type: string
+    meta:
+      collection: kapitel
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: $t:published
+            value: published
+            color: var(--theme--primary)
+            foreground: var(--theme--primary)
+            background: var(--theme--primary-background)
+          - text: $t:draft
+            value: draft
+            color: var(--theme--foreground)
+            foreground: var(--theme--foreground)
+            background: var(--theme--background-normal)
+          - text: $t:archived
+            value: archived
+            color: var(--theme--warning)
+            foreground: var(--theme--warning)
+            background: var(--theme--warning-background)
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: $t:published
+            value: published
+            color: var(--theme--primary)
+          - text: $t:draft
+            value: draft
+            color: var(--theme--foreground)
+          - text: $t:archived
+            value: archived
+            color: var(--theme--warning)
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: kapitel
+      data_type: character varying
+      default_value: draft
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel
+    field: title
+    type: string
+    meta:
+      collection: kapitel
+      conditions: null
+      display: null
+      display_options: null
+      field: title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: title
+      table: kapitel
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel
+    field: user_created
+    type: uuid
+    meta:
+      collection: kapitel
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_created
+      table: kapitel
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: kapitel
+    field: user_updated
+    type: uuid
+    meta:
+      collection: kapitel
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: kapitel
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: kapitel
+    field: color
+    type: string
+    meta:
+      collection: kapitel
+      conditions: null
+      display: null
+      display_options: null
+      field: color
+      group: null
+      hidden: false
+      interface: select-color
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 15
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: color
+      table: kapitel
+      data_type: character varying
+      default_value: '#F5C211'
       max_length: 255
       numeric_precision: null
       numeric_scale: null
@@ -2584,7 +3137,7 @@ fields:
     schema:
       name: collection
       table: kapitel_content_1
-      data_type: varchar
+      data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
@@ -2597,6 +3150,120 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: kapitel_content_1
+    field: id
+    type: integer
+    meta:
+      collection: kapitel_content_1
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: kapitel_content_1
+      data_type: integer
+      default_value: nextval('kapitel_content_1_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel_content_1
+    field: item
+    type: string
+    meta:
+      collection: kapitel_content_1
+      conditions: null
+      display: null
+      display_options: null
+      field: item
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: item
+      table: kapitel_content_1
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel_content_1
+    field: kapitel_id
+    type: uuid
+    meta:
+      collection: kapitel_content_1
+      conditions: null
+      display: null
+      display_options: null
+      field: kapitel_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: kapitel_id
+      table: kapitel_content_1
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: kapitel
+      foreign_key_column: id
   - collection: kapitel_content_1
     field: sort
     type: integer
@@ -2625,6 +3292,73 @@ fields:
       data_type: integer
       default_value: null
       max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: courses
+    type: alias
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: courses
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options:
+        start: closed
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - alias
+        - group
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: landing
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: landing
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: landing
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -2635,6 +3369,68 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: landing
+    field: description
+    type: string
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: description
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: description
+      table: landing
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: divider-yftyet
+    type: alias
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: divider-yftyet
+      group: null
+      hidden: false
+      interface: presentation-divider
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - alias
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
   - collection: landing
     field: id
     type: uuid
@@ -2661,9 +3457,9 @@ fields:
     schema:
       name: id
       table: landing
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -2726,7 +3522,7 @@ fields:
     schema:
       name: status
       table: landing
-      data_type: varchar
+      data_type: character varying
       default_value: draft
       max_length: 255
       numeric_precision: null
@@ -2740,76 +3536,33 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: landing
-    field: user_updated
+    field: subtitle
     type: string
     meta:
       collection: landing
       conditions: null
-      display: user
+      display: null
       display_options: null
-      field: user_updated
+      field: subtitle
       group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 3
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: landing
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: landing
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: landing
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
+      hidden: false
+      interface: input
       note: null
       options: null
-      readonly: true
+      readonly: false
       required: false
-      sort: 4
-      special:
-        - cast-timestamp
-        - date-updated
+      sort: 6
+      special: null
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
-      name: date_updated
+      name: subtitle
       table: landing
-      data_type: datetime
+      data_type: character varying
       default_value: null
-      max_length: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -2845,7 +3598,7 @@ fields:
     schema:
       name: title
       table: landing
-      data_type: varchar
+      data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
@@ -2859,140 +3612,54 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: landing
-    field: subtitle
-    type: string
+    field: user_updated
+    type: uuid
     meta:
       collection: landing
       conditions: null
-      display: null
+      display: user
       display_options: null
-      field: subtitle
+      field: user_updated
       group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 6
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: subtitle
-      table: landing
-      data_type: varchar
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: landing
-    field: description
-    type: string
-    meta:
-      collection: landing
-      conditions: null
-      display: null
-      display_options: null
-      field: description
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 7
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: description
-      table: landing
-      data_type: varchar
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: landing
-    field: divider-yftyet
-    type: alias
-    meta:
-      collection: landing
-      conditions: null
-      display: null
-      display_options: null
-      field: divider-yftyet
-      group: null
-      hidden: false
-      interface: presentation-divider
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 8
-      special:
-        - alias
-        - no-data
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-  - collection: landing
-    field: courses
-    type: alias
-    meta:
-      collection: landing
-      conditions: null
-      display: null
-      display_options: null
-      field: courses
-      group: null
-      hidden: false
-      interface: group-detail
+      hidden: true
+      interface: select-dropdown-m2o
       note: null
       options:
-        start: closed
-      readonly: false
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
       required: false
-      sort: 9
+      sort: 3
       special:
-        - alias
-        - group
-        - no-data
+        - user-updated
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
+    schema:
+      name: user_updated
+      table: landing
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
   - collection: landing
-    field: courses_title
+    field: courses_action_button_text
     type: string
     meta:
       collection: landing
       conditions: null
       display: null
       display_options: null
-      field: courses_title
+      field: courses_action_button_text
       group: courses
       hidden: false
       interface: input
@@ -3000,16 +3667,16 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 1
+      sort: 3
       special: null
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: courses_title
+      name: courses_action_button_text
       table: landing
-      data_type: varchar
+      data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
@@ -3061,14 +3728,14 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: landing
-    field: courses_action_button_text
+    field: courses_title
     type: string
     meta:
       collection: landing
       conditions: null
       display: null
       display_options: null
-      field: courses_action_button_text
+      field: courses_title
       group: courses
       hidden: false
       interface: input
@@ -3076,18 +3743,84 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 3
+      sort: 1
       special: null
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: courses_action_button_text
+      name: courses_title
       table: landing
-      data_type: varchar
+      data_type: character varying
       default_value: null
       max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: learning_page
+    field: chapter_final
+    type: alias
+    meta:
+      collection: learning_page
+      conditions: null
+      display: null
+      display_options: null
+      field: chapter_final
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - alias
+        - group
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: learning_page
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: learning_page
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: learning_page
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -3124,9 +3857,9 @@ fields:
     schema:
       name: id
       table: learning_page
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -3189,7 +3922,7 @@ fields:
     schema:
       name: status
       table: learning_page
-      data_type: varchar
+      data_type: character varying
       default_value: draft
       max_length: 255
       numeric_precision: null
@@ -3204,7 +3937,7 @@ fields:
       foreign_key_column: null
   - collection: learning_page
     field: user_updated
-    type: string
+    type: uuid
     meta:
       collection: learning_page
       conditions: null
@@ -3229,48 +3962,7 @@ fields:
     schema:
       name: user_updated
       table: learning_page
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: learning_page
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: learning_page
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: learning_page
-      data_type: datetime
+      data_type: uuid
       default_value: null
       max_length: null
       numeric_precision: null
@@ -3281,33 +3973,8 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: learning_page
-    field: chapter_final
-    type: alias
-    meta:
-      collection: learning_page
-      conditions: null
-      display: null
-      display_options: null
-      field: chapter_final
-      group: null
-      hidden: false
-      interface: group-detail
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 5
-      special:
-        - alias
-        - group
-        - no-data
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
+      foreign_key_table: directus_users
+      foreign_key_column: id
   - collection: learning_page
     field: final_text
     type: string
@@ -3333,7 +4000,7 @@ fields:
     schema:
       name: final_text
       table: learning_page
-      data_type: varchar
+      data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
@@ -3371,349 +4038,7 @@ fields:
     schema:
       name: final_title
       table: learning_page
-      data_type: varchar
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: mcQuiz
-    field: id
-    type: uuid
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: mcQuiz
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: mcQuiz
-    field: status
-    type: string
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-            foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-            foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-            foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
-        showAsDot: true
-      field: status
-      group: null
-      hidden: false
-      interface: select-dropdown
-      note: null
-      options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: status
-      table: mcQuiz
-      data_type: varchar
-      default_value: draft
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: mcQuiz
-    field: sort
-    type: integer
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: mcQuiz
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: mcQuiz
-    field: user_created
-    type: string
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: user
-      display_options: null
-      field: user_created
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - user-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_created
-      table: mcQuiz
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: mcQuiz
-    field: date_created
-    type: timestamp
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 5
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: mcQuiz
-      data_type: datetime
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: mcQuiz
-    field: user_updated
-    type: string
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 6
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: mcQuiz
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: mcQuiz
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 7
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: mcQuiz
-      data_type: datetime
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: mcQuiz
-    field: question
-    type: string
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: question
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: question
-      table: mcQuiz
-      data_type: varchar
+      data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
@@ -3749,11 +4074,93 @@ fields:
       validation: null
       validation_message: null
       width: full
-  - collection: orderAnswers
+  - collection: mcQuiz
+    field: date_created
+    type: timestamp
+    meta:
+      collection: mcQuiz
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - cast-timestamp
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: mcQuiz
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: mcQuiz
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: mcQuiz
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: mcQuiz
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: mcQuiz
     field: id
     type: uuid
     meta:
-      collection: orderAnswers
+      collection: mcQuiz
       conditions: null
       display: null
       display_options: null
@@ -3774,10 +4181,10 @@ fields:
       width: full
     schema:
       name: id
-      table: orderAnswers
-      data_type: char
+      table: mcQuiz
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -3788,11 +4195,87 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: orderAnswers
+  - collection: mcQuiz
+    field: question
+    type: string
+    meta:
+      collection: mcQuiz
+      conditions: null
+      display: null
+      display_options: null
+      field: question
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: question
+      table: mcQuiz
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: mcQuiz
+    field: sort
+    type: integer
+    meta:
+      collection: mcQuiz
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: mcQuiz
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: mcQuiz
     field: status
     type: string
     meta:
-      collection: orderAnswers
+      collection: mcQuiz
       conditions: null
       display: labels
       display_options:
@@ -3839,8 +4322,8 @@ fields:
       width: full
     schema:
       name: status
-      table: orderAnswers
-      data_type: varchar
+      table: mcQuiz
+      data_type: character varying
       default_value: draft
       max_length: 255
       numeric_precision: null
@@ -3853,49 +4336,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: orderAnswers
-    field: sort
-    type: integer
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: null
-      display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: orderAnswers
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderAnswers
+  - collection: mcQuiz
     field: user_created
-    type: string
+    type: uuid
     meta:
-      collection: orderAnswers
+      collection: mcQuiz
       conditions: null
       display: user
       display_options: null
@@ -3917,10 +4362,50 @@ fields:
       width: half
     schema:
       name: user_created
-      table: orderAnswers
-      data_type: char
+      table: mcQuiz
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: mcQuiz
+    field: user_updated
+    type: uuid
+    meta:
+      collection: mcQuiz
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: mcQuiz
+      data_type: uuid
+      default_value: null
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -3959,7 +4444,7 @@ fields:
     schema:
       name: date_created
       table: orderAnswers
-      data_type: datetime
+      data_type: timestamp with time zone
       default_value: null
       max_length: null
       numeric_precision: null
@@ -3972,46 +4457,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: orderAnswers
-    field: user_updated
-    type: string
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 6
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: orderAnswers
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
   - collection: orderAnswers
     field: date_updated
     type: timestamp
@@ -4040,47 +4485,9 @@ fields:
     schema:
       name: date_updated
       table: orderAnswers
-      data_type: datetime
+      data_type: timestamp with time zone
       default_value: null
       max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderAnswers
-    field: text
-    type: string
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: null
-      display_options: null
-      field: text
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: text
-      table: orderAnswers
-      data_type: varchar
-      default_value: null
-      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4117,9 +4524,9 @@ fields:
     schema:
       name: fk_orderQuiz
       table: orderAnswers
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4130,6 +4537,45 @@ fields:
       has_auto_increment: false
       foreign_key_table: orderQuiz
       foreign_key_column: id
+  - collection: orderAnswers
+    field: id
+    type: uuid
+    meta:
+      collection: orderAnswers
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: orderAnswers
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: orderAnswers
     field: sor
     type: integer
@@ -4156,6 +4602,333 @@ fields:
       name: sor
       table: orderAnswers
       data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orderAnswers
+    field: sort
+    type: integer
+    meta:
+      collection: orderAnswers
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: orderAnswers
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orderAnswers
+    field: status
+    type: string
+    meta:
+      collection: orderAnswers
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: $t:published
+            value: published
+            color: var(--theme--primary)
+            foreground: var(--theme--primary)
+            background: var(--theme--primary-background)
+          - text: $t:draft
+            value: draft
+            color: var(--theme--foreground)
+            foreground: var(--theme--foreground)
+            background: var(--theme--background-normal)
+          - text: $t:archived
+            value: archived
+            color: var(--theme--warning)
+            foreground: var(--theme--warning)
+            background: var(--theme--warning-background)
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: $t:published
+            value: published
+            color: var(--theme--primary)
+          - text: $t:draft
+            value: draft
+            color: var(--theme--foreground)
+          - text: $t:archived
+            value: archived
+            color: var(--theme--warning)
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: orderAnswers
+      data_type: character varying
+      default_value: draft
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orderAnswers
+    field: text
+    type: string
+    meta:
+      collection: orderAnswers
+      conditions: null
+      display: null
+      display_options: null
+      field: text
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: text
+      table: orderAnswers
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orderAnswers
+    field: user_created
+    type: uuid
+    meta:
+      collection: orderAnswers
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_created
+      table: orderAnswers
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: orderAnswers
+    field: user_updated
+    type: uuid
+    meta:
+      collection: orderAnswers
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: orderAnswers
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: orderQuiz
+    field: answers
+    type: alias
+    meta:
+      collection: orderQuiz
+      conditions: null
+      display: null
+      display_options: null
+      field: answers
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        template: '{{text}}'
+      readonly: false
+      required: true
+      sort: 9
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: orderQuiz
+    field: date_created
+    type: timestamp
+    meta:
+      collection: orderQuiz
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - cast-timestamp
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: orderQuiz
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orderQuiz
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: orderQuiz
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 7
+      special:
+        - cast-timestamp
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: orderQuiz
+      data_type: timestamp with time zone
       default_value: null
       max_length: null
       numeric_precision: null
@@ -4194,14 +4967,90 @@ fields:
     schema:
       name: id
       table: orderQuiz
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
       is_unique: true
       is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orderQuiz
+    field: question
+    type: string
+    meta:
+      collection: orderQuiz
+      conditions: null
+      display: null
+      display_options: null
+      field: question
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: question
+      table: orderQuiz
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: orderQuiz
+    field: sort
+    type: integer
+    meta:
+      collection: orderQuiz
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: orderQuiz
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
@@ -4259,7 +5108,7 @@ fields:
     schema:
       name: status
       table: orderQuiz
-      data_type: varchar
+      data_type: character varying
       default_value: draft
       max_length: 255
       numeric_precision: null
@@ -4273,46 +5122,8 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: orderQuiz
-    field: sort
-    type: integer
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: orderQuiz
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
     field: user_created
-    type: string
+    type: uuid
     meta:
       collection: orderQuiz
       conditions: null
@@ -4337,9 +5148,9 @@ fields:
     schema:
       name: user_created
       table: orderQuiz
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4351,49 +5162,8 @@ fields:
       foreign_key_table: directus_users
       foreign_key_column: id
   - collection: orderQuiz
-    field: date_created
-    type: timestamp
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 5
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: orderQuiz
-      data_type: datetime
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
     field: user_updated
-    type: string
+    type: uuid
     meta:
       collection: orderQuiz
       conditions: null
@@ -4418,9 +5188,9 @@ fields:
     schema:
       name: user_updated
       table: orderQuiz
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4431,16 +5201,16 @@ fields:
       has_auto_increment: false
       foreign_key_table: directus_users
       foreign_key_column: id
-  - collection: orderQuiz
-    field: date_updated
+  - collection: page_views
+    field: date_created
     type: timestamp
     meta:
-      collection: orderQuiz
+      collection: page_views
       conditions: null
       display: datetime
       display_options:
         relative: true
-      field: date_updated
+      field: date_created
       group: null
       hidden: true
       interface: datetime
@@ -4448,18 +5218,18 @@ fields:
       options: null
       readonly: true
       required: false
-      sort: 7
+      sort: 2
       special:
         - cast-timestamp
-        - date-updated
+        - date-created
       translations: null
       validation: null
       validation_message: null
       width: half
     schema:
-      name: date_updated
-      table: orderQuiz
-      data_type: datetime
+      name: date_created
+      table: page_views
+      data_type: timestamp with time zone
       default_value: null
       max_length: null
       numeric_precision: null
@@ -4472,73 +5242,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: orderQuiz
-    field: question
-    type: string
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: question
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: question
-      table: orderQuiz
-      data_type: varchar
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
-    field: answers
-    type: alias
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: answers
-      group: null
-      hidden: false
-      interface: list-o2m
-      note: null
-      options:
-        template: '{{text}}'
-      readonly: false
-      required: true
-      sort: 9
-      special:
-        - o2m
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-  - collection: quiz_data
+  - collection: page_views
     field: id
     type: uuid
     meta:
-      collection: quiz_data
+      collection: page_views
       conditions: null
       display: null
       display_options: null
@@ -4559,15 +5267,289 @@ fields:
       width: full
     schema:
       name: id
-      table: quiz_data
-      data_type: char
+      table: page_views
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
       is_unique: true
       is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_views
+    field: location_point
+    type: geometry.Point
+    meta:
+      collection: page_views
+      conditions: null
+      display: raw
+      display_options: null
+      field: location_point
+      group: null
+      hidden: false
+      interface: map
+      note: null
+      options:
+        defaultView:
+          bearing: 0
+          center:
+            lat: 0
+            lng: 0
+          pitch: 0
+          zoom: 0
+        geometryType: Point
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: location_point
+      table: page_views
+      data_type: POINT
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_views
+    field: path
+    type: string
+    meta:
+      collection: page_views
+      conditions: null
+      display: null
+      display_options: null
+      field: path
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: path
+      table: page_views
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_views
+    field: referrer
+    type: string
+    meta:
+      collection: page_views
+      conditions: null
+      display: null
+      display_options: null
+      field: referrer
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: referrer
+      table: page_views
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_views
+    field: ip
+    type: string
+    meta:
+      collection: page_views
+      conditions: null
+      display: null
+      display_options: null
+      field: ip
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: ip
+      table: page_views
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_views
+    field: browser
+    type: string
+    meta:
+      collection: page_views
+      conditions: null
+      display: null
+      display_options: null
+      field: browser
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: browser
+      table: page_views
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_views
+    field: os
+    type: string
+    meta:
+      collection: page_views
+      conditions: null
+      display: null
+      display_options: null
+      field: os
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: os
+      table: page_views
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_views
+    field: device
+    type: string
+    meta:
+      collection: page_views
+      conditions: null
+      display: null
+      display_options: null
+      field: device
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: device
+      table: page_views
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
@@ -4601,7 +5583,7 @@ fields:
     schema:
       name: date_created
       table: quiz_data
-      data_type: datetime
+      data_type: timestamp with time zone
       default_value: null
       max_length: null
       numeric_precision: null
@@ -4615,8 +5597,47 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: quiz_data
+    field: id
+    type: uuid
+    meta:
+      collection: quiz_data
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: quiz_data
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quiz_data
     field: question
-    type: string
+    type: uuid
     meta:
       collection: quiz_data
       conditions: null
@@ -4642,9 +5663,9 @@ fields:
     schema:
       name: question
       table: quiz_data
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4683,6 +5704,44 @@ fields:
       validation_message: null
       width: full
   - collection: quiz_data_answers
+    field: answers_id
+    type: uuid
+    meta:
+      collection: quiz_data_answers
+      conditions: null
+      display: null
+      display_options: null
+      field: answers_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: answers_id
+      table: quiz_data_answers
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: answers
+      foreign_key_column: id
+  - collection: quiz_data_answers
     field: id
     type: integer
     meta:
@@ -4708,12 +5767,12 @@ fields:
       name: id
       table: quiz_data_answers
       data_type: integer
-      default_value: null
+      default_value: nextval('quiz_data_answers_id_seq'::regclass)
       max_length: null
-      numeric_precision: null
-      numeric_scale: null
+      numeric_precision: 32
+      numeric_scale: 0
       is_nullable: false
-      is_unique: false
+      is_unique: true
       is_primary_key: true
       is_generated: false
       generation_expression: null
@@ -4722,7 +5781,7 @@ fields:
       foreign_key_column: null
   - collection: quiz_data_answers
     field: quiz_data_id
-    type: string
+    type: uuid
     meta:
       collection: quiz_data_answers
       conditions: null
@@ -4745,9 +5804,9 @@ fields:
     schema:
       name: quiz_data_id
       table: quiz_data_answers
-      data_type: char
+      data_type: uuid
       default_value: null
-      max_length: 36
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4757,44 +5816,6 @@ fields:
       generation_expression: null
       has_auto_increment: false
       foreign_key_table: quiz_data
-      foreign_key_column: id
-  - collection: quiz_data_answers
-    field: answers_id
-    type: string
-    meta:
-      collection: quiz_data_answers
-      conditions: null
-      display: null
-      display_options: null
-      field: answers_id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: answers_id
-      table: quiz_data_answers
-      data_type: char
-      default_value: null
-      max_length: 36
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: answers
       foreign_key_column: id
 relations:
   - collection: Courses
@@ -4815,70 +5836,7 @@ relations:
       column: Image
       foreign_key_table: directus_files
       foreign_key_column: id
-      constraint_name: null
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: answers
-    field: user_created
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: answers
-      many_field: user_created
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: answers
-      column: user_created
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: null
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: answers
-    field: user_updated
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: answers
-      many_field: user_updated
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: answers
-      column: user_updated
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: null
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: answers
-    field: fk_mcquiz
-    related_collection: mcQuiz
-    meta:
-      junction_field: null
-      many_collection: answers
-      many_field: fk_mcquiz
-      one_allowed_collections: null
-      one_collection: mcQuiz
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: answers
-      column: fk_mcquiz
-      foreign_key_table: mcQuiz
-      foreign_key_column: id
-      constraint_name: null
+      constraint_name: courses_image_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: answers
@@ -4899,9 +5857,72 @@ relations:
       column: fk2
       foreign_key_table: mcQuiz
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: answers_fk2_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: answers
+    field: fk_mcquiz
+    related_collection: mcQuiz
+    meta:
+      junction_field: null
+      many_collection: answers
+      many_field: fk_mcquiz
+      one_allowed_collections: null
+      one_collection: mcQuiz
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: answers
+      column: fk_mcquiz
+      foreign_key_table: mcQuiz
+      foreign_key_column: id
+      constraint_name: answers_fk_mcquiz_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: answers
+    field: user_created
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: answers
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: answers
+      column: user_created
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: answers_user_created_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: answers
+    field: user_updated
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: answers
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: answers
+      column: user_updated
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: answers_user_updated_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
   - collection: course_page
     field: user_updated
     related_collection: directus_users
@@ -4920,7 +5941,7 @@ relations:
       column: user_updated
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: course_page_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: courses_page
@@ -4941,7 +5962,7 @@ relations:
       column: user_updated
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: courses_page_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: directus_settings
@@ -4953,7 +5974,7 @@ relations:
       column: public_registration_role
       foreign_key_table: directus_roles
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: directus_settings_public_registration_role_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: directus_webhooks
@@ -4965,51 +5986,9 @@ relations:
       column: migrated_flow
       foreign_key_table: directus_flows
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: directus_webhooks_migrated_flow_foreign
       on_update: NO ACTION
       on_delete: SET NULL
-  - collection: folien
-    field: user_created
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: folien
-      many_field: user_created
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: folien
-      column: user_created
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: null
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: folien
-    field: user_updated
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: folien
-      many_field: user_updated
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: folien
-      column: user_updated
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: null
-      on_update: NO ACTION
-      on_delete: NO ACTION
   - collection: folien
     field: bild
     related_collection: directus_files
@@ -5028,15 +6007,15 @@ relations:
       column: bild
       foreign_key_table: directus_files
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: folien_bild_foreign
       on_update: NO ACTION
       on_delete: SET NULL
-  - collection: kapitel
+  - collection: folien
     field: user_created
     related_collection: directus_users
     meta:
       junction_field: null
-      many_collection: kapitel
+      many_collection: folien
       many_field: user_created
       one_allowed_collections: null
       one_collection: directus_users
@@ -5045,19 +6024,19 @@ relations:
       one_field: null
       sort_field: null
     schema:
-      table: kapitel
+      table: folien
       column: user_created
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: folien_user_created_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
-  - collection: kapitel
+  - collection: folien
     field: user_updated
     related_collection: directus_users
     meta:
       junction_field: null
-      many_collection: kapitel
+      many_collection: folien
       many_field: user_updated
       one_allowed_collections: null
       one_collection: directus_users
@@ -5066,11 +6045,11 @@ relations:
       one_field: null
       sort_field: null
     schema:
-      table: kapitel
+      table: folien
       column: user_updated
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: folien_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: kapitel
@@ -5091,7 +6070,7 @@ relations:
       column: kurs
       foreign_key_table: Courses
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: kapitel_kurs_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: kapitel
@@ -5112,7 +6091,49 @@ relations:
       column: parent
       foreign_key_table: kapitel
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: kapitel_parent_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: kapitel
+    field: user_created
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: kapitel
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: kapitel
+      column: user_created
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: kapitel_user_created_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: kapitel
+    field: user_updated
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: kapitel
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: kapitel
+      column: user_updated
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: kapitel_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: kapitel_content_1
@@ -5149,7 +6170,7 @@ relations:
       column: kapitel_id
       foreign_key_table: kapitel
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: kapitel_content_1_kapitel_id_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: landing
@@ -5170,7 +6191,7 @@ relations:
       column: user_updated
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: landing_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: learning_page
@@ -5191,7 +6212,7 @@ relations:
       column: user_updated
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: learning_page_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: mcQuiz
@@ -5212,7 +6233,7 @@ relations:
       column: user_created
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: mcquiz_user_created_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: mcQuiz
@@ -5233,49 +6254,7 @@ relations:
       column: user_updated
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: orderAnswers
-    field: user_created
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: orderAnswers
-      many_field: user_created
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: orderAnswers
-      column: user_created
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: null
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: orderAnswers
-    field: user_updated
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: orderAnswers
-      many_field: user_updated
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: orderAnswers
-      column: user_updated
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: null
+      constraint_name: mcquiz_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: orderAnswers
@@ -5296,9 +6275,51 @@ relations:
       column: fk_orderQuiz
       foreign_key_table: orderQuiz
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: orderanswers_fk_orderquiz_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: orderAnswers
+    field: user_created
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: orderAnswers
+      many_field: user_created
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: orderAnswers
+      column: user_created
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: orderanswers_user_created_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: orderAnswers
+    field: user_updated
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: orderAnswers
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: orderAnswers
+      column: user_updated
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: orderanswers_user_updated_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
   - collection: orderQuiz
     field: user_created
     related_collection: directus_users
@@ -5317,7 +6338,7 @@ relations:
       column: user_created
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: orderquiz_user_created_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: orderQuiz
@@ -5338,7 +6359,7 @@ relations:
       column: user_updated
       foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: orderquiz_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: quiz_data
@@ -5359,7 +6380,7 @@ relations:
       column: question
       foreign_key_table: mcQuiz
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: quiz_data_question_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: quiz_data_answers
@@ -5380,7 +6401,7 @@ relations:
       column: answers_id
       foreign_key_table: answers
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: quiz_data_answers_answers_id_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: quiz_data_answers
@@ -5401,6 +6422,6 @@ relations:
       column: quiz_data_id
       foreign_key_table: quiz_data
       foreign_key_column: id
-      constraint_name: null
+      constraint_name: quiz_data_answers_quiz_data_id_foreign
       on_update: NO ACTION
       on_delete: SET NULL

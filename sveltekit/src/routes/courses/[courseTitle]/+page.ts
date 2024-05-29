@@ -14,14 +14,11 @@ export const load: PageLoad = async ({ fetch, params }) => {
 					{
 						kurs: {
 							Title: courseTitle
-						},
-						parent: {
-							_null: true
 						}
 					}
 				]
 			},
-			fields: ['*', 'kurs.*'] // Specify the fields you want to retrieve
+			fields: ['*', 'kurs.*', 'parent.title'] // Specify the fields you want to retrieve
 		})
 	);
 

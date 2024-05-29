@@ -1,37 +1,21 @@
 <script lang="ts">
-	import { progressStore } from '$lib/stores/progressStore';
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
+	import ChapterCard from './ChapterCard.svelte';
 
 	export let data;
-
-	let lastVisitedChapter = '';
-
-	// Using a reactive statement to watch changes in data.courseId
-	$: {
-		if (data.chapters.length > 0) {
-			const progress = progressStore.getProgress(data.chapters[0].kurs.id);
-			lastVisitedChapter = progress ? progress.lastVisitedChapter : '';
-		}
-	}
 </script>
 
-<h1 class="text-center text-2xl font-bold">Chapters</h1>
-<div class="flex flex-col gap-4 p-4">
-	{#each data.chapters as chapter}
-		<Card.Root class={chapter.id === lastVisitedChapter ? 'border-2 border-blue-500' : ''}>
-			<Card.Header>
-				<Card.Title>{chapter.title}</Card.Title>
-				<Card.Description>{chapter.Description}</Card.Description>
-			</Card.Header>
-			<Card.Footer>
-				<Button
-					href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
-					class={chapter.Title === lastVisitedChapter ? 'font-bold' : ''}
-				>
-					{lastVisitedChapter === chapter.Title ? 'Resume' : 'Start'}
-				</Button>
-			</Card.Footer>
-		</Card.Root>
-	{/each}
+<div class="mx-auto mt-16 max-w-screen-2xl space-y-8 p-4 2xl:p-0">
+	<h1 class="text-2xl font-medium">Course Schedule</h1>
+	<div class="flex flex-col gap-8">
+		{#each data.chapters as chapter}
+			{#if chapter.parent === null}
+				<ChapterCard
+					{chapter}
+					subchapters={data.chapters.filter(
+						(subchapter) => subchapter.parent?.title === chapter.title
+					)}
+				/>
+			{/if}
+		{/each}
+	</div>
 </div>

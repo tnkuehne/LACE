@@ -14,9 +14,9 @@ export const load: PageLoad = async ({ fetch, params }) => {
 				'*',
 				'content.collection',
 				'content.item.bild',
-				'content.item.answers.text',
-				'content.item.answers.correct',
+				'content.item.answers',
 				'content.item.question',
+				'content.item.type',
 				'kurs.*',
 				'content.item.answers.sort',
 				'parent.title'

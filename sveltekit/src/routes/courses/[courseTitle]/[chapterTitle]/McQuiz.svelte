@@ -4,7 +4,7 @@
 	import { Badge } from '$lib/components/ui/badge';
 
 	export let question: string;
-	export let answers: { text: string; correct: boolean; sort: null }[];
+	export let answers: { text: string; correct: boolean }[];
 
 	let selectedAnswers: number[] = []; // Explicitly define the type as number[]
 	let incorrectAnswers: number[] = []; // Array to store incorrect answers

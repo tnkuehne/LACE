@@ -2,7 +2,10 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
+	import { createItem } from '@directus/sdk';
+	import getDirectusInstance from '$lib/directus';
 
+	export let id: string;
 	export let question: string;
 	export let answers: { text: string; correct: boolean }[];
 
@@ -23,18 +26,38 @@
 		incorrectAnswers = []; // Clear incorrect answers when a new answer is selected
 	}
 
+	async function logAnswer() {
+		await getDirectusInstance().request(
+			createItem('quiz_data', {
+				quiz: id,
+				correct: isCorrect,
+				wrong: incorrectAnswers.map((index) => ({ text: answers[index].text }))
+			})
+		);
+	}
+
 	function submitAnswer() {
-		// Sort the arrays before comparing, as order doesn't matter
-		isCorrect =
-			JSON.stringify(selectedAnswers.sort()) ===
-			JSON.stringify(answers.filter((answer) => answer.correct).map((_, index) => index));
+		// If no answers are selected, do nothing
+		if (selectedAnswers.length === 0) {
+			return;
+		}
+
+		// Get the correct answers
+		const correctAnswers = answers.filter((answer) => answer.correct);
+
+		// Check if the selected answers are correct
+		isCorrect = selectedAnswers.every((index) => correctAnswers.includes(answers[index]));
 
 		// If the answer is incorrect, find the incorrect answers
 		if (!isCorrect) {
-			incorrectAnswers = selectedAnswers.filter((answer) => !answers[answer].correct);
+			incorrectAnswers = selectedAnswers.filter(
+				(index) => !correctAnswers.includes(answers[index])
+			);
 		} else {
 			incorrectAnswers = [];
 		}
+
+		logAnswer();
 	}
 </script>
 

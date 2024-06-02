@@ -73,11 +73,19 @@
 						</Carousel.Item>
 					{:else if content.item.type === 'mc'}
 						<Carousel.Item class="flex items-center justify-center">
-							<McQuiz question={content.item.question} answers={content.item.answers} />
+							<McQuiz
+								id={content.item.id}
+								question={content.item.question}
+								answers={content.item.answers}
+							/>
 						</Carousel.Item>
 					{:else if content.item.type === 'order'}
 						<Carousel.Item class="flex items-center justify-center">
-							<OrderQuiz question={content.item.question} answers={content.item.answers} />
+							<OrderQuiz
+								id={content.item.id}
+								question={content.item.question}
+								answers={content.item.answers}
+							/>
 						</Carousel.Item>
 					{/if}
 				{/each}

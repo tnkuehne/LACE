@@ -42,6 +42,7 @@
 		"prettier-plugin-tailwindcss": "^0.5.9",
 		"svelte": "^4.2.7",
 		"svelte-check": "^3.6.0",
+		"svelte-legos": "^0.2.3",
 		"svelte-sonner": "^0.3.24",
 		"sveltekit-superforms": "^2.14.0",
 		"tailwind-merge": "^2.2.2",
@@ -49,10 +50,10 @@
 		"tailwindcss": "^3.3.6",
 		"tslib": "^2.4.1",
 		"typescript": "^5.0.0",
+		"vaul-svelte": "^0.3.1",
 		"vite": "^5.2.11",
 		"vitest": "^1.2.0",
-		"zod": "^3.23.8",
-		"vaul-svelte": "^0.3.1"
+		"zod": "^3.23.8"
 	},
 	"type": "module",
 	"lint-staged": {

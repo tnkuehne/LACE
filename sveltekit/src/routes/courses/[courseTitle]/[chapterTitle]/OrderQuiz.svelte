@@ -5,7 +5,9 @@
 	import SortableList from '$lib/components/ui/sortableList/SortableList.svelte';
 
 	export let question: string;
-	export let answers: { sort: number; text: string }[];
+	export let answers: { text: string }[];
+
+	answers = answers.map((answer, index) => ({ ...answer, sort: index }));
 
 	// Shuffle the answers array
 	answers = answers.sort(() => Math.random() - 0.5);

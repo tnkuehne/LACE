@@ -33,6 +33,7 @@ services:
       DB_PASSWORD: "directus"
       ADMIN_EMAIL: "admin@example.com"
       ADMIN_PASSWORD: "d1r3ctu5"
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://localhost:5173/"
     networks:
       - custom-app-network
 
@@ -50,6 +51,8 @@ services:
       PUBLIC_APIURL: "http://localhost:5173/api"
       PUBLIC_URL: "http://localhost:5173"
       PRIVATE_APIURL: "http://directus:8055"
+      PREVIEW_COOKIE_NAME: "__preview_mode"
+      PREVIEW_SECRET: "53lt3k1t"
     command: npm run dev -- --host
 
 networks:

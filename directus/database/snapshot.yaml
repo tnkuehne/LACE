@@ -107,13 +107,15 @@ collections:
       icon: web
       item_duplication_fields: null
       note: null
-      preview_url: null
+      preview_url: >-
+        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses/Incentives
+        for the Adoption of PETs for Managers&version={{$version}}
       singleton: true
       sort: 3
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: course_page
   - collection: courses_page
@@ -131,13 +133,14 @@ collections:
       icon: web
       item_duplication_fields: null
       note: null
-      preview_url: null
+      preview_url: >-
+        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses&version={{$version}}
       singleton: true
       sort: 2
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: courses_page
   - collection: directus_sync_id_map
@@ -209,7 +212,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 4
+      sort: 2
       sort_field: sort
       translations: null
       unarchive_value: draft
@@ -233,7 +236,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 5
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -255,13 +258,14 @@ collections:
       icon: web
       item_duplication_fields: null
       note: null
-      preview_url: null
+      preview_url: >-
+        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/&version={{$version}}
       singleton: true
       sort: 1
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: landing
   - collection: learning_page
@@ -279,13 +283,16 @@ collections:
       icon: web
       item_duplication_fields: null
       note: null
-      preview_url: null
+      preview_url: >-
+        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses/Incentives
+        for the Adoption of PETs for Managers/Definitions &
+        Characteristics&version={{$version}}
       singleton: true
       sort: 4
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: learning_page
   - collection: mcQuiz
@@ -305,7 +312,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 6
+      sort: 5
       sort_field: sort
       translations:
         - language: en-US
@@ -383,7 +390,7 @@ collections:
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: survey
 fields:

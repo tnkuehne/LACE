@@ -3,7 +3,8 @@ import getDirectusInstance from '$lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 import { error } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ fetch, params }) => {
+export const load: PageLoad = async ({ fetch, params, url, locals }) => {
+	const version = locals.previewMode ? url.searchParams.get('version') : null;
 	const { chapterTitle } = params;
 	const directus = getDirectusInstance(fetch);
 
@@ -32,6 +33,6 @@ export const load: PageLoad = async ({ fetch, params }) => {
 	return {
 		chapter,
 		chapterTitle,
-		settings: await directus.request(readSingleton('learning_page'))
+		settings: await directus.request(readSingleton('learning_page', { version }))
 	};
 };

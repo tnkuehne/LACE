@@ -15,11 +15,15 @@ ENV PUBLIC_URL=$PUBLIC_URL
 ARG PRIVATE_APIURL
 ENV PRIVATE_APIURL=$PRIVATE_APIURL
 
-RUN npm ci --omit=dev --ignore-scripts
+RUN npm ci --include dev --ignore-scripts
+
+RUN npm cache clean --force
 
 COPY . .
 
 RUN npm run build
+
+RUN npm prune --production
 
 CMD ["node", "build"]
 

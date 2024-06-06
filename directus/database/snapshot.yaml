@@ -92,30 +92,6 @@ collections:
       translations: null
       unarchive_value: null
       versioning: false
-  - collection: answers
-    meta:
-      accountability: all
-      archive_app_filter: true
-      archive_field: status
-      archive_value: archived
-      collapse: open
-      collection: answers
-      color: null
-      display_template: null
-      group: Content
-      hidden: true
-      icon: null
-      item_duplication_fields: null
-      note: null
-      preview_url: null
-      singleton: false
-      sort: 2
-      sort_field: sort
-      translations: null
-      unarchive_value: draft
-      versioning: false
-    schema:
-      name: answers
   - collection: course_page
     meta:
       accountability: all
@@ -131,13 +107,15 @@ collections:
       icon: web
       item_duplication_fields: null
       note: null
-      preview_url: null
+      preview_url: >-
+        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses/Incentives
+        for the Adoption of PETs for Managers&version={{$version}}
       singleton: true
       sort: 3
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: course_page
   - collection: courses_page
@@ -155,13 +133,14 @@ collections:
       icon: web
       item_duplication_fields: null
       note: null
-      preview_url: null
+      preview_url: >-
+        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses&version={{$version}}
       singleton: true
       sort: 2
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: courses_page
   - collection: directus_sync_id_map
@@ -233,7 +212,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 4
+      sort: 2
       sort_field: sort
       translations: null
       unarchive_value: draft
@@ -257,7 +236,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 5
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -279,13 +258,14 @@ collections:
       icon: web
       item_duplication_fields: null
       note: null
-      preview_url: null
+      preview_url: >-
+        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/&version={{$version}}
       singleton: true
       sort: 1
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: landing
   - collection: learning_page
@@ -303,13 +283,16 @@ collections:
       icon: web
       item_duplication_fields: null
       note: null
-      preview_url: null
+      preview_url: >-
+        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses/Incentives
+        for the Adoption of PETs for Managers/Definitions &
+        Characteristics&version={{$version}}
       singleton: true
       sort: 4
       sort_field: null
       translations: null
       unarchive_value: draft
-      versioning: false
+      versioning: true
     schema:
       name: learning_page
   - collection: mcQuiz
@@ -329,61 +312,15 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 6
+      sort: 5
       sort_field: sort
-      translations: null
+      translations:
+        - language: en-US
+          translation: Quiz
       unarchive_value: draft
       versioning: false
     schema:
       name: mcQuiz
-  - collection: orderAnswers
-    meta:
-      accountability: all
-      archive_app_filter: true
-      archive_field: status
-      archive_value: archived
-      collapse: open
-      collection: orderAnswers
-      color: null
-      display_template: null
-      group: Content
-      hidden: true
-      icon: null
-      item_duplication_fields: null
-      note: null
-      preview_url: null
-      singleton: false
-      sort: 7
-      sort_field: sort
-      translations: null
-      unarchive_value: draft
-      versioning: false
-    schema:
-      name: orderAnswers
-  - collection: orderQuiz
-    meta:
-      accountability: all
-      archive_app_filter: true
-      archive_field: status
-      archive_value: archived
-      collapse: open
-      collection: orderQuiz
-      color: null
-      display_template: '{{question}}'
-      group: Content
-      hidden: true
-      icon: null
-      item_duplication_fields: null
-      note: null
-      preview_url: null
-      singleton: false
-      sort: 8
-      sort_field: sort
-      translations: null
-      unarchive_value: draft
-      versioning: false
-    schema:
-      name: orderQuiz
   - collection: page_views
     meta:
       accountability: all
@@ -432,30 +369,30 @@ collections:
       versioning: false
     schema:
       name: quiz_data
-  - collection: quiz_data_answers
+  - collection: survey
     meta:
       accountability: all
       archive_app_filter: true
-      archive_field: null
-      archive_value: null
+      archive_field: status
+      archive_value: archived
       collapse: open
-      collection: quiz_data_answers
+      collection: survey
       color: null
       display_template: null
-      group: Data
-      hidden: true
-      icon: import_export
+      group: Pages
+      hidden: false
+      icon: web
       item_duplication_fields: null
       note: null
       preview_url: null
-      singleton: false
-      sort: 4
+      singleton: true
+      sort: 5
       sort_field: null
       translations: null
-      unarchive_value: null
-      versioning: false
+      unarchive_value: draft
+      versioning: true
     schema:
-      name: quiz_data_answers
+      name: survey
 fields:
   - collection: Courses
     field: Description
@@ -764,465 +701,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: answers
-    field: correct
-    type: boolean
-    meta:
-      collection: answers
-      conditions: null
-      display: null
-      display_options: null
-      field: correct
-      group: null
-      hidden: false
-      interface: boolean
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 9
-      special:
-        - cast-boolean
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: correct
-      table: answers
-      data_type: boolean
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: date_created
-    type: timestamp
-    meta:
-      collection: answers
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 5
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: answers
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: answers
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 7
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: answers
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: fk2
-    type: uuid
-    meta:
-      collection: answers
-      conditions: null
-      display: null
-      display_options: null
-      field: fk2
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 11
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: fk2
-      table: answers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: mcQuiz
-      foreign_key_column: id
-  - collection: answers
-    field: fk_mcquiz
-    type: uuid
-    meta:
-      collection: answers
-      conditions: null
-      display: null
-      display_options: null
-      field: fk_mcquiz
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 10
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: fk_mcquiz
-      table: answers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: mcQuiz
-      foreign_key_column: id
-  - collection: answers
-    field: id
-    type: uuid
-    meta:
-      collection: answers
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: answers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: sort
-    type: integer
-    meta:
-      collection: answers
-      conditions: null
-      display: null
-      display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: answers
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: status
-    type: string
-    meta:
-      collection: answers
-      conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-            foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-            foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-            foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
-        showAsDot: true
-      field: status
-      group: null
-      hidden: false
-      interface: select-dropdown
-      note: null
-      options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: status
-      table: answers
-      data_type: character varying
-      default_value: draft
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: text
-    type: string
-    meta:
-      collection: answers
-      conditions: null
-      display: null
-      display_options: null
-      field: text
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: text
-      table: answers
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: answers
-    field: user_created
-    type: uuid
-    meta:
-      collection: answers
-      conditions: null
-      display: user
-      display_options: null
-      field: user_created
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - user-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_created
-      table: answers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: answers
-    field: user_updated
-    type: uuid
-    meta:
-      collection: answers
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 6
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: answers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
   - collection: course_page
     field: date_updated
     type: timestamp
@@ -4052,29 +3530,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: mcQuiz
-    field: answers
-    type: alias
-    meta:
-      collection: mcQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: answers
-      group: null
-      hidden: false
-      interface: list-o2m
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 9
-      special:
-        - o2m
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-  - collection: mcQuiz
     field: date_created
     type: timestamp
     meta:
@@ -4211,7 +3666,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 8
+      sort: 9
       special: null
       translations: null
       validation: null
@@ -4416,196 +3871,58 @@ fields:
       has_auto_increment: false
       foreign_key_table: directus_users
       foreign_key_column: id
-  - collection: orderAnswers
-    field: date_created
-    type: timestamp
+  - collection: mcQuiz
+    field: answers
+    type: json
     meta:
-      collection: orderAnswers
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 5
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: orderAnswers
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderAnswers
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 7
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: orderAnswers
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderAnswers
-    field: fk_orderQuiz
-    type: uuid
-    meta:
-      collection: orderAnswers
+      collection: mcQuiz
       conditions: null
       display: null
       display_options: null
-      field: fk_orderQuiz
+      field: answers
       group: null
       hidden: false
-      interface: input
+      interface: list
       note: null
-      options: null
+      options:
+        addLabel: Add answer
+        fields:
+          - field: text
+            name: text
+            type: string
+            meta:
+              field: text
+              width: half
+              type: string
+              required: true
+              interface: input
+          - field: correct
+            name: correct
+            type: boolean
+            meta:
+              field: correct
+              width: half
+              type: boolean
+              required: false
+              interface: boolean
+              note: In case of ordering quiz, the value will be ignored
       readonly: false
-      required: false
-      sort: 9
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: fk_orderQuiz
-      table: orderAnswers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: orderQuiz
-      foreign_key_column: id
-  - collection: orderAnswers
-    field: id
-    type: uuid
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: orderAnswers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderAnswers
-    field: sor
-    type: integer
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: null
-      display_options: null
-      field: sor
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
+      required: true
       sort: 10
-      special: null
+      special:
+        - cast-json
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: sor
-      table: orderAnswers
-      data_type: integer
+      name: answers
+      table: mcQuiz
+      data_type: json
       default_value: null
       max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
+      numeric_precision: null
+      numeric_scale: null
       is_nullable: true
       is_unique: false
       is_primary_key: false
@@ -4614,123 +3931,25 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: orderAnswers
-    field: sort
-    type: integer
+  - collection: mcQuiz
+    field: type
+    type: string
     meta:
-      collection: orderAnswers
+      collection: mcQuiz
       conditions: null
       display: null
       display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: orderAnswers
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderAnswers
-    field: status
-    type: string
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-            foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-            foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-            foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
-        showAsDot: true
-      field: status
+      field: type
       group: null
       hidden: false
-      interface: select-dropdown
+      interface: select-radio
       note: null
       options:
         choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: status
-      table: orderAnswers
-      data_type: character varying
-      default_value: draft
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderAnswers
-    field: text
-    type: string
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: null
-      display_options: null
-      field: text
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
+          - text: Multiple Choice
+            value: mc
+          - text: Order
+            value: order
       readonly: false
       required: true
       sort: 8
@@ -4740,8 +3959,8 @@ fields:
       validation_message: null
       width: full
     schema:
-      name: text
-      table: orderAnswers
+      name: type
+      table: mcQuiz
       data_type: character varying
       default_value: null
       max_length: 255
@@ -4755,452 +3974,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: orderAnswers
-    field: user_created
-    type: uuid
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: user
-      display_options: null
-      field: user_created
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - user-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_created
-      table: orderAnswers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: orderAnswers
-    field: user_updated
-    type: uuid
-    meta:
-      collection: orderAnswers
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 6
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: orderAnswers
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: orderQuiz
-    field: answers
-    type: alias
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: answers
-      group: null
-      hidden: false
-      interface: list-o2m
-      note: null
-      options:
-        template: '{{text}}'
-      readonly: false
-      required: true
-      sort: 9
-      special:
-        - o2m
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-  - collection: orderQuiz
-    field: date_created
-    type: timestamp
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 5
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: orderQuiz
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 7
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: orderQuiz
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
-    field: id
-    type: uuid
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: orderQuiz
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
-    field: question
-    type: string
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: question
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: true
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: question
-      table: orderQuiz
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
-    field: sort
-    type: integer
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: null
-      display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: orderQuiz
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
-    field: status
-    type: string
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-            foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-            foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-            foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
-        showAsDot: true
-      field: status
-      group: null
-      hidden: false
-      interface: select-dropdown
-      note: null
-      options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: status
-      table: orderQuiz
-      data_type: character varying
-      default_value: draft
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: orderQuiz
-    field: user_created
-    type: uuid
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: user
-      display_options: null
-      field: user_created
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - user-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_created
-      table: orderQuiz
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: orderQuiz
-    field: user_updated
-    type: uuid
-    meta:
-      collection: orderQuiz
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 6
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: orderQuiz
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
   - collection: page_views
     field: date_created
     type: timestamp
@@ -5556,47 +4329,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: quiz_data
-    field: date_created
-    type: timestamp
-    meta:
-      collection: quiz_data
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 2
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: quiz_data
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: quiz_data
     field: id
     type: uuid
     meta:
@@ -5636,7 +4368,47 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: quiz_data
-    field: question
+    field: date_created
+    type: timestamp
+    meta:
+      collection: quiz_data
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 2
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: quiz_data
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quiz_data
+    field: quiz
     type: uuid
     meta:
       collection: quiz_data
@@ -5644,13 +4416,12 @@ fields:
       display: related-values
       display_options:
         template: '{{question}}'
-      field: question
+      field: quiz
       group: null
       hidden: false
       interface: select-dropdown-m2o
       note: null
-      options:
-        template: '{{question}}'
+      options: null
       readonly: false
       required: true
       sort: 3
@@ -5661,7 +4432,7 @@ fields:
       validation_message: null
       width: full
     schema:
-      name: question
+      name: quiz
       table: quiz_data
       data_type: uuid
       default_value: null
@@ -5677,58 +4448,32 @@ fields:
       foreign_key_table: mcQuiz
       foreign_key_column: id
   - collection: quiz_data
-    field: selected
-    type: alias
+    field: correct
+    type: boolean
     meta:
       collection: quiz_data
       conditions: null
-      display: related-values
-      display_options:
-        template: '{{answers_id.text}}'
-      field: selected
+      display: null
+      display_options: null
+      field: correct
       group: null
       hidden: false
-      interface: list-m2m
+      interface: boolean
       note: null
-      options:
-        fields:
-          - answers_id.text
-        template: '{{answers_id.text}}'
+      options: null
       readonly: false
       required: true
       sort: 4
       special:
-        - m2m
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-  - collection: quiz_data_answers
-    field: answers_id
-    type: uuid
-    meta:
-      collection: quiz_data_answers
-      conditions: null
-      display: null
-      display_options: null
-      field: answers_id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
+        - cast-boolean
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: answers_id
-      table: quiz_data_answers
-      data_type: uuid
+      name: correct
+      table: quiz_data
+      data_type: boolean
       default_value: null
       max_length: null
       numeric_precision: null
@@ -5739,60 +4484,137 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: answers
-      foreign_key_column: id
-  - collection: quiz_data_answers
-    field: id
-    type: integer
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: quiz_data
+    field: wrong
+    type: json
     meta:
-      collection: quiz_data_answers
+      collection: quiz_data
+      conditions: null
+      display: null
+      display_options: null
+      field: wrong
+      group: null
+      hidden: false
+      interface: list
+      note: null
+      options:
+        fields:
+          - field: text
+            name: text
+            type: string
+            meta:
+              field: text
+              width: full
+              type: string
+              required: false
+              interface: input
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: wrong
+      table: quiz_data
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: survey
+    field: id
+    type: uuid
+    meta:
+      collection: survey
       conditions: null
       display: null
       display_options: null
       field: id
       group: null
       hidden: true
-      interface: null
+      interface: input
       note: null
       options: null
-      readonly: false
+      readonly: true
       required: false
       sort: 1
-      special: null
+      special:
+        - uuid
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
       name: id
-      table: quiz_data_answers
-      data_type: integer
-      default_value: nextval('quiz_data_answers_id_seq'::regclass)
+      table: survey
+      data_type: uuid
+      default_value: null
       max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
+      numeric_precision: null
+      numeric_scale: null
       is_nullable: false
       is_unique: true
       is_primary_key: true
       is_generated: false
       generation_expression: null
-      has_auto_increment: true
+      has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: quiz_data_answers
-    field: quiz_data_id
-    type: uuid
+  - collection: survey
+    field: status
+    type: string
     meta:
-      collection: quiz_data_answers
+      collection: survey
       conditions: null
-      display: null
-      display_options: null
-      field: quiz_data_id
+      display: labels
+      display_options:
+        choices:
+          - text: $t:published
+            value: published
+            color: var(--theme--primary)
+            foreground: var(--theme--primary)
+            background: var(--theme--primary-background)
+          - text: $t:draft
+            value: draft
+            color: var(--theme--foreground)
+            foreground: var(--theme--foreground)
+            background: var(--theme--background-normal)
+          - text: $t:archived
+            value: archived
+            color: var(--theme--warning)
+            foreground: var(--theme--warning)
+            background: var(--theme--warning-background)
+        showAsDot: true
+      field: status
       group: null
-      hidden: true
-      interface: null
+      hidden: false
+      interface: select-dropdown
       note: null
-      options: null
+      options:
+        choices:
+          - text: $t:published
+            value: published
+            color: var(--theme--primary)
+          - text: $t:draft
+            value: draft
+            color: var(--theme--foreground)
+          - text: $t:archived
+            value: archived
+            color: var(--theme--warning)
       readonly: false
       required: false
       sort: 2
@@ -5802,8 +4624,48 @@ fields:
       validation_message: null
       width: full
     schema:
-      name: quiz_data_id
-      table: quiz_data_answers
+      name: status
+      table: survey
+      data_type: character varying
+      default_value: draft
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: survey
+    field: user_created
+    type: uuid
+    meta:
+      collection: survey
+      conditions: null
+      display: user
+      display_options: null
+      field: user_created
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - user-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_created
+      table: survey
       data_type: uuid
       default_value: null
       max_length: null
@@ -5815,8 +4677,269 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: quiz_data
+      foreign_key_table: directus_users
       foreign_key_column: id
+  - collection: survey
+    field: date_created
+    type: timestamp
+    meta:
+      collection: survey
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 4
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: survey
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: survey
+    field: user_updated
+    type: uuid
+    meta:
+      collection: survey
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 5
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: survey
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: survey
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: survey
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 6
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: survey
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: survey
+    field: description
+    type: string
+    meta:
+      collection: survey
+      conditions: null
+      display: null
+      display_options: null
+      field: description
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: description
+      table: survey
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: survey
+    field: title
+    type: string
+    meta:
+      collection: survey
+      conditions: null
+      display: null
+      display_options: null
+      field: title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: title
+      table: survey
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: survey
+    field: questions
+    type: json
+    meta:
+      collection: survey
+      conditions: null
+      display: null
+      display_options: null
+      field: questions
+      group: null
+      hidden: false
+      interface: list
+      note: null
+      options:
+        addLabel: Add question
+        fields:
+          - field: question
+            name: question
+            type: string
+            meta:
+              field: question
+              width: full
+              type: string
+              required: true
+              interface: input
+          - field: type
+            name: type
+            type: string
+            meta:
+              field: type
+              width: half
+              type: string
+              required: true
+              interface: select-dropdown
+              options:
+                choices:
+                  - text: Likart
+                    value: likart
+                  - text: Open
+                    value: open
+      readonly: false
+      required: true
+      sort: 10
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: questions
+      table: survey
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
 relations:
   - collection: Courses
     field: Image
@@ -5839,90 +4962,6 @@ relations:
       constraint_name: courses_image_foreign
       on_update: NO ACTION
       on_delete: SET NULL
-  - collection: answers
-    field: fk2
-    related_collection: mcQuiz
-    meta:
-      junction_field: null
-      many_collection: answers
-      many_field: fk2
-      one_allowed_collections: null
-      one_collection: mcQuiz
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: answers
-      sort_field: null
-    schema:
-      table: answers
-      column: fk2
-      foreign_key_table: mcQuiz
-      foreign_key_column: id
-      constraint_name: answers_fk2_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: answers
-    field: fk_mcquiz
-    related_collection: mcQuiz
-    meta:
-      junction_field: null
-      many_collection: answers
-      many_field: fk_mcquiz
-      one_allowed_collections: null
-      one_collection: mcQuiz
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: answers
-      column: fk_mcquiz
-      foreign_key_table: mcQuiz
-      foreign_key_column: id
-      constraint_name: answers_fk_mcquiz_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: answers
-    field: user_created
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: answers
-      many_field: user_created
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: answers
-      column: user_created
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: answers_user_created_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: answers
-    field: user_updated
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: answers
-      many_field: user_updated
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: answers
-      column: user_updated
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: answers_user_updated_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
   - collection: course_page
     field: user_updated
     related_collection: directus_users
@@ -6146,7 +5185,6 @@ relations:
       one_allowed_collections:
         - folien
         - mcQuiz
-        - orderQuiz
       one_collection: null
       one_collection_field: collection
       one_deselect_action: nullify
@@ -6257,118 +5295,13 @@ relations:
       constraint_name: mcquiz_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
-  - collection: orderAnswers
-    field: fk_orderQuiz
-    related_collection: orderQuiz
-    meta:
-      junction_field: null
-      many_collection: orderAnswers
-      many_field: fk_orderQuiz
-      one_allowed_collections: null
-      one_collection: orderQuiz
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: answers
-      sort_field: sort
-    schema:
-      table: orderAnswers
-      column: fk_orderQuiz
-      foreign_key_table: orderQuiz
-      foreign_key_column: id
-      constraint_name: orderanswers_fk_orderquiz_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: orderAnswers
-    field: user_created
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: orderAnswers
-      many_field: user_created
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: orderAnswers
-      column: user_created
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: orderanswers_user_created_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: orderAnswers
-    field: user_updated
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: orderAnswers
-      many_field: user_updated
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: orderAnswers
-      column: user_updated
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: orderanswers_user_updated_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: orderQuiz
-    field: user_created
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: orderQuiz
-      many_field: user_created
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: orderQuiz
-      column: user_created
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: orderquiz_user_created_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: orderQuiz
-    field: user_updated
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: orderQuiz
-      many_field: user_updated
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: orderQuiz
-      column: user_updated
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: orderquiz_user_updated_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
   - collection: quiz_data
-    field: question
+    field: quiz
     related_collection: mcQuiz
     meta:
       junction_field: null
       many_collection: quiz_data
-      many_field: question
+      many_field: quiz
       one_allowed_collections: null
       one_collection: mcQuiz
       one_collection_field: null
@@ -6377,51 +5310,51 @@ relations:
       sort_field: null
     schema:
       table: quiz_data
-      column: question
+      column: quiz
       foreign_key_table: mcQuiz
       foreign_key_column: id
-      constraint_name: quiz_data_question_foreign
+      constraint_name: quiz_data_quiz_foreign
       on_update: NO ACTION
       on_delete: SET NULL
-  - collection: quiz_data_answers
-    field: answers_id
-    related_collection: answers
+  - collection: survey
+    field: user_created
+    related_collection: directus_users
     meta:
-      junction_field: quiz_data_id
-      many_collection: quiz_data_answers
-      many_field: answers_id
+      junction_field: null
+      many_collection: survey
+      many_field: user_created
       one_allowed_collections: null
-      one_collection: answers
+      one_collection: directus_users
       one_collection_field: null
       one_deselect_action: nullify
       one_field: null
       sort_field: null
     schema:
-      table: quiz_data_answers
-      column: answers_id
-      foreign_key_table: answers
+      table: survey
+      column: user_created
+      foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: quiz_data_answers_answers_id_foreign
+      constraint_name: survey_user_created_foreign
       on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: quiz_data_answers
-    field: quiz_data_id
-    related_collection: quiz_data
+      on_delete: NO ACTION
+  - collection: survey
+    field: user_updated
+    related_collection: directus_users
     meta:
-      junction_field: answers_id
-      many_collection: quiz_data_answers
-      many_field: quiz_data_id
+      junction_field: null
+      many_collection: survey
+      many_field: user_updated
       one_allowed_collections: null
-      one_collection: quiz_data
+      one_collection: directus_users
       one_collection_field: null
       one_deselect_action: nullify
-      one_field: selected
+      one_field: null
       sort_field: null
     schema:
-      table: quiz_data_answers
-      column: quiz_data_id
-      foreign_key_table: quiz_data
+      table: survey
+      column: user_updated
+      foreign_key_table: directus_users
       foreign_key_column: id
-      constraint_name: quiz_data_answers_quiz_data_id_foreign
+      constraint_name: survey_user_updated_foreign
       on_update: NO ACTION
-      on_delete: SET NULL
+      on_delete: NO ACTION

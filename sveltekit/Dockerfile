@@ -1,13 +1,30 @@
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+ARG PREVIEW_COOKIE_NAME
+ENV PREVIEW_COOKIE_NAME=$PREVIEW_COOKIE_NAME
+ARG PREVIEW_SECRET
+ENV PREVIEW_SECRET=$PREVIEW_SECRET
+ARG PUBLIC_APIURL
+ENV PUBLIC_APIURL=$PUBLIC_APIURL
+ARG PUBLIC_URL
+ENV PUBLIC_URL=$PUBLIC_URL
+ARG PRIVATE_APIURL
+ENV PRIVATE_APIURL=$PRIVATE_APIURL
+
+RUN npm ci --include dev --ignore-scripts
+
+RUN npm cache clean --force
 
 COPY . .
 
-EXPOSE 5173
+RUN npm run build
 
-CMD ["npm", "run", "dev", "--", "--host"]
+RUN npm prune --production
+
+CMD ["node", "build"]
+
+EXPOSE 3000

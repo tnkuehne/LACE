@@ -14,7 +14,7 @@ services:
       - custom-app-network
 
   directus:
-    image: directus/directus:10.12.0
+    image: directus/directus:10.11.1
     ports:
       - 8055:8055
     volumes:
@@ -31,25 +31,31 @@ services:
       DB_DATABASE: "directus"
       DB_USER: "directus"
       DB_PASSWORD: "directus"
-      ADMIN_EMAIL: "timo.kuehne@tum.de"
-      ADMIN_PASSWORD: "jVBuwDL8*7uZ@czyJLPW"
-      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://127.0.0.1:3000/"
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "d1r3ctu5"
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://localhost:5173/"
     networks:
       - custom-app-network
 
   sveltekit:
-    build: ./sveltekit
+    build:
+      context: ./sveltekit
+      dockerfile: Dockerfile.dev
     networks:
       - custom-app-network
     ports:
-      - "3000:3000"
+      - "5173:5173"
+    volumes:
+      - ./sveltekit:/app
+      - /app/node_modules
     environment:
-      NODE_ENV: "production"
-      PUBLIC_APIURL: "http://127.0.0.1:3000/api"
-      PUBLIC_URL: "http://127.0.0.1:3000"
+      NODE_ENV: "development"
+      PUBLIC_APIURL: "http://localhost:5173/api"
+      PUBLIC_URL: "http://localhost:5173"
       PRIVATE_APIURL: "http://directus:8055"
       PREVIEW_COOKIE_NAME: "__preview_mode"
       PREVIEW_SECRET: "53lt3k1t"
+    command: npm run dev -- --host
 
 networks:
   custom-app-network:

@@ -3,14 +3,29 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import SortableList from '$lib/components/ui/sortableList/SortableList.svelte';
+	import { createItem } from '@directus/sdk';
+	import getDirectusInstance from '$lib/directus';
 
+	export let id: string;
 	export let question: string;
-	export let answers: { sort: number; text: string }[];
+	export let answers: { text: string }[];
+
+	answers = answers.map((answer, index) => ({ ...answer, sort: index }));
 
 	// Shuffle the answers array
 	answers = answers.sort(() => Math.random() - 0.5);
 
 	let isCorrect: boolean | null = null;
+
+	async function logAnswer() {
+		await getDirectusInstance().request(
+			createItem('quiz_data', {
+				quiz: id,
+				correct: isCorrect,
+				wrong: isCorrect ? [] : answers
+			})
+		);
+	}
 
 	function handleSort(e: CustomEvent<{ sort: number; text: string }[]>) {
 		answers = e.detail;
@@ -19,13 +34,14 @@
 
 	function checkOrder() {
 		const sortedAnswers = [...answers].sort((a, b) => a.sort - b.sort);
-		isCorrect = JSON.stringify(answers) === JSON.stringify(sortedAnswers);
+		isCorrect = answers.every((answer, index) => answer.sort === sortedAnswers[index].sort);
 		if (!isCorrect) {
 			// Reset isCorrect after 3 seconds if the order is incorrect
 			setTimeout(() => {
 				isCorrect = null;
 			}, 3000);
 		}
+		logAnswer();
 	}
 </script>
 

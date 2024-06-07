@@ -7,17 +7,15 @@
 	export let questions;
 	export let submit_button: string;
 	export let course: string | null;
-
-	console.log(questions);
 </script>
 
-<form class="grid items-start gap-4">
+<form class="grid items-start gap-4" action="/courses/{course}/survey" method="POST">
 	{#each questions as question}
 		{#if question.course === course || question.course == null}
 			<div class="grid gap-2">
 				<Label>{question.question}</Label>
 				{#if question.type === 'open'}
-					<Textarea />
+					<Textarea name={question.question} />
 				{/if}
 				{#if question.type === 'likart'}
 					<RadioGroup.Root value="option-one" class="flex flex-col">

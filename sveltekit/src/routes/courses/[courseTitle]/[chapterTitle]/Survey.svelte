@@ -2,9 +2,15 @@
 	import { mediaQuery } from 'svelte-legos';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as Drawer from '$lib/components/ui/drawer/index.js';
-	import { Input } from '$lib/components/ui/input/index.js';
-	import { Label } from '$lib/components/ui/label/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import SurveyForm from './SurveyForm.svelte';
+
+	export let trigger_button: string;
+	export let title: string;
+	export let description: string;
+	export let submit_button: string;
+	export let questions;
+	export let course: string | null;
 
 	let open = false;
 	const isDesktop = mediaQuery('(min-width: 768px)');
@@ -13,51 +19,33 @@
 {#if $isDesktop}
 	<Dialog.Root bind:open>
 		<Dialog.Trigger asChild let:builder>
-			<Button variant="outline" builders={[builder]}>Edit Profile</Button>
+			<Button variant="outline" builders={[builder]}>{trigger_button}</Button>
 		</Dialog.Trigger>
 		<Dialog.Content class="sm:max-w-[425px]">
 			<Dialog.Header>
-				<Dialog.Title>Edit profile</Dialog.Title>
+				<Dialog.Title>{title}</Dialog.Title>
 				<Dialog.Description>
-					Make changes to your profile here. Click save when you're done.
+					{description}
 				</Dialog.Description>
 			</Dialog.Header>
-			<form class="grid items-start gap-4">
-				<div class="grid gap-2">
-					<Label for="email">Email</Label>
-					<Input type="email" id="email" value="shadcn@example.com" />
-				</div>
-				<div class="grid gap-2">
-					<Label for="username">Username</Label>
-					<Input id="username" value="@shadcn" />
-				</div>
-				<Button type="submit">Save changes</Button>
-			</form>
+			<SurveyForm {questions} {submit_button} {course} />
 		</Dialog.Content>
 	</Dialog.Root>
 {:else}
 	<Drawer.Root bind:open>
 		<Drawer.Trigger asChild let:builder>
-			<Button variant="outline" builders={[builder]}>Edit Profile</Button>
+			<Button variant="outline" builders={[builder]}>{trigger_button}</Button>
 		</Drawer.Trigger>
 		<Drawer.Content>
 			<Drawer.Header class="text-left">
-				<Drawer.Title>Edit profile</Drawer.Title>
+				<Drawer.Title>{title}</Drawer.Title>
 				<Drawer.Description>
-					Make changes to your profile here. Click save when you're done.
+					{description}
 				</Drawer.Description>
 			</Drawer.Header>
-			<form class="grid items-start gap-4 px-4">
-				<div class="grid gap-2">
-					<Label for="email">Email</Label>
-					<Input type="email" id="email" value="shadcn@example.com" />
-				</div>
-				<div class="grid gap-2">
-					<Label for="username">Username</Label>
-					<Input id="username" value="@shadcn" />
-				</div>
-				<Button type="submit">Save changes</Button>
-			</form>
+			<div class="px-4">
+				<SurveyForm {questions} {submit_button} {course} />
+			</div>
 			<Drawer.Footer class="pt-2">
 				<Drawer.Close asChild let:builder>
 					<Button variant="outline" builders={[builder]}>Cancel</Button>

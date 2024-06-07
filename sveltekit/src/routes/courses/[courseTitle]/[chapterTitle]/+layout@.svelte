@@ -67,7 +67,14 @@
 			/>
 		</div>
 
-		<Survey />
+		<Survey
+			trigger_button={data.survey.trigger_button}
+			title={data.survey.title}
+			description={data.survey.description}
+			questions={data.survey.questions}
+			submit_button={data.survey.submit_button}
+			course={data.chapters[0].kurs.Title}
+		/>
 
 		<Accordion.Root>
 			{#each data.chapters as chapter, index}

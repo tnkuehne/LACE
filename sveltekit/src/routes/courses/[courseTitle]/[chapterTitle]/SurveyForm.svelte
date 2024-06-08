@@ -2,35 +2,40 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Label } from '$lib/components/ui/label';
 	import { Textarea } from '$lib/components/ui/textarea';
-	import * as RadioGroup from '$lib/components/ui/radio-group';
+	import { enhance } from '$app/forms';
 
 	export let questions;
 	export let submit_button: string;
 	export let course: string | null;
+
+	const likertScale = ['Strongly agree', 'Agree', 'Neutral', 'Disagree', 'Strongly disagree'];
 </script>
 
-<form class="grid items-start gap-4" action="/courses/{course}/survey" method="POST">
+<form class="grid items-start gap-4" action="/courses/{course}/survey" method="POST" use:enhance>
 	{#each questions as question}
 		{#if question.course === course || question.course == null}
-			<div class="grid gap-2">
+			<div>
 				<Label>{question.question}</Label>
 				{#if question.type === 'open'}
-					<Textarea name={question.question} />
+					<Textarea name={question.question} required={question.required} />
 				{/if}
-				{#if question.type === 'likart'}
-					<RadioGroup.Root value="option-one" class="flex flex-col">
+				{#if question.type === 'likert'}
+					<div class="flex flex-col pt-2">
 						<div class="flex flex-row justify-between">
-							<Label for="option-one">Strongly agree</Label>
-							<Label for="option-two">Strongly disagree</Label>
+							{#each likertScale as option}
+								<input
+									type="radio"
+									name={question.question}
+									value={option}
+									required={question.required}
+								/>
+							{/each}
 						</div>
 						<div class="flex flex-row justify-between">
-							<RadioGroup.Item value="option-one" id="option-one" />
-							<RadioGroup.Item value="option-two" id="option-two" />
-							<RadioGroup.Item value="option-three" id="option-three" />
-							<RadioGroup.Item value="option-four" id="option-four" />
-							<RadioGroup.Item value="option-five" id="option-five" />
+							<span class="text-sm">Strongly agree</span>
+							<span class="text-sm">Strongly disagree</span>
 						</div>
-					</RadioGroup.Root>
+					</div>
 				{/if}
 			</div>
 		{/if}

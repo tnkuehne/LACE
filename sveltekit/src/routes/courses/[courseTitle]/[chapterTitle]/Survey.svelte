@@ -11,6 +11,7 @@
 	export let submit_button: string;
 	export let questions;
 	export let course: string | null;
+	export let courseId: string;
 
 	let open = false;
 	const isDesktop = mediaQuery('(min-width: 768px)');
@@ -28,7 +29,7 @@
 					{description}
 				</Dialog.Description>
 			</Dialog.Header>
-			<SurveyForm {questions} {submit_button} {course} />
+			<SurveyForm {questions} {submit_button} {course} {courseId} />
 		</Dialog.Content>
 	</Dialog.Root>
 {:else}
@@ -44,7 +45,7 @@
 				</Drawer.Description>
 			</Drawer.Header>
 			<div class="px-4">
-				<SurveyForm {questions} {submit_button} {course} />
+				<SurveyForm {questions} {submit_button} {course} {courseId} />
 			</div>
 			<Drawer.Footer class="pt-2">
 				<Drawer.Close asChild let:builder>

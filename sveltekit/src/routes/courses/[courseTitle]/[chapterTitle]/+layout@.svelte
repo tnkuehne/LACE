@@ -74,6 +74,7 @@
 			questions={data.survey.questions}
 			submit_button={data.survey.submit_button}
 			course={data.chapters[0].kurs.Title}
+			courseId={data.chapters[0].kurs.id}
 		/>
 
 		<Accordion.Root>

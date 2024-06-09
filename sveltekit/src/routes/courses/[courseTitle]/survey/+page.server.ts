@@ -8,7 +8,7 @@ export const load = async () => {
 };
 
 export const actions = {
-	default: async ({ request, fetch }) => {
+	default: async ({ request, fetch, url }) => {
 		const directus = getDirectusInstance(fetch);
 		const formData = await request.formData();
 		const formDataEntries = Object.fromEntries(formData);
@@ -24,6 +24,6 @@ export const actions = {
 		);
 
 		// Process the form data and perform actions
-		return redirect(303, '/certification');
+		return redirect(303, `/certification?course=${url.searchParams.get('course')}`);
 	}
 } satisfies Actions;

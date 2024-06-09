@@ -7,11 +7,17 @@
 	export let questions;
 	export let submit_button: string;
 	export let course: string | null;
+	export let courseId: string;
 
 	const likertScale = ['Strongly agree', 'Agree', 'Neutral', 'Disagree', 'Strongly disagree'];
 </script>
 
-<form class="grid items-start gap-4" action="/courses/{course}/survey" method="POST" use:enhance>
+<form
+	class="grid items-start gap-4"
+	action="/courses/{course}/survey?course={courseId}"
+	method="POST"
+	use:enhance
+>
 	{#each questions as question}
 		{#if question.course === course || question.course == null}
 			<div>

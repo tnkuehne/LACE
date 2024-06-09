@@ -21,7 +21,7 @@
 					{data.settings.details_form_description}
 				</Dialog.Description>
 			</Dialog.Header>
-			<UserDetailsForm course="Tester" />
+			<UserDetailsForm course={data.course.Title} />
 		</Dialog.Content>
 	</Dialog.Root>
 {:else}
@@ -33,7 +33,7 @@
 					{data.settings.details_form_description}
 				</Drawer.Description>
 			</Drawer.Header>
-			<UserDetailsForm course="Tester" />
+			<UserDetailsForm course={data.course.Title} />
 			<Drawer.Footer class="pt-2">
 				<Drawer.Close asChild let:builder>
 					<Button variant="outline" builders={[builder]}>Cancel</Button>

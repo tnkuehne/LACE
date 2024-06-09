@@ -1,4 +1,4 @@
-import { readSingleton, createItem } from '@directus/sdk';
+import { readSingleton, createItem, readItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/directus';
 import type { PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
@@ -9,11 +9,12 @@ import { TextEncoder } from 'util';
 import { env } from '$env/dynamic/public';
 import { v4 as uuidv4 } from 'uuid';
 
-export const load: PageServerLoad = async ({ fetch }) => {
+export const load: PageServerLoad = async ({ fetch, url }) => {
 	const directus = getDirectusInstance(fetch);
 
 	return {
-		settings: await directus.request(readSingleton('certification'))
+		settings: await directus.request(readSingleton('certification')),
+		course: await directus.request(readItem('Courses', url.searchParams.get('course')))
 	};
 };
 
@@ -24,7 +25,11 @@ export const actions = {
 		const directus = getDirectusInstance(fetch);
 		const formData = await request.formData();
 		const userName = formData.get('name');
-		const courseName = url.searchParams.get('course');
+		const courseID = url.searchParams.get('course');
+
+		const response = await directus.request(readItem('Courses', courseID));
+
+		const courseName = response.Title;
 
 		if (!userName || !courseName) {
 			return fail(400, { error: 'Missing userName or courseName' });

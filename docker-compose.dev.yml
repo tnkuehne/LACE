@@ -55,6 +55,8 @@ services:
       PRIVATE_APIURL: "http://directus:8055"
       PREVIEW_COOKIE_NAME: "__preview_mode"
       PREVIEW_SECRET: "53lt3k1t"
+      PRIVATE_KEY: "hallo"
+      PUBLIC_KEY: "hallo"
     command: npm run dev -- --host
 
 networks:

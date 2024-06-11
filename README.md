@@ -1,29 +1,120 @@
 # LACE
 
-## Overview
-
-...
 
 ## Features
 
-...
-
-## Prerequisites
-
-* Docker
-* Docker Compose
-
-## Installation
-
-...
-
-## Usage
-
-...
 
 ## Development
 
 ### Architecture
+
+#### Context
+
+```mermaid
+C4Context
+    Enterprise_Boundary(b0, "LACE Learning Platform") {
+        Person_Ext(contentCreator, "Content Creator", "Creates and uploads learning content")
+        Person_Ext(learner, "Learner", "Consumes learning content")
+
+        System(lace, "LACE Learning Platform", "Web-based learning platform for privacy-focused education")
+    }
+
+    Rel(contentCreator, lace, "Uses")
+    Rel(learner, lace, "Uses")
+
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
+
+```
+
+#### Containers
+
+```mermaid
+C4Container
+
+    Person(learner, "Learner", "Consumes learning content")
+    Person(contentCreator, "Content Creator", "Creates and uploads learning content")
+
+    Container_Boundary(lace, "LACE Learning Platform") {
+        Container(webApp, "Web Application", "SvelteKit", "Delivers the front-end of the learning platform")
+        Container(api, "API", "Directus", "Handles backend services and data management")
+        ContainerDb(database, "Database", "PostgreSQL", "Stores learning content and analytics")
+    }
+
+    Rel(contentCreator, api, "Uses")
+    Rel(learner, webApp, "Uses")
+    Rel(webApp, api, "Interacts with", "HTTP")
+    Rel(api, database, "Reads from and writes to", "SQL")
+
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
+```
+
+#### Component
+
+```mermaid
+C4Component
+    title Component diagram for LACE Learning Platform - SvelteKit Application
+
+    Container(api, "API", "Directus", "Handles backend services and data management")
+    ContainerDb(database, "Database", "PostgreSQL", "Stores learning content and analytics")
+
+    Container_Boundary(api, "Web Application") {
+
+        Component(serviceProxy, "ProxyService", "TypeScript", "Handles proxy API integration")
+        Component(serviceDirectus, "DirectusService", "TypeScript", "Handles Directus API integration")
+        Component(serviceAnalytics, "AnalyticsService", "TypeScript", "Handles analytics API integration")
+        Component(servicePreview, "PreviewService", "TypeScript", "Handles preview API integration")
+        
+        Component(pageHome, "HomePage", "Svelte", "Displays the home page with general information", $tags="page")
+        Component(courseCardHome, "CourseCardHome", "Svelte", "Component to display individual courses on the home page")
+        Component(layoutHome, "HomeLayout", "Svelte", "Layout for the home page")
+        
+        Component(layoutCourses, "CoursesLayout", "Svelte", "Layout for the course and courses page")
+        Component(pageCourses, "CoursesPage", "Svelte", "Displays all available courses", $tags="page")
+        Component(courseCard, "CourseCard", "Svelte", "Component to display individual courses")
+        
+        Component(pageCourse, "CoursePage", "Svelte", "Displays course content to learners", $tags="page")
+        Component(chapterCard, "ChapterCard", "Svelte", "Component to display individual chapters")
+
+        Component(progressStore, "ProgressStore", "Svelte Store", "Manages user progress state")
+        
+        Component(pageLearning, "LearningPage", "Svelte", "Displays learning content to learners", $tags="page")
+        Component(chapterFinal, "ChapterFinal", "Svelte", "Component to display chapter final details")
+        Component(mcQuiz, "McQuiz", "Svelte", "Multiple choice quiz component")
+        Component(orderQuiz, "OrderQuiz", "Svelte", "Ordering quiz component")
+        Component(layoutLearning, "LearningLayout", "Svelte", "Layout for the learning page")
+        
+        Component(errorBoundary, "ErrorBoundary", "Svelte", "Error boundary component")
+        
+        
+        Rel(layoutHome, pageHome, "Renders")
+        Rel(layoutCourses, pageCourses, "Renders")
+        Rel(layoutCourses, pageCourse, "Renders")
+        Rel(layoutLearning, pageLearning, "Renders")
+        
+        Rel(pageHome, courseCardHome, "Renders")
+        Rel(pageCourses, courseCard, "Renders")
+        Rel(pageCourse, chapterCard, "Renders")
+        
+        Rel(pageLearning, chapterFinal, "Renders")
+        Rel(pageLearning, mcQuiz, "Renders")
+        Rel(pageLearning, orderQuiz, "Renders")
+        
+        Rel(pageLearning, progressStore, "Uses")
+        Rel(pageCourse, progressStore, "Uses")
+        
+        Rel(serviceDirectus, serviceProxy, "Uses")
+        Rel(serviceAnalytics, serviceDirectus, "Uses")
+        Rel(servicePreview, serviceDirectus, "Uses")
+    }
+    
+    Rel_Back(api, serviceProxy, "Uses")
+    
+    Rel(api, database, "Reads from and writes to", "SQL")
+    
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+
+```
 
 #### Database
 
@@ -199,22 +290,3 @@ erDiagram
     quiz_data }o--|| mcQuiz : "quiz"
 
 ```
-
-### Technical Stack
-
-* Frontend: SvelteKit for a fast, modern web experience.
-* Backend: Directus as a headless CMS, managing course content, user profiles, and progress tracking.
-* Database: SQLite for a simple, portable database.
-* Deployment: Docker-compose for easy deployment and scalability. GitHub Actions for continuous integration and deployment workflows.
-
-### Folder Structure
-
-...
-
-### Contributing
-
-...
-
-### License
-
-...

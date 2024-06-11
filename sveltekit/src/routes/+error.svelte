@@ -2,7 +2,6 @@
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
-	import { PUBLIC_URL } from '$env/static/public';
 
 	let errorMessage = $page.error.message;
 </script>
@@ -13,8 +12,8 @@
 	></div>
 
 	<!-- Image Overlay -->
-	<img
-		src="{PUBLIC_URL}/grainy.png"
+	<enhanced:img
+		src="./grainy.png"
 		alt="Overlay"
 		class="absolute inset-0 h-full w-full object-cover mix-blend-overlay"
 	/>

@@ -1,6 +1,5 @@
 <script>
 	import CourseCard from './CourseCard.svelte';
-	import { PUBLIC_URL } from '$env/static/public';
 
 	export let data;
 </script>
@@ -28,8 +27,8 @@
 	></div>
 
 	<!-- Image Overlay -->
-	<img
-		src="{PUBLIC_URL}/grainy.png"
+	<enhanced:img
+		src="./grainy.png"
 		alt="Overlay"
 		class="absolute inset-0 h-full w-full object-cover mix-blend-overlay"
 	/>

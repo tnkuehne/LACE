@@ -38,11 +38,11 @@ services:
       - custom-app-network
 
   sveltekit:
-    build: ./sveltekit
+    image: ghcr.io/h3nkl3r/lace:main
     networks:
       - custom-app-network
     ports:
-      - "3000:3000"
+      - "80:3000"
     environment:
       NODE_ENV: "production"
       PUBLIC_APIURL: "http://127.0.0.1:3000/api"

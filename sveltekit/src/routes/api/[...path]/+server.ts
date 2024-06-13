@@ -1,21 +1,45 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
-export const GET: RequestHandler = async ({ params, url }) => {
+const proxyRequest: RequestHandler = async ({ params, request, url }) => {
 	const apiUrl = `${env.PRIVATE_APIURL}/${params.path}${url.search}`;
+	const method = request.method;
+	const headers = new Headers(request.headers);
 
-	const response = await fetch(apiUrl);
+	// Prepare the request options
+	const options: RequestInit = {
+		method,
+		headers
+	};
 
-	// Check the content type to decide how to handle the data
+	// Only set body for methods that support it
+	if (method === 'POST' || method === 'PATCH' || method === 'PUT') {
+		const body = await request.text(); // use text() to preserve the raw content type
+		options.body = body;
+	}
+
+	const response = await fetch(apiUrl, options);
+
+	// Handle the response
 	const contentType = response.headers.get('content-type') || '';
+
+	if (response.status === 204) {
+		return new Response(null, { status: 204 });
+	}
+
 	if (contentType.startsWith('application/json')) {
 		const data = await response.json();
 		return new Response(JSON.stringify(data), {
 			status: response.status,
 			headers: { 'Content-Type': 'application/json' }
 		});
+	} else if (contentType.startsWith('text/')) {
+		const text = await response.text();
+		return new Response(text, {
+			status: response.status,
+			headers: { 'Content-Type': contentType }
+		});
 	} else if (contentType.startsWith('image/') || contentType === 'application/pdf') {
-		// Forward binary data like images or PDFs
 		const blob = await response.blob();
 		return new Response(blob, {
 			status: response.status,
@@ -23,32 +47,16 @@ export const GET: RequestHandler = async ({ params, url }) => {
 		});
 	} else {
 		// Handle other content types or return a generic error/message
-		return new Response('Content type not supported', { status: 415 });
+		const text = await response.text();
+		return new Response(text, {
+			status: response.status,
+			headers: { 'Content-Type': contentType }
+		});
 	}
 };
 
-export const POST: RequestHandler = async ({ params, request }) => {
-	const apiUrl = `${env.PRIVATE_APIURL}/${params.path}`;
-	const body = await request.json();
-
-	const response = await fetch(apiUrl, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			...request.headers
-		},
-		body: JSON.stringify(body)
-	});
-
-	const responseBody = await response.text();
-
-	if (response.status === 204) {
-		return new Response(null, { status: 204 });
-	}
-
-	const data = responseBody ? JSON.parse(responseBody) : {};
-	return new Response(JSON.stringify(data), {
-		status: response.status,
-		headers: { 'Content-Type': 'application/json' }
-	});
-};
+export const GET: RequestHandler = proxyRequest;
+export const POST: RequestHandler = proxyRequest;
+export const PATCH: RequestHandler = proxyRequest;
+export const PUT: RequestHandler = proxyRequest;
+export const DELETE: RequestHandler = proxyRequest;

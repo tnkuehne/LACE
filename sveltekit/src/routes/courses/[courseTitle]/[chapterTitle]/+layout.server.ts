@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk';
+import { readItems, readSingleton } from '@directus/sdk';
 import getDirectusInstance from '$lib/directus';
 import type { PageLoad } from './$types';
 
@@ -12,6 +12,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 				fields: ['*', 'kurs.*', 'content.*.*.*', 'parent.title'],
 				filter: { kurs: { Title: courseTitle } }
 			})
-		)
+		),
+		survey: await directus.request(readSingleton('survey'))
 	};
 };

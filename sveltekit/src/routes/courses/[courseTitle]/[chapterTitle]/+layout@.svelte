@@ -9,6 +9,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { page } from '$app/stores';
 	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
+	import Survey from './Survey.svelte';
 
 	export let data;
 	let menu = false;
@@ -65,6 +66,16 @@
 				value={progressStore.getCourseProgress(data.chapters[0].kurs.id, data.chapters.length)}
 			/>
 		</div>
+
+		<Survey
+			trigger_button={data.survey.trigger_button}
+			title={data.survey.title}
+			description={data.survey.description}
+			questions={data.survey.questions}
+			submit_button={data.survey.submit_button}
+			course={data.chapters[0].kurs.Title}
+			courseId={data.chapters[0].kurs.id}
+		/>
 
 		<Accordion.Root>
 			{#each data.chapters as chapter, index}

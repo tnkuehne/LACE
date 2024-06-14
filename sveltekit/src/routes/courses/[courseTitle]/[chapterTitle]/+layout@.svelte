@@ -52,20 +52,19 @@
 			<h2 class="text-2xl font-bold">{data.chapters[0].kurs.Title}</h2>
 		</div>
 
-		<h4 class="mb-4 mt-8 text-sm font-medium text-gray-500">Your progress</h4>
-		<div class="mb-4">
-			<div class="mt-2 text-sm font-medium">
-				<span>
-					{progressStore
-						.getCourseProgress(data.chapters[0].kurs.id, data.chapters.length)
-						.toFixed(0)}% completed
-				</span>
+		{#await progressStore.getCourseProgress(data.chapters[0].kurs.id, data.chapters.length)}
+			<span></span>
+		{:then progress}
+			<h4 class="mb-4 mt-8 text-sm font-medium text-gray-500">Your progress</h4>
+			<div class="mb-4">
+				<div class="mt-2 text-sm font-medium">
+					<span>{progress.toFixed(0)}% completed</span>
+				</div>
+				<Progress class="rounded-full bg-gray-200 dark:bg-gray-800" value={progress} />
 			</div>
-			<Progress
-				class="rounded-full bg-gray-200 dark:bg-gray-800"
-				value={progressStore.getCourseProgress(data.chapters[0].kurs.id, data.chapters.length)}
-			/>
-		</div>
+		{:catch error}
+			{error}
+		{/await}
 
 		<Survey
 			trigger_button={data.survey.trigger_button}
@@ -108,8 +107,8 @@
 												class="h-4 w-4 text-blue-600"
 												checked={subchapter.title === $page.data.chapterTitle
 													? 'indeterminate'
-													: !!$progressStore[subchapter.kurs.id]?.completedChapters.includes(
-															subchapter.id
+													: !!$progressStore[subchapter.kurs.id]?.completed_chapters.some(
+															(c) => c.chapter === subchapter.id
 														)}
 												disabled
 											/>
@@ -120,7 +119,7 @@
 												<div
 													class="my-2 border-l-2 {$progressStore[
 														subchapter.kurs.id
-													]?.completedChapters.includes(subchapter.id)
+													]?.completed_chapters.some((c) => c.chapter === subchapter.id)
 														? 'border-blue-600'
 														: 'border-gray-300'} h-6"
 												></div>

@@ -5,6 +5,8 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	export let data;
+	import { progressStore } from '$lib/stores/progressStore';
+	import { browser } from '$app/environment';
 
 	async function trackPageView(path, referrer) {
 		await fetch('/api/analytics', {
@@ -14,6 +16,10 @@
 			},
 			body: JSON.stringify({ path, referrer })
 		});
+	}
+
+	if (browser) {
+		progressStore.initializeStore();
 	}
 
 	onMount(() => {

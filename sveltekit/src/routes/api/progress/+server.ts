@@ -71,7 +71,7 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 
 	// if userId is found but courseID not then syncing is enabled
 	if (!courseId) {
-		return json();
+		return json({ user: userId });
 	}
 
 	try {
@@ -96,5 +96,6 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 export const POST: RequestHandler = ({ cookies }) => {
 	// set user cookie with a unique id
 	const userId = uuidv4();
-	cookies.set('user', userId);
+	cookies.set('user', userId, { path: '/' });
+	return json({ user: userId });
 };

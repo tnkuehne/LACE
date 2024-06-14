@@ -34,7 +34,6 @@ function createProgressStore() {
 	async function initializeStore() {
 		const initialState = browser ? await loadInitialState() : {};
 		set(initialState);
-		console.log('Initial State:', initialState); // Debug: Log initial state
 	}
 
 	async function syncProgress(
@@ -72,7 +71,6 @@ function createProgressStore() {
 			}
 
 			const data = await response.json();
-			console.log('Fetched Progress:', data); // Debug: Log fetched progress
 			update((currentState) => {
 				return { ...currentState, [course]: data };
 			});
@@ -85,12 +83,14 @@ function createProgressStore() {
 
 	async function initSync() {
 		try {
-			await fetch('/api/progress', {
+			const response = await fetch('/api/progress', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				}
 			});
+			const data = await response.json();
+			return data.user;
 		} catch (error) {
 			console.error('Failed to init sync', error);
 		}
@@ -108,6 +108,23 @@ function createProgressStore() {
 
 			isSyncEnabledCached = response.status === 200;
 			return isSyncEnabledCached;
+		} catch (error) {
+			console.error('Failed to check if syncing is enabled', error);
+			return false;
+		}
+	}
+
+	async function getSyncCode() {
+		try {
+			const response = await fetch('/api/progress', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			const data = await response.json();
+			return data.user;
 		} catch (error) {
 			console.error('Failed to check if syncing is enabled', error);
 			return false;
@@ -154,8 +171,10 @@ function createProgressStore() {
 		completeChapter,
 		initializeStore,
 		getProgress,
+		getSyncCode,
+		isSyncEnabled,
 		isChapterCompleted: async (course: string, chapter: string) => {
-			const progress = await this.getProgress(course);
+			const progress = await getProgress(course);
 			if (progress) {
 				const { completed_chapters } = progress;
 				return completed_chapters.some((c) => c.chapter === chapter);
@@ -185,13 +204,14 @@ function createProgressStore() {
 		},
 		enableSyncing: async () => {
 			if (browser) {
-				await initSync();
+				const user = await initSync();
 				const progress = loadInitialState();
 				for (const course in progress) {
 					await syncProgress(course, progress[course]);
 				}
 				console.log('Syncing enabled');
 				localStorage.clear(); // Optionally clear local storage
+				return user;
 			}
 		}
 	};

@@ -10,6 +10,7 @@
 	import { page } from '$app/stores';
 	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
 	import Survey from './Survey.svelte';
+	import Sync from './Sync.svelte';
 
 	export let data;
 	let menu = false;
@@ -66,15 +67,22 @@
 			{error}
 		{/await}
 
-		<Survey
-			trigger_button={data.survey.trigger_button}
-			title={data.survey.title}
-			description={data.survey.description}
-			questions={data.survey.questions}
-			submit_button={data.survey.submit_button}
-			course={data.chapters[0].kurs.Title}
-			courseId={data.chapters[0].kurs.id}
-		/>
+		<div class="flex flex-row gap-4">
+			<Survey
+				trigger_button={data.survey.trigger_button}
+				title={data.survey.title}
+				description={data.survey.description}
+				questions={data.survey.questions}
+				submit_button={data.survey.submit_button}
+				course={data.chapters[0].kurs.Title}
+				courseId={data.chapters[0].kurs.id}
+			/>
+			<Sync
+				trigger_button={data.settings.sync_trigger_button}
+				title={data.settings.sync_title}
+				description={data.settings.sync_description}
+			/>
+		</div>
 
 		<Accordion.Root>
 			{#each data.chapters as chapter, index}

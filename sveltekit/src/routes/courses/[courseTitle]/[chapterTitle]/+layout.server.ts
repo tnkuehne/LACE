@@ -13,6 +13,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 				filter: { kurs: { Title: courseTitle } }
 			})
 		),
-		survey: await directus.request(readSingleton('survey'))
+		survey: await directus.request(readSingleton('survey')),
+		settings: await directus.request(readSingleton('learning_page'))
 	};
 };

@@ -1,7 +1,15 @@
 <script lang="ts">
 	import CourseCard from './CourseCard.svelte';
+	import { toast } from 'svelte-sonner';
+	import { onMount } from 'svelte';
 
 	export let data;
+
+	onMount(() => {
+		if (data.sync === 'succeeded') {
+			toast.info('Syncing completed!');
+		}
+	});
 </script>
 
 <div class="bg-blueGray-50 min-h-screen p-4">

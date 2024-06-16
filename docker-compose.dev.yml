@@ -1,0 +1,63 @@
+services:
+
+  database:
+    image: postgis/postgis:16-master
+    ports:
+      - 5432:5432
+    volumes:
+      - ./directus/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "directus"
+      POSTGRES_PASSWORD: "directus"
+      POSTGRES_DB: "directus"
+    networks:
+      - custom-app-network
+
+  directus:
+    image: directus/directus:10.12.1
+    ports:
+      - 8055:8055
+    volumes:
+      - ./directus/uploads:/directus/uploads
+      - ./directus/extensions:/directus/extensions
+    depends_on:
+      - database
+    environment:
+      KEY: "replace-with-random-value"
+      SECRET: "replace-with-random-value"
+      DB_CLIENT: "pg"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_DATABASE: "directus"
+      DB_USER: "directus"
+      DB_PASSWORD: "directus"
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "d1r3ctu5"
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://localhost:5173/"
+    networks:
+      - custom-app-network
+
+  sveltekit:
+    build:
+      context: ./sveltekit
+      dockerfile: Dockerfile.dev
+    networks:
+      - custom-app-network
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./sveltekit:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: "development"
+      PUBLIC_APIURL: "http://localhost:5173/api"
+      PUBLIC_URL: "http://localhost:5173"
+      PRIVATE_APIURL: "http://directus:8055"
+      PREVIEW_COOKIE_NAME: "__preview_mode"
+      PREVIEW_SECRET: "53lt3k1t"
+      PRIVATE_KEY: "hallo"
+      PUBLIC_KEY: "hallo"
+    command: npm run dev -- --host
+
+networks:
+  custom-app-network:

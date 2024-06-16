@@ -1,18 +1,55 @@
-version: "3"
 services:
+
+  database:
+    image: postgis/postgis:16-master
+    ports:
+      - 5432:5432
+    volumes:
+      - ./directus/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "directus"
+      POSTGRES_PASSWORD: "directus"
+      POSTGRES_DB: "directus"
+    networks:
+      - custom-app-network
+
   directus:
-    image: directus/directus:10.10.4
+    image: directus/directus:10.12.0
     ports:
       - 8055:8055
     volumes:
-      - ./directus/database:/directus/database
       - ./directus/uploads:/directus/uploads
       - ./directus/extensions:/directus/extensions
+    depends_on:
+      - database
     environment:
       KEY: "replace-with-random-value"
       SECRET: "replace-with-random-value"
-      ADMIN_EMAIL: "admin@example.com"
-      ADMIN_PASSWORD: "d1r3ctu5"
-      DB_CLIENT: "sqlite3"
-      DB_FILENAME: "/directus/database/data.db"
-      WEBSOCKETS_ENABLED: "true"
+      DB_CLIENT: "pg"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_DATABASE: "directus"
+      DB_USER: "directus"
+      DB_PASSWORD: "directus"
+      ADMIN_EMAIL: "timo.kuehne@tum.de"
+      ADMIN_PASSWORD: "jVBuwDL8*7uZ@czyJLPW"
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://127.0.0.1:3000/"
+    networks:
+      - custom-app-network
+
+  sveltekit:
+    image: ghcr.io/h3nkl3r/lace:main
+    networks:
+      - custom-app-network
+    ports:
+      - "80:3000"
+    environment:
+      NODE_ENV: "production"
+      PUBLIC_APIURL: "http://127.0.0.1:3000/api"
+      PUBLIC_URL: "http://127.0.0.1:3000"
+      PRIVATE_APIURL: "http://directus:8055"
+      PREVIEW_COOKIE_NAME: "__preview_mode"
+      PREVIEW_SECRET: "53lt3k1t"
+
+networks:
+  custom-app-network:

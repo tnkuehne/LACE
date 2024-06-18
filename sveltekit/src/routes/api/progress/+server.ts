@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
 import { readItems, createItem, updateItem } from '@directus/sdk';
-import getDirectusInstance from '$lib/directus';
+import getDirectusInstance from '$lib/server/directus';
 import { json, error } from '@sveltejs/kit';
 import { v4 as uuidv4 } from 'uuid';
 

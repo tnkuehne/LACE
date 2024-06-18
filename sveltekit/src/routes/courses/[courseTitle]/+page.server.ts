@@ -1,5 +1,5 @@
 import { readItems, readSingleton } from '@directus/sdk';
-import getDirectusInstance from '$lib/directus';
+import getDirectusInstance from '$lib/server/directus';
 import type { PageLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 

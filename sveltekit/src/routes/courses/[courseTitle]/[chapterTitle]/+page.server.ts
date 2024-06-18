@@ -1,5 +1,5 @@
 import type { PageLoad } from './$types';
-import getDirectusInstance from '$lib/directus';
+import getDirectusInstance from '$lib/server/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 import { error } from '@sveltejs/kit';
 

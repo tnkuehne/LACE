@@ -58,6 +58,8 @@ services:
       PREVIEW_SECRET: "53lt3k1t"
       PRIVATE_KEY: "hallo"
       PUBLIC_KEY: "hallo"
+      DIRECTUS_TOKEN: "gyVklUY5Ezrs2vRvfki21cHGdKjUDZaU"
+      APIURL: "http://localhost:5173/api"
     command: npm run dev -- --host
 
 networks:

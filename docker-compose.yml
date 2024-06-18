@@ -20,6 +20,7 @@ services:
     volumes:
       - ./directus/uploads:/directus/uploads
       - ./directus/extensions:/directus/extensions
+      - ./directus/database:/directus/database
     depends_on:
       - database
     environment:

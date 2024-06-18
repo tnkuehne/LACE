@@ -1,5 +1,6 @@
 <script>
 	import CourseCard from './CourseCard.svelte';
+	import ScrollText from 'lucide-svelte/icons/scroll-text';
 
 	export let data;
 </script>
@@ -57,28 +58,85 @@
 		</div>
 	</div>
 </div>
-<div class="bg-blueGray-50 min-h-screen">
+<div class="min-h-screen bg-slate-50">
 	<div
-		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-8 p-4 pt-16"
+		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-16 p-4 pt-16"
 	>
-		<div class="space-y-4">
-			<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing.courses_title}</h2>
-			<p class="text-center text-lg text-gray-600 lg:text-base">
-				{data.landing.courses_description}
-			</p>
-		</div>
-		<div class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0">
-			{#each data.courses as course}
-				<div class="w-full p-2">
-					<CourseCard
-						title={course.Title}
-						description={course.Description}
-						buttonText={data.landing.courses_action_button_text}
-						icon={course.icon}
-						color={course.color}
-					/>
-				</div>
-			{/each}
-		</div>
+		<section class="space-y-8">
+			<div class="space-y-4">
+				<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing.courses_title}</h2>
+				<p class="text-center text-lg text-gray-600 lg:text-base">
+					{data.landing.courses_description}
+				</p>
+			</div>
+			<div
+				class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
+			>
+				{#each data.courses as course}
+					<div class="w-full p-2">
+						<CourseCard
+							title={course.Title}
+							description={course.Description}
+							buttonText={data.landing.courses_action_button_text}
+							icon={course.icon}
+							color={course.color}
+						/>
+					</div>
+				{/each}
+			</div>
+		</section>
+		<section class="space-y-8">
+			<div class="space-y-4">
+				<h2 class="text-center text-4xl font-bold lg:text-6xl">
+					{data.landing.publications_title}
+				</h2>
+				<p class="text-center text-lg text-gray-600 lg:text-base">
+					{data.landing.publications_description}
+				</p>
+			</div>
+			<div class="flex flex-col gap-2">
+				{#each data.landing.publications_links as link}
+					<div class="flex flex-row gap-2">
+						<ScrollText class="h-6 w-6 text-blue-800 dark:text-blue-600" />
+						<a
+							href={link.url}
+							class="border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"
+							>{link.title}</a
+						>
+					</div>
+				{/each}
+			</div>
+		</section>
 	</div>
 </div>
+<footer class="bg-sky-100">
+	<div
+		class="mx-auto flex max-w-screen-2xl flex-col justify-between space-y-16 px-8 py-16 md:flex-row md:space-y-0 md:px-0"
+	>
+		<div class="flex flex-col gap-8">
+			<enhanced:img src="./logo_sebis_cit.png?w=400" alt="Logo" />
+			<div class="text-sm text-gray-600 dark:text-gray-400">
+				<p>Copyright © 2024 SEBIS Chair @TUM</p>
+				<p>All rights reserved</p>
+			</div>
+		</div>
+		<div class="flex flex-row gap-32">
+			<div class="space-y-4">
+				<h5 class="font-medium">Links</h5>
+				<ul>
+					{#each data.landing.links as link}
+						<li>
+							<a href={link.url} class="hover:text-blue-800 dark:hover:text-blue-600"
+								>{link.title}</a
+							>
+						</li>
+					{/each}
+				</ul>
+			</div>
+			<div class="space-y-4">
+				<h5 class="font-medium">Sponsor</h5>
+				<enhanced:img src="./publisherlogo-en.svg" alt="Sponsor" />
+			</div>
+		</div>
+	</div>
+</footer>

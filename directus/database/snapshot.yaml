@@ -1,5 +1,5 @@
 version: 1
-directus: 10.12.0
+directus: 10.12.1
 vendor: postgres
 collections:
   - collection: Content
@@ -92,6 +92,54 @@ collections:
       translations: null
       unarchive_value: null
       versioning: false
+  - collection: certificates
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: certificates
+      color: null
+      display_template: null
+      group: Data
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 2
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: certificates
+  - collection: certification
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: certification
+      color: null
+      display_template: null
+      group: Pages
+      hidden: false
+      icon: web
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: true
+      sort: 6
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: certification
   - collection: course_page
     meta:
       accountability: all
@@ -143,10 +191,6 @@ collections:
       versioning: true
     schema:
       name: courses_page
-  - collection: directus_sync_id_map
-    meta: null
-    schema:
-      name: directus_sync_id_map
   - collection: folien
     meta:
       accountability: all
@@ -188,7 +232,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 2
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -338,13 +382,37 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 3
+      sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
       versioning: false
     schema:
       name: page_views
+  - collection: progress
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: progress
+      color: null
+      display_template: null
+      group: Data
+      hidden: false
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: progress
   - collection: quiz_data
     meta:
       accountability: all
@@ -362,7 +430,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 4
+      sort: 6
       sort_field: null
       translations: null
       unarchive_value: null
@@ -410,7 +478,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 1
+      sort: 3
       sort_field: null
       translations: null
       unarchive_value: null
@@ -718,6 +786,343 @@ fields:
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certificates
+    field: id
+    type: uuid
+    meta:
+      collection: certificates
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: certificates
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certificates
+    field: date_created
+    type: timestamp
+    meta:
+      collection: certificates
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 2
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: certificates
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certificates
+    field: signature
+    type: string
+    meta:
+      collection: certificates
+      conditions: null
+      display: null
+      display_options: null
+      field: signature
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: signature
+      table: certificates
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: id
+    type: uuid
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: certification
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: user_updated
+    type: uuid
+    meta:
+      collection: certification
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 2
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: certification
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: certification
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: certification
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: certification
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: details_form
+    type: alias
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: details_form
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special:
+        - alias
+        - group
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: certification
+    field: details_form_title
+    type: string
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: details_form_title
+      group: details_form
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: details_form_title
+      table: certification
+      data_type: character varying
+      default_value: Certificate details
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: details_form_description
+    type: string
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: details_form_description
+      group: details_form
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: details_form_description
+      table: certification
+      data_type: character varying
+      default_value: Please enter the details which will be shown on the certificate
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -1209,106 +1614,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: directus_users
       foreign_key_column: id
-  - collection: directus_sync_id_map
-    field: id
-    type: integer
-    meta: null
-    schema:
-      name: id
-      table: directus_sync_id_map
-      data_type: integer
-      default_value: nextval('directus_sync_id_map_id_seq'::regclass)
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: true
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: directus_sync_id_map
-    field: table
-    type: string
-    meta: null
-    schema:
-      name: table
-      table: directus_sync_id_map
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: directus_sync_id_map
-    field: sync_id
-    type: string
-    meta: null
-    schema:
-      name: sync_id
-      table: directus_sync_id_map
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: directus_sync_id_map
-    field: local_id
-    type: string
-    meta: null
-    schema:
-      name: local_id
-      table: directus_sync_id_map
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: directus_sync_id_map
-    field: created_at
-    type: dateTime
-    meta: null
-    schema:
-      name: created_at
-      table: directus_sync_id_map
-      data_type: timestamp without time zone
-      default_value: CURRENT_TIMESTAMP
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
   - collection: folien
     field: bild
     type: uuid
@@ -3247,6 +3552,248 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: landing
+    field: publications
+    type: alias
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: publications
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - alias
+        - group
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: landing
+    field: publications_title
+    type: string
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: publications_title
+      group: publications
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: publications_title
+      table: landing
+      data_type: character varying
+      default_value: Publications
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: publications_description
+    type: string
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: publications_description
+      group: publications
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: publications_description
+      table: landing
+      data_type: character varying
+      default_value: Publications in workspace Sebis Public Website
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: footer
+    type: alias
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: footer
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 11
+      special:
+        - alias
+        - group
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: landing
+    field: links
+    type: json
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: links
+      group: footer
+      hidden: false
+      interface: list
+      note: null
+      options:
+        fields:
+          - field: title
+            name: title
+            type: string
+            meta:
+              field: title
+              width: half
+              type: string
+              required: true
+              interface: input
+          - field: url
+            name: url
+            type: string
+            meta:
+              field: url
+              width: half
+              type: string
+              interface: input
+              options: {}
+      readonly: false
+      required: false
+      sort: 1
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: links
+      table: landing
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: publications_links
+    type: json
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: publications_links
+      group: publications
+      hidden: false
+      interface: list
+      note: null
+      options:
+        addLabel: Add publication
+        fields:
+          - field: title
+            name: title
+            type: string
+            meta:
+              field: title
+              width: full
+              type: string
+              required: true
+              interface: input
+          - field: url
+            name: url
+            type: string
+            meta:
+              field: url
+              width: full
+              type: string
+              interface: input
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: publications_links
+      table: landing
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: learning_page
     field: chapter_final
     type: alias
@@ -3522,6 +4069,145 @@ fields:
       table: learning_page
       data_type: character varying
       default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: learning_page
+    field: sync
+    type: alias
+    meta:
+      collection: learning_page
+      conditions: null
+      display: null
+      display_options: null
+      field: sync
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - alias
+        - group
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: learning_page
+    field: sync_title
+    type: string
+    meta:
+      collection: learning_page
+      conditions: null
+      display: null
+      display_options: null
+      field: sync_title
+      group: sync
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sync_title
+      table: learning_page
+      data_type: character varying
+      default_value: Sync your progress between devices
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: learning_page
+    field: sync_description
+    type: string
+    meta:
+      collection: learning_page
+      conditions: null
+      display: null
+      display_options: null
+      field: sync_description
+      group: sync
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sync_description
+      table: learning_page
+      data_type: character varying
+      default_value: This makes learning even more enjoyable
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: learning_page
+    field: sync_trigger_button
+    type: string
+    meta:
+      collection: learning_page
+      conditions: null
+      display: null
+      display_options: null
+      field: sync_trigger_button
+      group: sync
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sync_trigger_button
+      table: learning_page
+      data_type: character varying
+      default_value: Continue on another device
       max_length: 255
       numeric_precision: null
       numeric_scale: null
@@ -4322,6 +5008,259 @@ fields:
       data_type: character varying
       default_value: null
       max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: progress
+    field: id
+    type: uuid
+    meta:
+      collection: progress
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: progress
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: progress
+    field: date_created
+    type: timestamp
+    meta:
+      collection: progress
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_created
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 2
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_created
+      table: progress
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: progress
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: progress
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: progress
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: progress
+    field: course
+    type: uuid
+    meta:
+      collection: progress
+      conditions: null
+      display: null
+      display_options: null
+      field: course
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: true
+      required: true
+      sort: 4
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: course
+      table: progress
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: Courses
+      foreign_key_column: id
+  - collection: progress
+    field: completed_chapters
+    type: json
+    meta:
+      collection: progress
+      conditions: null
+      display: null
+      display_options: null
+      field: completed_chapters
+      group: null
+      hidden: false
+      interface: list
+      note: null
+      options:
+        fields:
+          - field: chapter
+            name: chapter
+            type: string
+            meta:
+              field: chapter
+              type: string
+              interface: input
+              options:
+                defaultView:
+                  center:
+                    lng: 0
+                    lat: 0
+                  zoom: 0
+                  bearing: 0
+                  pitch: 0
+                geometryType: Point
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: completed_chapters
+      table: progress
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: progress
+    field: user
+    type: uuid
+    meta:
+      collection: progress
+      conditions: null
+      display: null
+      display_options: null
+      field: user
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: true
+      sort: 6
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: user
+      table: progress
+      data_type: uuid
+      default_value: null
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -5202,6 +6141,27 @@ relations:
       constraint_name: courses_image_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: certification
+    field: user_updated
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: certification
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: certification
+      column: user_updated
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: certification_user_updated_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
   - collection: course_page
     field: user_updated
     related_collection: directus_users
@@ -5535,6 +6495,27 @@ relations:
       constraint_name: mcquiz_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
+  - collection: progress
+    field: course
+    related_collection: Courses
+    meta:
+      junction_field: null
+      many_collection: progress
+      many_field: course
+      one_allowed_collections: null
+      one_collection: Courses
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: progress
+      column: course
+      foreign_key_table: Courses
+      foreign_key_column: id
+      constraint_name: progress_course_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: quiz_data
     field: quiz
     related_collection: mcQuiz

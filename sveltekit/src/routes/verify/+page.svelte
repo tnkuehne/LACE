@@ -3,7 +3,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import CircleAlert from 'lucide-svelte/icons/circle-alert';
 	import * as Alert from '$lib/components/ui/alert/index.js';
-	import { PUBLIC_URL } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 
 	export let data: PageData;
 </script>
@@ -15,7 +15,7 @@
 
 	<!-- Image Overlay -->
 	<img
-		src="{PUBLIC_URL}/grainy.png"
+		src="{env.PUBLIC_URL}/grainy.png"
 		alt="Overlay"
 		class="absolute inset-0 h-full w-full object-cover mix-blend-overlay"
 	/>

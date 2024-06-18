@@ -5,7 +5,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import SyncCode from './SyncCode.svelte';
 	import { progressStore } from '$lib/stores/progressStore';
-	import { PUBLIC_URL } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 
 	export let trigger_button: string;
 	export let title: string;
@@ -23,11 +23,11 @@
 				if (!enabled) {
 					console.log('Syncing enabled');
 					const code = await progressStore.enableSyncing();
-					url = `${PUBLIC_URL}/c/${code}`;
+					url = `${env.PUBLIC_URL}/c/${code}`;
 				} else {
 					console.log('Syncing already enabled');
 					const code = await progressStore.getSyncCode();
-					url = `${PUBLIC_URL}/c/${code}`;
+					url = `${env.PUBLIC_URL}/c/${code}`;
 				}
 			})();
 		}

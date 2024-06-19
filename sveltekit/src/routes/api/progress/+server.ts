@@ -64,7 +64,7 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 	const userId = cookies.get('user');
 
 	if (!userId) {
-		return error(400, 'User ID not found. Syncing is disabled.');
+		return json({ status: 204, message: 'User ID not found. Syncing is disabled.' });
 	}
 
 	const courseId = url.searchParams.get('course');

@@ -106,7 +106,9 @@ function createProgressStore() {
 				}
 			});
 
-			isSyncEnabledCached = response.status === 200;
+			const data = await response.json();
+
+			isSyncEnabledCached = data.status === 200;
 			return isSyncEnabledCached;
 		} catch (error) {
 			console.error('Failed to check if syncing is enabled', error);
@@ -192,11 +194,8 @@ function createProgressStore() {
 					progress = localProgress ? JSON.parse(localProgress) : null;
 				}
 
-				console.log('Course Progress:', progress); // Debug: Log course progress
-
 				if (progress) {
 					const { completed_chapters } = progress;
-					console.log('Completed Chapters:', completed_chapters); // Debug: Log completed chapters
 					return (completed_chapters.length / totalChapters) * 100;
 				}
 			}

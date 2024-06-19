@@ -28,17 +28,21 @@ export const PATCH: RequestHandler = async ({ request, cookies }) => {
 
 			const currentChapters = existingEntries[0].completed_chapters;
 
-			// Merge current progress with new progress
-			const updatedChapters = [
-				...currentChapters,
-				...completedChapters.filter(
-					(newChapter: { chapter: string }) =>
-						!currentChapters.some(
-							(existingChapter: { chapter: string }) =>
-								existingChapter.chapter === newChapter.chapter
-						)
-				)
-			];
+			let updatedChapters = completedChapters;
+
+			if (currentChapters) {
+				// Merge current progress with new progress
+				updatedChapters = [
+					...currentChapters,
+					...completedChapters.filter(
+						(newChapter: { chapter: string }) =>
+							!currentChapters.some(
+								(existingChapter: { chapter: string }) =>
+									existingChapter.chapter === newChapter.chapter
+							)
+					)
+				];
+			}
 
 			await directus.request(
 				updateItem('progress', entryId, { completed_chapters: updatedChapters })
@@ -71,7 +75,7 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 
 	// if userId is found but courseID not then syncing is enabled
 	if (!courseId) {
-		return json({ user: userId });
+		return json({ status: 200, user: userId });
 	}
 
 	try {

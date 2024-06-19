@@ -10,6 +10,7 @@ interface Progress {
 function createProgressStore() {
 	const { subscribe, set, update } = writable<Progress>({});
 	let isSyncEnabledCached: boolean | null = null;
+	const progressCache: { [key: string]: number } = {};
 
 	async function loadInitialState() {
 		const state: Progress = {};
@@ -138,7 +139,12 @@ function createProgressStore() {
 			const syncEnabled = await isSyncEnabled();
 
 			update((currentProgress) => {
-				const chapters = currentProgress[course] ? currentProgress[course].completed_chapters : [];
+				// Initialize course progress if not present
+				if (!currentProgress[course]) {
+					currentProgress[course] = { completed_chapters: [] };
+				}
+
+				const chapters = currentProgress[course].completed_chapters || [];
 				if (!chapters.some((c) => c.chapter === chapter)) {
 					chapters.push({ chapter });
 				}
@@ -149,6 +155,9 @@ function createProgressStore() {
 				} else {
 					localStorage.setItem(`progress_${course}`, JSON.stringify(newProgress));
 				}
+
+				// Invalidate the cache
+				delete progressCache[course];
 
 				return { ...currentProgress, [course]: newProgress };
 			});
@@ -185,6 +194,9 @@ function createProgressStore() {
 		},
 		getCourseProgress: async (course: string, totalChapters: number) => {
 			if (browser) {
+				if (course in progressCache) {
+					return progressCache[course];
+				}
 				let progress;
 				const syncEnabled = await isSyncEnabled();
 				if (syncEnabled) {
@@ -196,15 +208,22 @@ function createProgressStore() {
 
 				if (progress) {
 					const { completed_chapters } = progress;
-					return (completed_chapters.length / totalChapters) * 100;
+					if (completed_chapters !== null && completed_chapters !== undefined) {
+						const calculatedProgress = Math.round(
+							(completed_chapters.length / totalChapters) * 100
+						);
+						progressCache[course] = calculatedProgress;
+						return calculatedProgress;
+					}
 				}
 			}
+			progressCache[course] = 0;
 			return 0;
 		},
 		enableSyncing: async () => {
 			if (browser) {
 				const user = await initSync();
-				const progress = loadInitialState();
+				const progress = await loadInitialState();
 				for (const course in progress) {
 					await syncProgress(course, progress[course]);
 				}

@@ -3,8 +3,6 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import SortableList from '$lib/components/ui/sortableList/SortableList.svelte';
-	import { createItem } from '@directus/sdk';
-	import getDirectusInstance from '$lib/directus';
 
 	export let id: string;
 	export let question: string;
@@ -18,13 +16,17 @@
 	let isCorrect: boolean | null = null;
 
 	async function logAnswer() {
-		await getDirectusInstance().request(
-			createItem('quiz_data', {
-				quiz: id,
-				correct: isCorrect,
-				wrong: isCorrect ? [] : answers
+		await fetch('/api/analytics/quiz', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id,
+				isCorrect,
+				incorrectAnswers: isCorrect ? [] : answers
 			})
-		);
+		});
 	}
 
 	function handleSort(e: CustomEvent<{ sort: number; text: string }[]>) {

@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
 import { readItems, createItem, updateItem } from '@directus/sdk';
-import getDirectusInstance from '$lib/directus';
+import getDirectusInstance from '$lib/server/directus';
 import { json, error } from '@sveltejs/kit';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -28,17 +28,21 @@ export const PATCH: RequestHandler = async ({ request, cookies }) => {
 
 			const currentChapters = existingEntries[0].completed_chapters;
 
-			// Merge current progress with new progress
-			const updatedChapters = [
-				...currentChapters,
-				...completedChapters.filter(
-					(newChapter: { chapter: string }) =>
-						!currentChapters.some(
-							(existingChapter: { chapter: string }) =>
-								existingChapter.chapter === newChapter.chapter
-						)
-				)
-			];
+			let updatedChapters = completedChapters;
+
+			if (currentChapters) {
+				// Merge current progress with new progress
+				updatedChapters = [
+					...currentChapters,
+					...completedChapters.filter(
+						(newChapter: { chapter: string }) =>
+							!currentChapters.some(
+								(existingChapter: { chapter: string }) =>
+									existingChapter.chapter === newChapter.chapter
+							)
+					)
+				];
+			}
 
 			await directus.request(
 				updateItem('progress', entryId, { completed_chapters: updatedChapters })
@@ -64,14 +68,14 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 	const userId = cookies.get('user');
 
 	if (!userId) {
-		return error(400, 'User ID not found. Syncing is disabled.');
+		return json({ status: 204, message: 'User ID not found. Syncing is disabled.' });
 	}
 
 	const courseId = url.searchParams.get('course');
 
 	// if userId is found but courseID not then syncing is enabled
 	if (!courseId) {
-		return json({ user: userId });
+		return json({ status: 200, user: userId });
 	}
 
 	try {

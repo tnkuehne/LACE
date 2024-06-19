@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { createItem } from '@directus/sdk';
-import getDirectusInstance from '$lib/directus';
+import getDirectusInstance from '$lib/server/directus';
 import type { Actions } from './$types';
 
 export const load = async () => {

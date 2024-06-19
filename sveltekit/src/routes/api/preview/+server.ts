@@ -1,19 +1,18 @@
 import { error, redirect, type RequestHandler } from '@sveltejs/kit';
 import { dev } from '$app/environment';
-import { PREVIEW_SECRET } from '$env/static/private';
-import { PREVIEW_COOKIE_NAME } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
 	const secret = url.searchParams.get('secret');
 	const slug = url.searchParams.get('slug');
 	const version = url.searchParams.get('version');
 
-	if (secret !== `${PREVIEW_SECRET}`) {
+	if (secret !== `${env.PREVIEW_SECRET}`) {
 		error(401, 'Unauthorized');
 	}
 
 	// Set a cookie with the session token
-	cookies.set(`${PREVIEW_COOKIE_NAME}`, `${PREVIEW_SECRET}`, {
+	cookies.set(`${env.PREVIEW_COOKIE_NAME}`, `${env.PREVIEW_SECRET}`, {
 		path: '/',
 		httpOnly: true,
 		secure: !dev,

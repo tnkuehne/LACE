@@ -14,6 +14,15 @@
 
 	export let data;
 	let menu = false;
+	let progress = 0;
+
+	// Subscribe to progress store updates
+	$: progressStore.subscribe(async () => {
+		progress = await progressStore.getCourseProgress(
+			data.chapters[0].kurs.id,
+			data.chapters.length
+		);
+	});
 
 	function toggleMenu() {
 		menu = !menu;
@@ -53,19 +62,13 @@
 			<h2 class="text-2xl font-bold">{data.chapters[0].kurs.Title}</h2>
 		</div>
 
-		{#await progressStore.getCourseProgress(data.chapters[0].kurs.id, data.chapters.length)}
-			<span></span>
-		{:then progress}
-			<h4 class="mb-4 mt-8 text-sm font-medium text-gray-500">Your progress</h4>
-			<div class="mb-4">
-				<div class="mt-2 text-sm font-medium">
-					<span>{progress.toFixed(0)}% completed</span>
-				</div>
-				<Progress class="rounded-full bg-gray-200 dark:bg-gray-800" value={progress} />
+		<h4 class="mb-4 mt-8 text-sm font-medium text-gray-500">Your progress</h4>
+		<div class="mb-4">
+			<div class="mt-2 text-sm font-medium">
+				<span>{progress.toFixed(0)}% completed</span>
 			</div>
-		{:catch error}
-			{error}
-		{/await}
+			<Progress class="rounded-full bg-gray-200 dark:bg-gray-800" value={progress} />
+		</div>
 
 		<div class="flex flex-row gap-4">
 			<Survey

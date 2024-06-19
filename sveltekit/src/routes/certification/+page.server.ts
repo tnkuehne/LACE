@@ -1,5 +1,5 @@
 import { readSingleton, createItem, readItem } from '@directus/sdk';
-import getDirectusInstance from '$lib/directus';
+import getDirectusInstance from '$lib/server/directus';
 import type { PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { PDFDocument, rgb } from 'pdf-lib';

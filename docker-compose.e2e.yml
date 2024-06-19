@@ -25,7 +25,8 @@ services:
       - custom-app-network
 
   sveltekit:
-    image: ghcr.io/h3nkl3r/lace:main
+    build:
+      context: ./sveltekit
     networks:
       - custom-app-network
     ports:

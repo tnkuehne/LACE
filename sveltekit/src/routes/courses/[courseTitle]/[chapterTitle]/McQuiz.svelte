@@ -2,8 +2,6 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
-	import { createItem } from '@directus/sdk';
-	import getDirectusInstance from '$lib/directus';
 
 	export let id: string;
 	export let question: string;
@@ -27,13 +25,17 @@
 	}
 
 	async function logAnswer() {
-		await getDirectusInstance().request(
-			createItem('quiz_data', {
-				quiz: id,
-				correct: isCorrect,
-				wrong: incorrectAnswers.map((index) => ({ text: answers[index].text }))
+		await fetch('/api/analytics/quiz', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				id,
+				isCorrect,
+				incorrectAnswers: incorrectAnswers.map((index) => ({ text: answers[index].text }))
 			})
-		);
+		});
 	}
 
 	function submitAnswer() {

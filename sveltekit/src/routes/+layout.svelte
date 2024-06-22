@@ -4,9 +4,32 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	export let data;
+
 	import { progressStore } from '$lib/stores/progressStore';
 	import { browser } from '$app/environment';
+
+	export let data;
+
+	if (browser) {
+		window.onerror = function (message, source, lineno, colno, error) {
+			fetch('/api/analytics/error', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ message, stack: source, error })
+			});
+		};
+		window.onunhandledrejection = function (event) {
+			fetch('/api/analytics/error', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ event, message: event.reason.message, stack: event.reason.stack })
+			});
+		};
+	}
 
 	async function trackPageView(path, referrer) {
 		await fetch('/api/analytics', {

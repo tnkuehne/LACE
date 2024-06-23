@@ -35,6 +35,11 @@ function createProgressStore() {
 	async function initializeStore() {
 		const initialState = browser ? await loadInitialState() : {};
 		set(initialState);
+
+		if (browser && typeof localStorage !== 'undefined') {
+			const CURRENT_VERSION = 1;
+			localStorage.setItem('version', CURRENT_VERSION.toString());
+		}
 	}
 
 	async function syncProgress(

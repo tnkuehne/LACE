@@ -76,6 +76,7 @@
 					<div class="w-full p-2">
 						<CourseCard
 							title={course.Title}
+							slug={course.slug}
 							description={course.Description}
 							buttonText={data.landing.courses_action_button_text}
 							icon={course.icon}

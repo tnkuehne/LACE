@@ -1,8 +1,8 @@
 import { readItems, readSingleton } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 
-export const load: PageLoad = async ({ fetch, url, locals }) => {
+export const load: PageServerLoad = async ({ fetch, url, locals }) => {
 	const version = locals.previewMode ? url.searchParams.get('version') : null;
 	const directus = getDirectusInstance(fetch);
 

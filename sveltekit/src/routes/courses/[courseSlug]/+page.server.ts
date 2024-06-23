@@ -1,11 +1,11 @@
 import { readItems, readSingleton } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ fetch, params, url, locals }) => {
+export const load: PageServerLoad = async ({ fetch, params, url, locals }) => {
 	const version = locals.previewMode ? url.searchParams.get('version') : null;
-	const { courseTitle } = params;
+	const { courseSlug } = params;
 	const directus = getDirectusInstance(fetch);
 
 	const chapters = await directus.request(
@@ -14,7 +14,7 @@ export const load: PageLoad = async ({ fetch, params, url, locals }) => {
 				_and: [
 					{
 						kurs: {
-							Title: courseTitle
+							slug: courseSlug
 						}
 					}
 				]

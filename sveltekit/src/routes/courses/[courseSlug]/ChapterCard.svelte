@@ -38,7 +38,7 @@
 						<a
 							class="border border-l-8 p-1 hover:text-blue-600"
 							style="border-color: {hexToRGBA(subchapter.color, 0.4)};"
-							href={`/courses/${chapter.kurs.Title}/${subchapter.title}`}>{subchapter.title}</a
+							href={`/courses/${chapter.kurs.slug}/${subchapter.slug}`}>{subchapter.title}</a
 						>
 					{/each}
 				</div>

@@ -4,6 +4,7 @@
 	import * as icons from 'lucide-svelte';
 
 	export let title: string;
+	export let slug: string;
 	export let description: string;
 	export let buttonText: string;
 	export let icon: string;
@@ -43,12 +44,12 @@
 		</Card.Title>
 	</Card.Header>
 	<Card.Content class="flex flex-grow flex-col items-center justify-center space-y-4 text-center">
-		<a class="text-3xl font-bold" href="/courses/{title}">{title}</a>
+		<a class="text-3xl font-bold" href="/courses/{slug}">{title}</a>
 		<p class="text-sm text-gray-500">
 			{description}
 		</p>
 	</Card.Content>
 	<Card.Footer class="mt-auto">
-		<Button variant="link" href="/courses/{title}">{buttonText}</Button>
+		<Button variant="link" href="/courses/{slug}">{buttonText}</Button>
 	</Card.Footer>
 </Card.Root>

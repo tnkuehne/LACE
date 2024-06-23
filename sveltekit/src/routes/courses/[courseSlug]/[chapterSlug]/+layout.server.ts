@@ -1,16 +1,16 @@
 import { readItems, readSingleton } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
-import type { PageLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
-export const load: PageLoad = async ({ fetch, params }) => {
-	const { courseTitle } = params;
+export const load: LayoutServerLoad = async ({ fetch, params }) => {
+	const { courseSlug } = params;
 	const directus = getDirectusInstance(fetch);
 
 	return {
 		chapters: await directus.request(
 			readItems('kapitel', {
 				fields: ['*', 'kurs.*', 'content.*.*.*', 'parent.title'],
-				filter: { kurs: { Title: courseTitle } }
+				filter: { kurs: { slug: courseSlug } }
 			})
 		),
 		survey: await directus.request(readSingleton('survey')),

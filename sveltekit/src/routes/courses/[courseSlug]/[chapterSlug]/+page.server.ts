@@ -1,16 +1,16 @@
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 import getDirectusInstance from '$lib/server/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 import { error } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ fetch, params, url, locals }) => {
+export const load: PageServerLoad = async ({ fetch, params, url, locals }) => {
 	const version = locals.previewMode ? url.searchParams.get('version') : null;
-	const { chapterTitle } = params;
+	const { chapterSlug } = params;
 	const directus = getDirectusInstance(fetch);
 
 	const chapter = await directus.request(
 		readItems('kapitel', {
-			filter: { title: chapterTitle },
+			filter: { slug: chapterSlug },
 			fields: [
 				'*',
 				'content.collection',
@@ -32,7 +32,6 @@ export const load: PageLoad = async ({ fetch, params, url, locals }) => {
 
 	return {
 		chapter,
-		chapterTitle,
 		settings: await directus.request(readSingleton('learning_page', { version }))
 	};
 };

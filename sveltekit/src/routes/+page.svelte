@@ -5,7 +5,7 @@
 	export let data;
 </script>
 
-<div class="relative flex w-full flex-col lg:flex-row">
+<div class="relative flex w-full flex-col overflow-x-hidden lg:flex-row">
 	<div class="absolute right-0 top-0">
 		<!-- Largest Circle -->
 		<div

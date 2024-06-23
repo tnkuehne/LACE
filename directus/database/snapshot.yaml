@@ -526,7 +526,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 3
+      sort: 4
       special: null
       translations: null
       validation: null
@@ -564,7 +564,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 4
+      sort: 5
       special:
         - file
       translations: null
@@ -600,8 +600,7 @@ fields:
       hidden: false
       interface: input
       note: null
-      options:
-        slug: true
+      options: {}
       readonly: false
       required: true
       sort: 2
@@ -642,7 +641,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 6
+      sort: 7
       special: null
       translations: null
       validation: null
@@ -683,7 +682,7 @@ fields:
         trim: true
       readonly: false
       required: false
-      sort: 7
+      sort: 8
       special: null
       translations: null
       validation:
@@ -796,7 +795,7 @@ fields:
             color: '#FFA439'
       readonly: false
       required: false
-      sort: 5
+      sort: 6
       special: null
       translations: null
       validation: null
@@ -812,6 +811,46 @@ fields:
       numeric_scale: null
       is_nullable: false
       is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Courses
+    field: slug
+    type: string
+    meta:
+      collection: Courses
+      conditions: null
+      display: null
+      display_options: null
+      field: slug
+      group: null
+      hidden: false
+      interface: input
+      note: path to use in URI
+      options:
+        slug: true
+        trim: true
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: slug
+      table: Courses
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
       is_primary_key: false
       is_generated: false
       generation_expression: null
@@ -1961,7 +2000,7 @@ fields:
       interface: input
       note: null
       options: null
-      readonly: false
+      readonly: true
       required: false
       sort: 8
       special: null
@@ -1999,7 +2038,7 @@ fields:
       interface: input-multiline
       note: null
       options: null
-      readonly: false
+      readonly: true
       required: false
       sort: 9
       special: null
@@ -2037,7 +2076,7 @@ fields:
       interface: input
       note: null
       options: null
-      readonly: false
+      readonly: true
       required: false
       sort: 10
       special: null
@@ -2075,7 +2114,7 @@ fields:
       interface: null
       note: null
       options: null
-      readonly: false
+      readonly: true
       required: false
       sort: 14
       special:
@@ -2115,7 +2154,7 @@ fields:
       note: null
       options:
         fields: []
-      readonly: false
+      readonly: true
       required: false
       sort: 15
       special:
@@ -2919,7 +2958,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 13
+      sort: 12
       special:
         - m2a
       translations: null
@@ -3024,7 +3063,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 9
+      sort: 10
       special: null
       translations: null
       validation: null
@@ -3103,7 +3142,7 @@ fields:
         template: '{{Title}}'
       readonly: false
       required: false
-      sort: 12
+      sort: 11
       special:
         - m2o
       translations: null
@@ -3144,7 +3183,7 @@ fields:
         template: '{{title}}'
       readonly: false
       required: false
-      sort: 14
+      sort: 13
       special:
         - m2o
       translations: null
@@ -3405,7 +3444,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 15
+      sort: 14
       special: null
       translations: null
       validation: null
@@ -3421,6 +3460,46 @@ fields:
       numeric_scale: null
       is_nullable: true
       is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel
+    field: slug
+    type: string
+    meta:
+      collection: kapitel
+      conditions: null
+      display: null
+      display_options: null
+      field: slug
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        slug: true
+        trim: true
+      readonly: false
+      required: true
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: slug
+      table: kapitel
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
       is_primary_key: false
       is_generated: false
       generation_expression: null

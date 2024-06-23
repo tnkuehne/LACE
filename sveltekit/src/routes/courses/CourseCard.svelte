@@ -16,7 +16,7 @@
 	export let toast_text;
 
 	function copyCourseLink() {
-		const courseLink = `${env.PUBLIC_URL}/courses/${course.Title}`;
+		const courseLink = `${env.PUBLIC_URL}/courses/${course.slug}`;
 		navigator.clipboard
 			.writeText(courseLink)
 			.then(() => {
@@ -30,7 +30,7 @@
 	function getFirstNotCompletedChapter() {
 		for (let chapter of chapters) {
 			if (!progressStore.isChapterCompleted(course.id, chapter.id)) {
-				return `/courses/${course.Title}/${chapter.title}`;
+				return `/courses/${course.slug}/${chapter.slug}`;
 			}
 		}
 		return null;
@@ -48,7 +48,7 @@
 	<Card.Header class="flex flex-col pb-0 pl-6">
 		<div class="flex flex-col">
 			<Card.Title class="text-left hover:text-blue-600">
-				<a href={`/courses/${course.Title}`}>{course.Title}</a>
+				<a href={`/courses/${course.slug}`}>{course.Title}</a>
 			</Card.Title>
 			<div class="flex flex-row justify-between">
 				<span class="text-gray-500">Lectures</span>
@@ -83,7 +83,7 @@
 								/>-->
 								<Label class="text-sm font-medium">
 									<a
-										href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
+										href={`/courses/${chapter.kurs.slug}/${chapter.slug}`}
 										class="hover:text-blue-500"
 									>
 										{chapter.title}
@@ -118,7 +118,7 @@
 										</div>
 										<Label class="text-sm">
 											<a
-												href={`/courses/${subchapter.kurs.Title}/${subchapter.title}`}
+												href={`/courses/${subchapter.kurs.slug}/${subchapter.slug}`}
 												class="hover:text-blue-500"
 											>
 												{subchapter.title}

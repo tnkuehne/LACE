@@ -23,7 +23,7 @@
 		const currentChapterIndex = data.chapters.findIndex((_chapter) => _chapter.id === chapter.id);
 		if (currentChapterIndex !== -1 && currentChapterIndex < data.chapters.length - 1) {
 			const nextChapter = data.chapters[currentChapterIndex + 1];
-			nextChapterUrl = `/courses/${chapter.kurs.Title}/${nextChapter.title}`;
+			nextChapterUrl = `/courses/${chapter.kurs.slug}/${nextChapter.slug}`;
 		} else {
 			nextChapterUrl = '';
 		}

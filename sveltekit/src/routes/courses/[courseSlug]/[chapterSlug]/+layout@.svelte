@@ -101,7 +101,7 @@
 								/>-->
 								<Label class="text-sm font-medium">
 									<a
-										href={`/courses/${chapter.kurs.Title}/${chapter.title}`}
+										href={`/courses/${chapter.kurs.slug}/${chapter.slug}`}
 										class="hover:text-blue-500"
 									>
 										{chapter.title}
@@ -116,7 +116,7 @@
 										<div class="grid place-items-center">
 											<Checkbox
 												class="h-4 w-4 text-blue-600"
-												checked={subchapter.title === $page.data.chapterTitle
+												checked={subchapter.title === $page.data.chapter[0].title
 													? 'indeterminate'
 													: !!$progressStore[subchapter.kurs.id]?.completed_chapters.some(
 															(c) => c.chapter === subchapter.id
@@ -138,7 +138,7 @@
 										</div>
 										<Label class="text-sm">
 											<a
-												href={`/courses/${subchapter.kurs.Title}/${subchapter.title}`}
+												href={`/courses/${subchapter.kurs.slug}/${subchapter.slug}`}
 												class="hover:text-blue-500"
 											>
 												{subchapter.title}

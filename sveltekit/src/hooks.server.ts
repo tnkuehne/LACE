@@ -16,6 +16,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 export const handleError: HandleServerError = async ({ error, event, status, message }) => {
 	try {
+		console.error('Error logging error:', error);
 		// Send the log entry to your logging endpoint
 		await fetch(`${envPublic.PUBLIC_URL}/api/analytics/error`, {
 			method: 'POST',

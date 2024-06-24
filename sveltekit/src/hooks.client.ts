@@ -3,6 +3,7 @@ import { env as envPublic } from '$env/dynamic/public';
 
 export const handleError: HandleClientError = async ({ error, event, status, message }) => {
 	try {
+		console.error('Error logging error:', error);
 		// Send the log entry to your logging endpoint
 		await fetch(`${envPublic.PUBLIC_URL}/api/analytics/error`, {
 			method: 'POST',

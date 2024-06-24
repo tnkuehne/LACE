@@ -15,6 +15,7 @@
 	export let data;
 	let menu = false;
 	let progress = 0;
+	let isSurveyDisabled = false;
 
 	// Subscribe to progress store updates
 	$: progressStore.subscribe(async () => {
@@ -23,6 +24,10 @@
 			data.chapters.length
 		);
 	});
+
+	$: {
+		isSurveyDisabled = progress < 90;
+	}
 
 	function toggleMenu() {
 		menu = !menu;
@@ -79,6 +84,7 @@
 				submit_button={data.survey.submit_button}
 				course={data.chapters[0].kurs.Title}
 				courseId={data.chapters[0].kurs.id}
+				disabled={isSurveyDisabled}
 			/>
 			<Sync
 				trigger_button={data.settings.sync_trigger_button}

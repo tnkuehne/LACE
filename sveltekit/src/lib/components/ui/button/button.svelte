@@ -10,6 +10,7 @@
 	export let variant: $$Props["variant"] = "default";
 	export let size: $$Props["size"] = "default";
 	export let builders: $$Props["builders"] = [];
+	export let disabled: boolean = false;
 	export { className as class };
 </script>
 
@@ -20,6 +21,7 @@
 		{...$$restProps}
 		on:click
 		on:keydown
+		disabled={disabled}
 >
 	<slot />
 </ButtonPrimitive.Root>

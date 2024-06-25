@@ -34,7 +34,7 @@ services:
       DB_PASSWORD: "directus"
       ADMIN_EMAIL: "admin@example.com"
       ADMIN_PASSWORD: "d1r3ctu5"
-      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://localhost:5173/"
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://localhost/"
     networks:
       - custom-app-network
 

@@ -36,7 +36,7 @@ export const actions = {
 		}
 
 		// Step 1: Fetch the template PDF from the backend
-		const templateUrl = `${env.PUBLIC_APIURL}/assets/5fb94eb1-8ca8-44e8-8df7-b559533f4dcd.pdf`;
+		const templateUrl = `${env.PUBLIC_URL}/cms/assets/5fb94eb1-8ca8-44e8-8df7-b559533f4dcd.pdf`;
 		const existingPdfBytes = await fetch(templateUrl).then((res) => res.arrayBuffer());
 		const pdfDoc = await PDFDocument.load(existingPdfBytes);
 		const page = pdfDoc.getPages()[0];
@@ -114,7 +114,7 @@ export const actions = {
 
 			const result = await response.json();
 
-			fileURL = `${env.PUBLIC_APIURL}/assets/${result.data.id}`;
+			fileURL = `${env.PUBLIC_URL}/cms/assets/${result.data.id}`;
 		} catch (error) {
 			console.error('Error uploading PDF to Directus:', error);
 			return fail(500, { error: 'Failed to provide download link' });

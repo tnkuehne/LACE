@@ -1,6 +1,7 @@
 <script>
 	import CourseCard from './CourseCard.svelte';
 	import ScrollText from 'lucide-svelte/icons/scroll-text';
+	import Grainy from './Grainy.svelte';
 
 	export let data;
 </script>
@@ -28,11 +29,7 @@
 	></div>
 
 	<!-- Image Overlay -->
-	<enhanced:img
-		src="./grainy.png"
-		alt="Overlay"
-		class="absolute inset-0 h-full w-full object-cover mix-blend-overlay"
-	/>
+	<Grainy class="absolute inset-0 h-full w-full object-cover mix-blend-overlay" />
 
 	<!-- Text Content within a centered max width container -->
 	<div class="relative flex w-full justify-center">

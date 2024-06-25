@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
+	import Grainy from './Grainy.svelte';
 
 	let errorMessage = $page.error.message;
 </script>
@@ -12,11 +13,7 @@
 	></div>
 
 	<!-- Image Overlay -->
-	<enhanced:img
-		src="./grainy.png"
-		alt="Overlay"
-		class="absolute inset-0 h-full w-full object-cover mix-blend-overlay"
-	/>
+	<Grainy class="absolute inset-0 h-full w-full object-cover mix-blend-overlay" />
 
 	<Card.Root class="relative z-10 p-10 text-center">
 		<Card.Header>

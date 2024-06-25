@@ -41,7 +41,7 @@
 
 <Card.Root class="flex flex-grow flex-col">
 	<img
-		src={`${env.PUBLIC_APIURL}/assets/${course.Image}`}
+		src={`${env.PUBLIC_URL}/cms/assets/${course.Image}`}
 		alt="Slide {course.Title}"
 		class="h-48 w-full rounded-t-lg object-cover object-center"
 	/>

@@ -30,8 +30,21 @@ services:
     networks:
       - custom-app-network
     ports:
-      - "80:3000"
+      - "3000:3000"
     env_file: ".env"
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./sveltekit/nginx.local.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - sveltekit
+    networks:
+      - custom-app-network
 
 networks:
   custom-app-network:

@@ -45,22 +45,33 @@ services:
     networks:
       - custom-app-network
     ports:
-      - "5173:5173"
+      - "3000:5173"
     volumes:
       - ./sveltekit:/app
       - /app/node_modules
     environment:
       NODE_ENV: "development"
-      PUBLIC_APIURL: "http://localhost:5173/api"
-      PUBLIC_URL: "http://localhost:5173"
+      PUBLIC_URL: "http://localhost"
       PRIVATE_APIURL: "http://directus:8055"
       PREVIEW_COOKIE_NAME: "__preview_mode"
       PREVIEW_SECRET: "53lt3k1t"
       PRIVATE_KEY: "hallo"
       PUBLIC_KEY: "hallo"
       DIRECTUS_TOKEN: "gyVklUY5Ezrs2vRvfki21cHGdKjUDZaU"
-      APIURL: "http://localhost:5173/api"
     command: npm run dev -- --host
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./sveltekit/nginx.local.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - sveltekit
+    networks:
+      - custom-app-network
 
 networks:
   custom-app-network:

@@ -66,7 +66,7 @@
 					{#if content.collection === 'folien'}
 						<Carousel.Item>
 							<img
-								src={`${env.PUBLIC_APIURL}/assets/${content.item.bild}?format=webp`}
+								src={`${env.PUBLIC_URL}/cms/assets/${content.item.bild}?format=webp`}
 								alt={`Slide ${index + 1}`}
 								loading="lazy"
 							/>

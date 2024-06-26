@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 	const directus = getDirectusInstance(fetch);
 
 	const { path, referrer } = await request.json();
-	let ip = getClientAddress();
+	let ip = request.headers.get('x-forwarded-for') || getClientAddress();
 
 	// Strip the "::ffff:" prefix if present
 	if (ip.startsWith('::ffff:')) {

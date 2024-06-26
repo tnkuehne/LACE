@@ -55,7 +55,7 @@
 		</div>
 	</div>
 </div>
-<div class="min-h-screen bg-slate-50">
+<div class="min-h-screen">
 	<div
 		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-16 p-4 pt-16"
 	>
@@ -107,7 +107,7 @@
 		</section>
 	</div>
 </div>
-<footer class="bg-sky-100">
+<footer class="bg-sky-100 dark:bg-blue-950">
 	<div
 		class="mx-auto flex max-w-screen-2xl flex-col justify-between space-y-16 px-8 py-16 md:flex-row md:space-y-0 md:px-0"
 	>

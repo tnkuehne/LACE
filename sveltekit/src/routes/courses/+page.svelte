@@ -12,7 +12,7 @@
 	});
 </script>
 
-<div class="bg-blueGray-50 min-h-screen p-4">
+<div class="min-h-screen p-4">
 	<div class="mx-auto mt-16 max-w-screen-2xl">
 		<div class="-mx-2 flex flex-row flex-wrap justify-center space-y-4 md:space-y-0">
 			{#each data.courses as course}

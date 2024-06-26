@@ -54,7 +54,7 @@
 <div class="flex min-h-screen">
 	<!-- Sidebar Menu -->
 	<div
-		class={`fixed inset-x-0 bottom-0 bg-neutral-50 dark:bg-blue-950 ${menu ? 'block' : 'hidden'} z-40 h-3/4 p-8 md:relative md:block md:h-auto md:w-1/4`}
+		class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${menu ? 'block' : 'hidden'} z-40 h-3/4 p-8 md:relative md:block md:h-auto md:w-1/4`}
 	>
 		<div class="flex flex-row items-center gap-2">
 			<Button

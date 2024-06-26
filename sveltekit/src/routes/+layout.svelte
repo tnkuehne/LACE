@@ -47,7 +47,7 @@
 
 	onMount(() => {
 		const referrer = document.referrer;
-		const path = $page.url.href;
+		const path = $page.url.pathname;
 
 		if (referrer) {
 			if (new URL(referrer).hostname === $page.url.hostname) {

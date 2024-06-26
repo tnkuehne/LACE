@@ -50,7 +50,7 @@
 		const path = $page.url.href;
 
 		if (referrer) {
-			if (new URL(referrer).hostname !== $page.url.hostname) {
+			if (new URL(referrer).hostname === $page.url.hostname) {
 				const referrerPath = new URL(referrer).pathname;
 				trackPageView(path, referrerPath);
 			} else {

@@ -49,12 +49,13 @@
 		const referrer = document.referrer;
 		const path = $page.url.href;
 
-		// For testing purposes
-		trackPageView(path, referrer);
-
-		// Only track if referrer is different from the current hostname
-		if (referrer && new URL(referrer).hostname !== $page.url.hostname) {
-			trackPageView(path, referrer);
+		if (referrer) {
+			if (new URL(referrer).hostname !== $page.url.hostname) {
+				const referrerPath = new URL(referrer).pathname;
+				trackPageView(path, referrerPath);
+			} else {
+				trackPageView(path, referrer);
+			}
 		}
 	});
 </script>

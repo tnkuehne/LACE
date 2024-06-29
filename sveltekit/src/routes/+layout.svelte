@@ -49,13 +49,8 @@
 		const referrer = document.referrer;
 		const path = $page.url.pathname;
 
-		if (referrer) {
-			if (new URL(referrer).hostname === $page.url.hostname) {
-				const referrerPath = new URL(referrer).pathname;
-				trackPageView(path, referrerPath);
-			} else {
-				trackPageView(path, referrer);
-			}
+		if (!referrer || new URL(referrer).hostname !== new URL(location.href).hostname) {
+			trackPageView(path, referrer);
 		}
 	});
 </script>

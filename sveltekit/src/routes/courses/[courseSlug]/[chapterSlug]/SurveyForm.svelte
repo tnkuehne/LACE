@@ -33,7 +33,7 @@
 >
 	{#each sections as section}
 		<div>
-			<h2 class="font-medium">{section}</h2>
+			<h2 class="font-medium underline">{section}</h2>
 			{#each groupedQuestions[section] as question}
 				{#if question.course === course || question.course == null}
 					<div class="pt-4">
@@ -45,15 +45,12 @@
 							<div class="flex flex-col pt-2">
 								<div class="flex flex-row justify-between">
 									{#each likertScale as option}
-										<label>
-											<input
-												type="radio"
-												name={question.question}
-												value={option}
-												required={question.required}
-											/>
-											{option}
-										</label>
+										<input
+											type="radio"
+											name={question.question}
+											value={option}
+											required={question.required}
+										/>
 									{/each}
 								</div>
 								<div class="flex flex-row justify-between">

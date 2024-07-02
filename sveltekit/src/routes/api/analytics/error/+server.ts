@@ -4,17 +4,31 @@ import { createItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 
 export const POST: RequestHandler = async ({ request }) => {
-	const { statusCode, stack, message, event, error } = await request.json();
+	let { event, error } = await request.json();
+	const { statusCode, stack, message } = await request.json();
 
-	await getDirectusInstance().request(
-		createItem('error', {
-			statusCode: statusCode,
-			stack: stack,
-			message: message,
-			event: event,
-			error: error
-		})
-	);
+	// if event and error is not json format, convert them to json
+	if (typeof event === 'object') {
+		event = JSON.stringify(event);
+	}
+	if (typeof error === 'object') {
+		error = JSON.stringify(error);
+	}
 
-	return json({ message: 'Error data saved' });
+	try {
+		await getDirectusInstance().request(
+			createItem('error', {
+				statusCode: statusCode,
+				stack: stack,
+				message: message,
+				event: event,
+				error: error
+			})
+		);
+
+		return json({ message: 'Error data saved' });
+	} catch (err) {
+		console.error('Error while saving error data:', err);
+		return json({ message: 'Error while saving error data' });
+	}
 };

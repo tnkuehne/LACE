@@ -6465,6 +6465,7 @@ fields:
                     value: likert
                   - text: Open
                     value: open
+                allowOther: true
           - field: course
             name: course
             type: string
@@ -6488,6 +6489,26 @@ fields:
               type: boolean
               required: false
               interface: boolean
+          - field: section
+            name: section
+            type: string
+            meta:
+              field: section
+              width: half
+              type: string
+              required: true
+              interface: select-dropdown
+              options:
+                choices:
+                  - text: Your Background
+                    value: Your Background
+                  - text: Content
+                    value: Content
+                  - text: Acquired Competence
+                    value: Acquired Competence
+                  - text: Final Thoughts
+                    value: Final Thoughts
+                allowOther: true
       readonly: false
       required: true
       sort: 10

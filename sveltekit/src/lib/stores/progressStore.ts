@@ -4,6 +4,7 @@ import { browser } from '$app/environment';
 interface Progress {
 	[key: string]: {
 		completed_chapters: { chapter: string }[];
+		certificate_issued: boolean;
 	};
 }
 
@@ -44,7 +45,7 @@ function createProgressStore() {
 
 	async function syncProgress(
 		course: string,
-		newProgress: { completed_chapters: { chapter: string }[] }
+		newProgress: { completed_chapters: { chapter: string }[]; certificate_issued: boolean }
 	) {
 		try {
 			const response = await fetch('/api/progress', {
@@ -52,7 +53,11 @@ function createProgressStore() {
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ course, completedChapters: newProgress.completed_chapters })
+				body: JSON.stringify({
+					course,
+					completedChapters: newProgress.completed_chapters,
+					certificateIssued: newProgress.certificate_issued
+				})
 			});
 
 			if (!response.ok) {
@@ -146,14 +151,17 @@ function createProgressStore() {
 			update((currentProgress) => {
 				// Initialize course progress if not present
 				if (!currentProgress[course]) {
-					currentProgress[course] = { completed_chapters: [] };
+					currentProgress[course] = { completed_chapters: [], certificate_issued: false };
 				}
 
 				const chapters = currentProgress[course].completed_chapters || [];
 				if (!chapters.some((c) => c.chapter === chapter)) {
 					chapters.push({ chapter });
 				}
-				const newProgress = { completed_chapters: chapters };
+				const newProgress = {
+					completed_chapters: chapters,
+					certificate_issued: currentProgress[course].certificate_issued
+				};
 
 				if (syncEnabled) {
 					syncProgress(course, newProgress);
@@ -182,6 +190,33 @@ function createProgressStore() {
 		return null;
 	}
 
+	async function issueCertificate(course: string) {
+		if (browser) {
+			update((currentProgress) => {
+				// Ensure course progress is initialized
+				if (!currentProgress[course]) {
+					currentProgress[course] = { completed_chapters: [], certificate_issued: false };
+				}
+
+				// Set certificate_issued to true
+				const newProgress = { ...currentProgress[course], certificate_issued: true };
+
+				if (isSyncEnabledCached) {
+					syncProgress(course, newProgress);
+				} else {
+					localStorage.setItem(`progress_${course}`, JSON.stringify(newProgress));
+				}
+
+				return { ...currentProgress, [course]: newProgress };
+			});
+		}
+	}
+
+	async function isCertificateIssued(course: string): Promise<boolean> {
+		const progress = await getProgress(course);
+		return progress?.certificate_issued || false;
+	}
+
 	return {
 		subscribe,
 		completeChapter,
@@ -189,6 +224,8 @@ function createProgressStore() {
 		getProgress,
 		getSyncCode,
 		isSyncEnabled,
+		issueCertificate,
+		isCertificateIssued,
 		isChapterCompleted: async (course: string, chapter: string) => {
 			const progress = await getProgress(course);
 			if (progress) {

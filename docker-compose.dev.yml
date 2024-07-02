@@ -51,7 +51,7 @@ services:
       - /app/node_modules
     environment:
       NODE_ENV: "development"
-      PUBLIC_URL: "http://localhost"
+      PUBLIC_URL: "https://localhost"
       PRIVATE_APIURL: "http://directus:8055"
       PREVIEW_COOKIE_NAME: "__preview_mode"
       PREVIEW_SECRET: "53lt3k1t"

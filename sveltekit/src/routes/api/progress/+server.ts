@@ -2,7 +2,6 @@ import type { RequestHandler } from './$types';
 import { readItems, createItem, updateItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 import { json, error } from '@sveltejs/kit';
-import { v4 as uuidv4 } from 'uuid';
 
 export const PATCH: RequestHandler = async ({ request, cookies }) => {
 	const directus = getDirectusInstance(fetch);
@@ -12,7 +11,7 @@ export const PATCH: RequestHandler = async ({ request, cookies }) => {
 		return error(400, 'User ID not found. Syncing is disabled.');
 	}
 
-	const { course, completedChapters } = await request.json();
+	const { course, completedChapters, certificateIssued } = await request.json();
 	try {
 		const existingEntries = await directus.request(
 			readItems('progress', {
@@ -27,8 +26,10 @@ export const PATCH: RequestHandler = async ({ request, cookies }) => {
 			const entryId = existingEntries[0].id;
 
 			const currentChapters = existingEntries[0].completed_chapters;
+			const currentCertificateIssued = existingEntries[0].certificate_issued;
 
 			let updatedChapters = completedChapters;
+			let updatedCertificateIssued = certificateIssued;
 
 			if (currentChapters) {
 				// Merge current progress with new progress
@@ -44,12 +45,24 @@ export const PATCH: RequestHandler = async ({ request, cookies }) => {
 				];
 			}
 
+			if (typeof certificateIssued === 'undefined') {
+				updatedCertificateIssued = currentCertificateIssued;
+			}
+
 			await directus.request(
-				updateItem('progress', entryId, { completed_chapters: updatedChapters })
+				updateItem('progress', entryId, {
+					completed_chapters: updatedChapters,
+					certificate_issued: updatedCertificateIssued
+				})
 			);
 		} else {
 			await directus.request(
-				createItem('progress', { user: userId, course, completed_chapters: completedChapters })
+				createItem('progress', {
+					user: userId,
+					course,
+					completed_chapters: completedChapters,
+					certificate_issued: certificateIssued || false
+				})
 			);
 		}
 
@@ -88,7 +101,7 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 			})
 		);
 
-		return json(data.length ? data[0] : { completed_chapters: [] });
+		return json(data.length ? data[0] : { completed_chapters: [], certificate_issued: false });
 	} catch (error) {
 		return error(500, {
 			message: 'Failed to fetch progress',
@@ -99,7 +112,7 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 
 export const POST: RequestHandler = ({ cookies }) => {
 	// set user cookie with a unique id
-	const userId = uuidv4();
+	const userId = crypto.randomUUID();
 	cookies.set('user', userId, { path: '/' });
 	return json({ user: userId });
 };

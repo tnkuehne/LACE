@@ -1259,7 +1259,7 @@ fields:
       name: username_x
       table: certification
       data_type: integer
-      default_value: null
+      default_value: 1300
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
@@ -1297,7 +1297,7 @@ fields:
       name: username_y
       table: certification
       data_type: integer
-      default_value: null
+      default_value: 1150
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
@@ -1335,7 +1335,7 @@ fields:
       name: coursename_x
       table: certification
       data_type: integer
-      default_value: null
+      default_value: 700
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
@@ -1399,7 +1399,7 @@ fields:
       name: coursename_y
       table: certification
       data_type: integer
-      default_value: null
+      default_value: 1520
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
@@ -1437,7 +1437,7 @@ fields:
       name: qrcode_x
       table: certification
       data_type: integer
-      default_value: null
+      default_value: 1450
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
@@ -1475,7 +1475,7 @@ fields:
       name: qrcode_y
       table: certification
       data_type: integer
-      default_value: null
+      default_value: 1780
       max_length: null
       numeric_precision: 32
       numeric_scale: 0

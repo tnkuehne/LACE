@@ -50,23 +50,21 @@ export const actions = {
 
 		const pdfDoc = await PDFDocument.load(existingPdfBytes);
 		const page = pdfDoc.getPages()[0];
-		const { width, height } = page.getSize();
+		const { height } = page.getSize();
 
 		// Step 2: Add text to the PDF
-		page.drawText(`This is to certify that`, {
-			x: 50,
-			y: height - 100,
-			size: 20,
+		page.drawText(`${userName}`, {
+			x: settings.username_x,
+			y: height - settings.username_y,
+			size: 164,
+			color: rgb(22 / 256, 93 / 256, 177 / 256)
+		});
+		page.drawText(`${courseName}`, {
+			x: settings.coursename_x,
+			y: height - settings.coursename_y,
+			size: 96,
 			color: rgb(0, 0, 0)
 		});
-		page.drawText(`${userName}`, { x: 50, y: height - 150, size: 25, color: rgb(0, 0, 1) });
-		page.drawText(`has successfully completed the course`, {
-			x: 50,
-			y: height - 200,
-			size: 20,
-			color: rgb(0, 0, 0)
-		});
-		page.drawText(`${courseName}`, { x: 50, y: height - 250, size: 25, color: rgb(0, 0, 1) });
 
 		// Step 3: Create a unique certificate ID and digital signature
 		const certificateId = crypto.randomUUID();
@@ -93,12 +91,12 @@ export const actions = {
 		// Step 6: Generate QR code
 		const qrCodeImageUrl = await QRCode.toDataURL(verificationUrl);
 		const qrImage = await pdfDoc.embedPng(qrCodeImageUrl);
-		const qrDims = qrImage.scale(0.5);
+		const qrDims = qrImage.scale(2);
 
 		// Step 7: Add QR code to the PDF
 		page.drawImage(qrImage, {
-			x: width - qrDims.width - 50,
-			y: 50,
+			x: settings.qrcode_x,
+			y: height - qrDims.height - settings.qrcode_y,
 			width: qrDims.width,
 			height: qrDims.height
 		});

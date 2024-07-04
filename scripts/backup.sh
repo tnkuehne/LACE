@@ -15,4 +15,9 @@ else
   exit 1
 fi
 
+# Compress the backup file
+gzip "$BACKUP_FILE"
+
+echo "Compressed backup to ${BACKUP_FILE}.gz completed."
+
 # ToDo: Upload the backup file to a cloud storage (e.g., LRZ Backups)

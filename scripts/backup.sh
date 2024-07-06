@@ -2,18 +2,24 @@
 
 source .env
 
-BACKUP_FILE=backup_$(date +%Y%m%d%H%M%S).sql
+TIMESTAMP=$(date +%Y%m%d%H%M%S)
+DB_BACKUP_FILE=db_backup_$TIMESTAMP.sql
+UPLOADS_BACKUP_FILE=uploads_$TIMESTAMP.tar.gz
+FINAL_BACKUP_FILE=backup_$TIMESTAMP.tar.gz
 
 # shellcheck disable=SC2024
-if sudo docker exec -e PGPASSWORD="$POSTGRES_PASSWORD" -t "$DATABASE_CONTAINER_NAME" pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB" > "$BACKUP_FILE"; then
-  echo "Backup $BACKUP_FILE completed successfully."
+if sudo docker exec -e PGPASSWORD="$POSTGRES_PASSWORD" -t "$DATABASE_CONTAINER_NAME" pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB" > "$DB_BACKUP_FILE"; then
+  echo "Database backup $DB_BACKUP_FILE completed successfully."
 else
-  echo "Backup failed." >&2
+  echo "Database backup failed." >&2
   exit 1
 fi
 
-gzip "$BACKUP_FILE"
+gzip "$DB_BACKUP_FILE"
+tar -czf "$UPLOADS_BACKUP_FILE" "$UPLOADS_PATH"
+tar -czf "$FINAL_BACKUP_FILE" "${DB_BACKUP_FILE}".gz "$UPLOADS_BACKUP_FILE"
+rm "${DB_BACKUP_FILE}".gz "$UPLOADS_BACKUP_FILE"
 
-echo "Compressed backup to ${BACKUP_FILE}.gz completed."
+echo "Final backup $FINAL_BACKUP_FILE created successfully."
 
 # ToDo: Upload the backup file to a cloud storage (e.g., LRZ Backups)

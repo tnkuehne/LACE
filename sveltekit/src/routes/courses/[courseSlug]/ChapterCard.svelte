@@ -24,7 +24,11 @@
 	<Card.Header>
 		<div class="flex flex-row items-center gap-2">
 			<BookOpenText />
-			<Card.Title>{chapter.title}</Card.Title>
+			<Card.Title>
+				<a class="hover:text-blue-600" href={`/courses/${chapter.kurs.slug}/${chapter.slug}`}>
+					{chapter.title}
+				</a>
+			</Card.Title>
 		</div>
 		<Separator />
 	</Card.Header>

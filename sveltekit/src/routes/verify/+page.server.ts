@@ -1,6 +1,7 @@
 import { createHmac } from 'crypto';
 import { TextEncoder } from 'util';
 import getDirectusInstance from '$lib/server/directus';
+import { readItem } from '@directus/sdk';
 
 const publicKey = process.env.PUBLIC_KEY; // Securely access the public key
 

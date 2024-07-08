@@ -84,7 +84,7 @@ export const actions = {
 
 		// Step 5: Encode data and signature in URL
 		const encodedData = encodeURIComponent(btoa(certificateData));
-		const verificationUrl = `${env.PUBLIC_URL}/verify?data=${encodedData}&signature=${signature}`;
+		const verificationUrl = `${envPub.PUBLIC_URL}/verify?data=${encodedData}&signature=${signature}`;
 
 		console.log('Verification URL:', verificationUrl);
 

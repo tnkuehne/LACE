@@ -85,6 +85,7 @@
 				course={data.chapters[0].kurs.Title}
 				courseId={data.chapters[0].kurs.id}
 				disabled={isSurveyDisabled}
+				trigger_button_info={data.survey.trigger_button_info}
 			/>
 			<Sync
 				trigger_button={data.settings.sync_trigger_button}

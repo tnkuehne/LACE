@@ -1,4 +1,4 @@
-import { readSingleton, createItem, readItem } from '@directus/sdk';
+import { readSingleton, createItem, readItem, uploadFiles } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 import type { PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
@@ -6,8 +6,8 @@ import { PDFDocument, rgb } from 'pdf-lib';
 import QRCode from 'qrcode';
 import { createHmac } from 'crypto';
 import { TextEncoder } from 'util';
-import { env } from '$env/dynamic/public';
-import { v4 as uuidv4 } from 'uuid';
+import { env } from '$env/dynamic/private';
+import { env as envPub } from '$env/dynamic/public';
 
 export const load: PageServerLoad = async ({ fetch, url }) => {
 	const directus = getDirectusInstance(fetch);
@@ -18,8 +18,6 @@ export const load: PageServerLoad = async ({ fetch, url }) => {
 	};
 };
 
-const privateKey = process.env.PRIVATE_KEY; // Securely access the private key
-
 export const actions = {
 	default: async ({ request, fetch, url }) => {
 		const directus = getDirectusInstance(fetch);
@@ -29,6 +27,8 @@ export const actions = {
 
 		const response = await directus.request(readItem('Courses', courseID));
 
+		const settings = await directus.request(readSingleton('certification'));
+
 		const courseName = response.Title;
 
 		if (!userName || !courseName) {
@@ -36,32 +36,41 @@ export const actions = {
 		}
 
 		// Step 1: Fetch the template PDF from the backend
-		const templateUrl = `${env.PUBLIC_URL}/cms/assets/5fb94eb1-8ca8-44e8-8df7-b559533f4dcd.pdf`;
-		const existingPdfBytes = await fetch(templateUrl).then((res) => res.arrayBuffer());
+		const templateUrl = `${env.PRIVATE_APIURL}/assets/${settings.template}.pdf`;
+
+		let existingPdfBytes;
+
+		try {
+			const response = await fetch(templateUrl);
+			existingPdfBytes = await response.arrayBuffer();
+		} catch (error) {
+			console.error('Error fetching PDF template:', error);
+			return fail(500, { error: 'Failed to fetch PDF template' });
+		}
+
 		const pdfDoc = await PDFDocument.load(existingPdfBytes);
 		const page = pdfDoc.getPages()[0];
-		const { width, height } = page.getSize();
+		const { height } = page.getSize();
 
 		// Step 2: Add text to the PDF
-		page.drawText(`This is to certify that`, {
-			x: 50,
-			y: height - 100,
-			size: 20,
+		page.drawText(`${userName}`, {
+			x: settings.username_x,
+			y: height - settings.username_y,
+			size: 164,
+			color: rgb(22 / 256, 93 / 256, 177 / 256)
+		});
+		page.drawText(`${courseName}`, {
+			x: settings.coursename_x,
+			y: height - settings.coursename_y,
+			size: 96,
 			color: rgb(0, 0, 0)
 		});
-		page.drawText(`${userName}`, { x: 50, y: height - 150, size: 25, color: rgb(0, 0, 1) });
-		page.drawText(`has successfully completed the course`, {
-			x: 50,
-			y: height - 200,
-			size: 20,
-			color: rgb(0, 0, 0)
-		});
-		page.drawText(`${courseName}`, { x: 50, y: height - 250, size: 25, color: rgb(0, 0, 1) });
 
 		// Step 3: Create a unique certificate ID and digital signature
-		const certificateId = uuidv4();
+		const certificateId = crypto.randomUUID();
 		const certificateData = JSON.stringify({ userName, courseName, certificateId });
 		const encoder = new TextEncoder();
+		const privateKey = env.PRIVATE_KEY;
 		const signature = createHmac('sha256', privateKey)
 			.update(encoder.encode(certificateData))
 			.digest('hex');
@@ -82,12 +91,12 @@ export const actions = {
 		// Step 6: Generate QR code
 		const qrCodeImageUrl = await QRCode.toDataURL(verificationUrl);
 		const qrImage = await pdfDoc.embedPng(qrCodeImageUrl);
-		const qrDims = qrImage.scale(0.5);
+		const qrDims = qrImage.scale(2);
 
 		// Step 7: Add QR code to the PDF
 		page.drawImage(qrImage, {
-			x: width - qrDims.width - 50,
-			y: 50,
+			x: settings.qrcode_x,
+			y: height - qrDims.height - settings.qrcode_y,
 			width: qrDims.width,
 			height: qrDims.height
 		});
@@ -95,30 +104,21 @@ export const actions = {
 		// Step 8: Serialize the PDF document to bytes
 		const pdfBytes = await pdfDoc.save();
 
+		const certificateFileId = crypto.randomUUID();
+
 		// Prepare FormData for the upload
 		const formDataUpload = new FormData();
 		formDataUpload.append('title', `certificate-${certificateId}`);
+		formDataUpload.append('id', certificateFileId);
 		formDataUpload.append(
 			'file',
 			new Blob([pdfBytes], { type: 'application/pdf' }),
 			`certificate-${certificateId}.pdf`
 		);
 
-		let fileURL = '';
-		// Perform the upload
-		try {
-			const response = await fetch('http://directus:8055/files', {
-				method: 'POST',
-				body: formDataUpload
-			});
+		await directus.request(uploadFiles(formDataUpload));
 
-			const result = await response.json();
-
-			fileURL = `${env.PUBLIC_URL}/cms/assets/${result.data.id}`;
-		} catch (error) {
-			console.error('Error uploading PDF to Directus:', error);
-			return fail(500, { error: 'Failed to provide download link' });
-		}
+		const fileURL = `${envPub.PUBLIC_URL}/cms/assets/${certificateFileId}`;
 
 		return redirect(303, fileURL);
 	}

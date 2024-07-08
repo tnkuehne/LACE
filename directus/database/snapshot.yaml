@@ -1194,6 +1194,299 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: certification
+    field: template
+    type: uuid
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: template
+      group: template_customization
+      hidden: false
+      interface: file
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: template
+      table: certification
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: certification
+    field: username_x
+    type: integer
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: username_x
+      group: template_customization
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: username_x
+      table: certification
+      data_type: integer
+      default_value: 1300
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: username_y
+    type: integer
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: username_y
+      group: template_customization
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: username_y
+      table: certification
+      data_type: integer
+      default_value: 1150
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: coursename_x
+    type: integer
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: coursename_x
+      group: template_customization
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: coursename_x
+      table: certification
+      data_type: integer
+      default_value: 700
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: template_customization
+    type: alias
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: template_customization
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options:
+        headerIcon: edit_document
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - alias
+        - group
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: certification
+    field: coursename_y
+    type: integer
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: coursename_y
+      group: template_customization
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: coursename_y
+      table: certification
+      data_type: integer
+      default_value: 1520
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: qrcode_x
+    type: integer
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: qrcode_x
+      group: template_customization
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: qrcode_x
+      table: certification
+      data_type: integer
+      default_value: 1450
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: certification
+    field: qrcode_y
+    type: integer
+    meta:
+      collection: certification
+      conditions: null
+      display: null
+      display_options: null
+      field: qrcode_y
+      group: template_customization
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: qrcode_y
+      table: certification
+      data_type: integer
+      default_value: 1780
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: course_page
     field: date_updated
     type: timestamp
@@ -5878,6 +6171,45 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: progress
+    field: certificate_issued
+    type: boolean
+    meta:
+      collection: progress
+      conditions: null
+      display: null
+      display_options: null
+      field: certificate_issued
+      group: null
+      hidden: false
+      interface: boolean
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: certificate_issued
+      table: progress
+      data_type: boolean
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: quiz_data
     field: id
     type: uuid
@@ -6465,6 +6797,7 @@ fields:
                     value: likert
                   - text: Open
                     value: open
+                allowOther: true
           - field: course
             name: course
             type: string
@@ -6488,6 +6821,26 @@ fields:
               type: boolean
               required: false
               interface: boolean
+          - field: section
+            name: section
+            type: string
+            meta:
+              field: section
+              width: half
+              type: string
+              required: true
+              interface: select-dropdown
+              options:
+                choices:
+                  - text: Your Background
+                    value: Your Background
+                  - text: Content
+                    value: Content
+                  - text: Acquired Competence
+                    value: Acquired Competence
+                  - text: Final Thoughts
+                    value: Final Thoughts
+                allowOther: true
       readonly: false
       required: true
       sort: 10
@@ -6578,6 +6931,46 @@ fields:
       table: survey
       data_type: character varying
       default_value: Get certificate
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: survey
+    field: trigger_button_info
+    type: string
+    meta:
+      collection: survey
+      conditions: null
+      display: null
+      display_options: null
+      field: trigger_button_info
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 12
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: trigger_button_info
+      table: survey
+      data_type: character varying
+      default_value: >-
+        Give us feedback after the finishing the course and get a certificate as
+        reward.
       max_length: 255
       numeric_precision: null
       numeric_scale: null
@@ -6769,6 +7162,27 @@ relations:
       constraint_name: certification_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
+  - collection: certification
+    field: template
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: certification
+      many_field: template
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: certification
+      column: template
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: certification_template_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: course_page
     field: user_updated
     related_collection: directus_users

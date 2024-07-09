@@ -98,7 +98,7 @@
 			/>
 		</div>
 
-		<Accordion.Root>
+		<Accordion.Root class="pt-8">
 			{#each data.chapters as chapter, index}
 				{#if chapter.parent === null}
 					{#if hasChildren(chapter.title)}

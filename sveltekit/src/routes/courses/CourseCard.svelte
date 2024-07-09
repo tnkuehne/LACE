@@ -87,12 +87,7 @@
                                         disabled
                                     />-->
 									<Label class="text-sm font-medium">
-										<a
-											href={`/courses/${chapter.kurs.slug}/${chapter.slug}`}
-											class="hover:text-blue-500"
-										>
-											{chapter.title}
-										</a>
+										{chapter.title}
 									</Label>
 								</div>
 							</Accordion.Trigger>
@@ -135,7 +130,7 @@
 							</Accordion.Content>
 						</Accordion.Item>
 					{:else}
-						<div class="flex items-center space-x-2 pt-2">
+						<div class="flex items-center space-x-2 border-b pb-2 pt-4">
 							<Checkbox
 								id="chapter"
 								checked={!!$progressStore[chapter.kurs.id]?.completed_chapters.includes(chapter.id)}

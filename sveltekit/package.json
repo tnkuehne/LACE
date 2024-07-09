@@ -16,7 +16,7 @@
 		"prepare": "cd .. && husky sveltekit/.husky"
 	},
 	"devDependencies": {
-		"@directus/sdk": "^16.0.0",
+		"@directus/sdk": "^16.1.1",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-node": "^5.0.1",
 		"@sveltejs/enhanced-img": "^0.2.1",

@@ -103,9 +103,9 @@
 											<div class="grid place-items-center">
 												<Checkbox
 													class="h-4 w-4 text-blue-600"
-													checked={!!$progressStore[subchapter.kurs.id]?.completedChapters.includes(
-														subchapter.id
-													)}
+													checked={!!$progressStore[
+														subchapter.kurs.id
+													]?.completed_chapters.includes(subchapter.id)}
 													disabled
 												/>
 												<!-- Add vertical line below checkbox -->
@@ -115,7 +115,7 @@
 													<div
 														class="my-2 border-l-2 {$progressStore[
 															subchapter.kurs.id
-														]?.completedChapters.includes(subchapter.id)
+														]?.completed_chapters.includes(subchapter.id)
 															? 'border-blue-600'
 															: 'border-gray-300'} h-6"
 													></div>
@@ -138,7 +138,7 @@
 						<div class="flex items-center space-x-2 pt-2">
 							<Checkbox
 								id="chapter"
-								checked={!!$progressStore[chapter.kurs.id]?.completedChapters.includes(chapter.id)}
+								checked={!!$progressStore[chapter.kurs.id]?.completed_chapters.includes(chapter.id)}
 								disabled
 							/>
 							<Label class="text-sm font-medium">

@@ -165,7 +165,7 @@
 						<div class="flex items-center space-x-2 pt-2">
 							<Checkbox
 								id="chapter"
-								checked={!!$progressStore[chapter.kurs.id]?.completedChapters.includes(chapter.id)}
+								checked={!!$progressStore[chapter.kurs.id]?.completed_chapters.includes(chapter.id)}
 								disabled
 							/>
 							<Label class="text-sm font-medium">

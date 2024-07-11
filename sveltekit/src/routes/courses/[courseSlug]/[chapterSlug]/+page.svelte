@@ -63,6 +63,7 @@
 		>
 			<Carousel.Content class="flex">
 				{#each chapter.content as content, index}
+					<!-- type folien will be deprecated in the future -->
 					{#if content.collection === 'folien'}
 						<Carousel.Item>
 							<img
@@ -71,6 +72,7 @@
 								loading="lazy"
 							/>
 						</Carousel.Item>
+						<!-- type folien will be deprecated in the future -->
 					{:else if content.item.type === 'mc'}
 						<Carousel.Item class="flex items-center justify-center">
 							<McQuiz
@@ -85,6 +87,14 @@
 								id={content.item.id}
 								question={content.item.question}
 								answers={content.item.answers}
+							/>
+						</Carousel.Item>
+					{:else if content.item.type.startsWith('image')}
+						<Carousel.Item>
+							<img
+								src={`${env.PUBLIC_URL}/cms/assets/${content.item.id}?format=webp`}
+								alt={`Slide ${index + 1}`}
+								loading="lazy"
 							/>
 						</Carousel.Item>
 					{/if}

@@ -14,11 +14,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, locals }) => {
 			fields: [
 				'*',
 				'content.collection',
-				'content.item.bild',
-				'content.item.answers',
-				'content.item.question',
-				'content.item.type',
-				'content.item.id',
+				'content.item.*',
 				'kurs.*',
 				'content.item.answers.sort',
 				'parent.title'

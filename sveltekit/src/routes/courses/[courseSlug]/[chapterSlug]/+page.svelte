@@ -63,7 +63,7 @@
 		>
 			<Carousel.Content class="flex">
 				{#each chapter.content as content, index}
-					{#if 'type' in content.item}
+					{#if content.item && 'type' in content.item}
 						{#if content.item.type === 'mc'}
 							<Carousel.Item class="flex items-center justify-center">
 								<McQuiz

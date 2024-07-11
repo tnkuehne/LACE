@@ -63,23 +63,26 @@
 		>
 			<Carousel.Content class="flex">
 				{#each chapter.content as content, index}
-					{#if content.item.type === 'mc'}
-						<Carousel.Item class="flex items-center justify-center">
-							<McQuiz
-								id={content.item.id}
-								question={content.item.question}
-								answers={content.item.answers}
-							/>
-						</Carousel.Item>
-					{:else if content.item.type === 'order'}
-						<Carousel.Item class="flex items-center justify-center">
-							<OrderQuiz
-								id={content.item.id}
-								question={content.item.question}
-								answers={content.item.answers}
-							/>
-						</Carousel.Item>
-					{:else if content.collection === 'directus_files'}
+					{#if 'type' in content.item}
+						{#if content.item.type === 'mc'}
+							<Carousel.Item class="flex items-center justify-center">
+								<McQuiz
+									id={content.item.id}
+									question={content.item.question}
+									answers={content.item.answers}
+								/>
+							</Carousel.Item>
+						{:else if content.item.type === 'order'}
+							<Carousel.Item class="flex items-center justify-center">
+								<OrderQuiz
+									id={content.item.id}
+									question={content.item.question}
+									answers={content.item.answers}
+								/>
+							</Carousel.Item>
+						{/if}
+					{/if}
+					{#if content.collection === 'directus_files'}
 						<Carousel.Item>
 							<img
 								src={`${env.PUBLIC_URL}/cms/assets/${content.item.id}?format=webp`}

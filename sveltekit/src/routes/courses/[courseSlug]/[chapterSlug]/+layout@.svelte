@@ -39,7 +39,7 @@
 </script>
 
 <nav
-	class="fixed inset-x-0 bottom-0 z-50 flex justify-between bg-neutral-50 p-2 lg:relative lg:inset-auto lg:z-auto lg:hidden"
+	class="fixed inset-x-0 bottom-0 z-50 flex justify-between bg-slate-100 p-2 dark:bg-slate-900 lg:relative lg:inset-auto lg:z-auto lg:hidden"
 >
 	<h1
 		class="lg:text-6x font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800"

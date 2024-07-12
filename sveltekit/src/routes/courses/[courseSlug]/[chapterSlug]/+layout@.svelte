@@ -79,7 +79,7 @@
 			<Progress class="rounded-full bg-gray-200 dark:bg-gray-800" value={progress} />
 		</div>
 
-		<div class="flex flex-row gap-4">
+		<div class="flex flex-col gap-4 xl:flex-row">
 			<Survey
 				trigger_button={data.survey.trigger_button}
 				title={data.survey.title}

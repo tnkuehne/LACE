@@ -39,14 +39,14 @@
 </script>
 
 <nav
-	class="fixed inset-x-0 bottom-0 z-50 flex justify-between bg-neutral-50 p-2 md:relative md:inset-auto md:z-auto md:hidden"
+	class="fixed inset-x-0 bottom-0 z-50 flex justify-between bg-neutral-50 p-2 lg:relative lg:inset-auto lg:z-auto lg:hidden"
 >
 	<h1
-		class="md:text-6x font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800"
+		class="lg:text-6x font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800"
 	>
 		LACE
 	</h1>
-	<Button variant="outline" size="icon" on:click={toggleMenu} class="md:hidden">
+	<Button variant="outline" size="icon" on:click={toggleMenu} class="lg:hidden">
 		{#if menu}
 			<X class="h-4 w-4" />
 		{:else}
@@ -58,7 +58,7 @@
 <div class="flex min-h-screen">
 	<!-- Sidebar Menu -->
 	<div
-		class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${menu ? 'block' : 'hidden'} z-40 h-3/4 p-8 md:relative md:block md:h-auto md:w-1/4`}
+		class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${menu ? 'block' : 'hidden'} z-40 h-3/4 p-8 lg:relative lg:block lg:h-auto lg:w-1/4`}
 	>
 		<div class="flex flex-row items-center gap-2">
 			<Button
@@ -181,7 +181,7 @@
 	</div>
 
 	<!-- Main Content -->
-	<div class="p-16 md:w-3/4">
+	<div class="p-16 lg:w-3/4">
 		<slot />
 	</div>
 </div>

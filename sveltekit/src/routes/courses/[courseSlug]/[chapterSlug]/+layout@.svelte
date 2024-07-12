@@ -58,7 +58,7 @@
 <div class="flex min-h-screen">
 	<!-- Sidebar Menu -->
 	<div
-		class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${menu ? 'block' : 'hidden'} z-40 h-3/4 p-8 lg:relative lg:block lg:h-auto lg:w-1/4`}
+		class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${menu ? 'block' : 'hidden'} z-40 h-3/4 overflow-y-auto p-8 lg:relative lg:block lg:h-auto lg:w-1/4`}
 	>
 		<div class="flex flex-row items-center gap-2">
 			<Button
@@ -98,7 +98,7 @@
 			/>
 		</div>
 
-		<Accordion.Root class="pt-8">
+		<Accordion.Root class="pb-8 pt-8">
 			{#each data.chapters as chapter, index}
 				{#if chapter.parent === null}
 					{#if hasChildren(chapter.title)}

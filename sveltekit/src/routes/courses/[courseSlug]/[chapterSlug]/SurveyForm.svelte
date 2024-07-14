@@ -26,7 +26,7 @@
 </script>
 
 <form
-	class="grid items-start gap-4"
+	class="grid items-start gap-4 pr-4"
 	action="/courses/{course}/survey?course={courseId}"
 	method="POST"
 	use:enhance

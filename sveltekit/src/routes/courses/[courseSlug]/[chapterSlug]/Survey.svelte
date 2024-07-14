@@ -4,6 +4,7 @@
 	import * as Drawer from '$lib/components/ui/drawer/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import SurveyForm from './SurveyForm.svelte';
 	import Info from 'lucide-svelte/icons/info';
 
@@ -34,7 +35,9 @@
 						{description}
 					</Dialog.Description>
 				</Dialog.Header>
-				<SurveyForm {questions} {submit_button} {course} {courseId} />
+				<ScrollArea class="h-[600px]">
+					<SurveyForm {questions} {submit_button} {course} {courseId} />
+				</ScrollArea>
 			</Dialog.Content>
 		</Dialog.Root>
 	{:else}
@@ -49,9 +52,9 @@
 						{description}
 					</Drawer.Description>
 				</Drawer.Header>
-				<div class="px-4">
+				<ScrollArea class="h-[600px] px-4">
 					<SurveyForm {questions} {submit_button} {course} {courseId} />
-				</div>
+				</ScrollArea>
 				<Drawer.Footer class="pt-2">
 					<Drawer.Close asChild let:builder>
 						<Button variant="outline" builders={[builder]}>Cancel</Button>

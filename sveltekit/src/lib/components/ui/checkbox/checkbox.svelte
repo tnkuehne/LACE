@@ -29,7 +29,7 @@
 		{#if isIndeterminate}
 			<Dot class="h-3.5 w-3.5 stroke-white" />
 		{:else}
-			<Check class="h-3.5 w-3.5 stroke-white" />
+			<Check class="h-3.5 w-3.5 stroke-white dark:stroke-black" />
 		{/if}
 	</CheckboxPrimitive.Indicator>
 </CheckboxPrimitive.Root>

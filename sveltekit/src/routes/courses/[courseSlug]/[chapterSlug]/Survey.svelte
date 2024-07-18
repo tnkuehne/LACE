@@ -28,7 +28,7 @@
 			<Dialog.Trigger asChild let:builder>
 				<Button variant="outline" builders={[builder]} {disabled}>{trigger_button}</Button>
 			</Dialog.Trigger>
-			<Dialog.Content class="sm:max-w-[425px]">
+			<Dialog.Content class="sm:max-w-[600px]">
 				<Dialog.Header>
 					<Dialog.Title>{title}</Dialog.Title>
 					<Dialog.Description>

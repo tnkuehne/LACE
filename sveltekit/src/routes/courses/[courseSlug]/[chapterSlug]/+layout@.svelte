@@ -11,6 +11,7 @@
 	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
 	import Survey from './Survey.svelte';
 	import Sync from './Sync.svelte';
+	import ThemeToggle from "$lib/components/ui/theme-toggle/ThemeToggle.svelte";
 
 	export let data;
 	let menu = false;
@@ -96,6 +97,7 @@
 				title={data.settings.sync_title}
 				description={data.settings.sync_description}
 			/>
+			<ThemeToggle />
 		</div>
 
 		<Accordion.Root class="pb-8 pt-8">

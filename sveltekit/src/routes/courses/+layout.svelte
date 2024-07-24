@@ -31,7 +31,8 @@
 								href={`/${$page.url.pathname
 									.split('/')
 									.slice(1, index + 2)
-									.join('/')}`}>{decodeURIComponent(crumb)}</Breadcrumb.Link
+									.join('/')}`}
+								>{decodeURIComponent(crumb.toString().replace(/-/g, ' '))}</Breadcrumb.Link
 							>
 						</Breadcrumb.Item>
 						{#if index !== $page.url.pathname.split('/').slice(1).length - 1}

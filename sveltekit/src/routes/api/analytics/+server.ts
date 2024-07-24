@@ -33,6 +33,16 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 	const { path, referrer } = await request.json();
 	let ip = request.headers.get('x-forwarded-for') || getClientAddress();
 
+	// Log the X-Forwarded-For header
+	console.log('X-Forwarded-For header:', ip);
+
+	// Get the last IP address from the x-forwarded-for header
+	if (ip.includes(',')) {
+		const ipArray = ip.split(',');
+		const xffDepth = 1; // Set this to the number of trusted proxies
+		ip = ipArray[Math.max(0, ipArray.length - xffDepth)];
+	}
+
 	// Strip the "::ffff:" prefix if present
 	if (ip.startsWith('::ffff:')) {
 		ip = ip.replace('::ffff:', '');

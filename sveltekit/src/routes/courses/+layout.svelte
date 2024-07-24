@@ -16,7 +16,7 @@
 		</Button>
 		<div class="flex flex-col">
 			<h2 class="text-2xl font-bold capitalize">
-				{decodeURIComponent($page.url.pathname.split('/').slice(-1).toString())}
+				{decodeURIComponent($page.url.pathname.split('/').slice(-1).toString().replace(/-/g, ' '))}
 			</h2>
 			<Breadcrumb.Root>
 				<Breadcrumb.List>

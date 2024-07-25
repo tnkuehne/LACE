@@ -31,6 +31,7 @@ services:
     ports:
       - "3000:3000"
     env_file: ".env"
+    restart: on-failure:3
 
   nginx:
     image: nginx:latest

@@ -112,7 +112,7 @@
 		class="mx-auto flex max-w-screen-2xl flex-col justify-between space-y-16 px-8 py-16 md:flex-row md:space-y-0 md:px-0"
 	>
 		<div class="flex flex-col gap-8">
-			<enhanced:img src="./logo_sebis_cit.png?w=400" alt="Logo" />
+			<enhanced:img src="./logo_sebis_cit.png?w=400" alt="Logo" loading="lazy" />
 			<div class="text-sm text-gray-600 dark:text-gray-400">
 				<p>Copyright © 2024 SEBIS Chair @TUM</p>
 				<p>All rights reserved</p>
@@ -133,7 +133,7 @@
 			</div>
 			<div class="space-y-4">
 				<h5 class="font-medium">Sponsor</h5>
-				<enhanced:img src="./publisherlogo-en.svg" alt="Sponsor" />
+				<enhanced:img src="./publisherlogo-en.svg" alt="Sponsor" loading="lazy" />
 			</div>
 		</div>
 	</div>

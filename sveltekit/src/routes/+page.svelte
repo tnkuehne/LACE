@@ -95,10 +95,10 @@
 			<div class="flex flex-col gap-2">
 				{#each data.landing.publications_links as link}
 					<div class="flex flex-row gap-2">
-						<ScrollText class="h-6 w-6 text-blue-800 dark:text-blue-600" />
+						<ScrollText class="h-6 w-6 min-w-[1.5rem] text-blue-800 dark:text-blue-600" />
 						<a
 							href={link.url}
-							class="border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"
+							class="line-clamp-2 border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"
 							>{link.title}</a
 						>
 					</div>

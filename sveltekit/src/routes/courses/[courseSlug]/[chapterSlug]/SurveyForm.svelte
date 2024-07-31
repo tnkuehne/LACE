@@ -10,7 +10,7 @@
 	export let course: string | null;
 	export let courseId: string;
 
-	const likertScale = ['Strongly agree', 'Agree', 'Neutral', 'Disagree', 'Strongly disagree'];
+	const likertScale = ['Strongly disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly agree'];
 
 	let groupedQuestions = questions.reduce((grouped, question) => {
 		(grouped[question.section] = grouped[question.section] || []).push(question);
@@ -54,8 +54,8 @@
 									{/each}
 								</div>
 								<div class="flex flex-row justify-between">
-									<span class="text-sm">Strongly agree</span>
 									<span class="text-sm">Strongly disagree</span>
+									<span class="text-sm">Strongly agree</span>
 								</div>
 							</div>
 						{/if}

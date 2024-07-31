@@ -84,6 +84,7 @@
 							? 'secondary'
 							: 'outline'}
 					on:click={() => selectAnswer(index)}
+					class="h-auto max-w-xl justify-start whitespace-normal text-left"
 				>
 					{text}
 				</Button>

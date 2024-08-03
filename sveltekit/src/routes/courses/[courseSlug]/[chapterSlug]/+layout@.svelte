@@ -11,7 +11,8 @@
 	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
 	import Survey from './Survey.svelte';
 	import Sync from './Sync.svelte';
-	import ThemeToggle from "$lib/components/ui/theme-toggle/ThemeToggle.svelte";
+	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
+	import ExternalLink from 'lucide-svelte/icons/external-link';
 
 	export let data;
 	let menu = false;
@@ -81,17 +82,24 @@
 		</div>
 
 		<div class="flex flex-col gap-4 xl:flex-row">
-			<Survey
-				trigger_button={data.survey.trigger_button}
-				title={data.survey.title}
-				description={data.survey.description}
-				questions={data.survey.questions}
-				submit_button={data.survey.submit_button}
-				course={data.chapters[0].kurs.Title}
-				courseId={data.chapters[0].kurs.id}
-				disabled={isSurveyDisabled}
-				trigger_button_info={data.survey.trigger_button_info}
-			/>
+			<!-- show button with link instead of survey for one specific course -->
+			{#if data.chapters[0].kurs.slug === 'basics-of-pets-for-non-technical-professionals'}
+				<Button href="https://lacesurvey.paperform.co/" variant="outline">
+					Give Feedback <ExternalLink class="ml-2 h-4 w-4" />
+				</Button>
+			{:else}
+				<Survey
+					trigger_button={data.survey.trigger_button}
+					title={data.survey.title}
+					description={data.survey.description}
+					questions={data.survey.questions}
+					submit_button={data.survey.submit_button}
+					course={data.chapters[0].kurs.Title}
+					courseId={data.chapters[0].kurs.id}
+					disabled={isSurveyDisabled}
+					trigger_button_info={data.survey.trigger_button_info}
+				/>
+			{/if}
 			<Sync
 				trigger_button={data.settings.sync_trigger_button}
 				title={data.settings.sync_title}

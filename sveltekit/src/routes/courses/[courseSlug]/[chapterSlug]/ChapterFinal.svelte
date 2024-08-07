@@ -4,6 +4,11 @@
 	import * as Card from '$lib/components/ui/card';
 
 	export let nextChapterUrl = '';
+	export let emptyChapter: boolean;
+
+	$: if (nextChapterUrl && emptyChapter) {
+		goto(nextChapterUrl);
+	}
 
 	function navigateToNextChapter() {
 		if (nextChapterUrl) {

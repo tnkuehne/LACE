@@ -93,7 +93,7 @@
 					{/if}
 				{/each}
 				<Carousel.Item class="flex items-center justify-center">
-					<ChapterFinal {nextChapterUrl} />
+					<ChapterFinal {nextChapterUrl} emptyChapter={chapter.content.length === 0} />
 				</Carousel.Item>
 			</Carousel.Content>
 			<Carousel.Previous />

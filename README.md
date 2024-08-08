@@ -41,10 +41,10 @@ The footer includes branding, relevant links, sponsor information, and a copyrig
 #### Courses Overview
 
 ##### Course Cards:
-Three courses are presented as expandable cards with a course image, title, and detailed content outline. This design allows users to quickly identify and expand each course for more detailed information, enhancing the user experience through easy navigation.
+All courses are presented as expandable cards with a course image, title, and detailed content outline. This design allows users to quickly identify and expand each course for more detailed information, enhancing the user experience through easy navigation.
 
-##### Visual Design:
-Icons, consistent color schemes, and clear typography ensure the courses are visually appealing and easy to read. The gradient background adds a modern touch. This cohesive visual design helps engage users and maintain their interest, reinforcing brand identity.
+##### Navigation:
+Breadcrumb navigation is included at the top of the page to help users easily navigate back to the main courses page or other sections of the website. This improves the overall user experience by making navigation intuitive and straightforward.
 
 #### Course Detail Page
 
@@ -70,9 +70,6 @@ Modules are presented as expandable sections. When clicked, they reveal detailed
 
 ##### Interactive Elements:
 Buttons for "Give Feedback" and "Switch Device" are included to enhance user interaction and flexibility. These options allow users to provide input on the course and switch devices seamlessly.
-
-Visual Design:
-Clear typography and minimalistic design ensure readability and focus on the content. The use of illustrations and icons adds visual interest and aids in understanding complex topics.
 
 ### Architecture
 

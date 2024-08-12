@@ -1,8 +1,27 @@
 # LACE
 
+LACE is a web-based learning platform that offers courses on Privacy-Enhancing Technologies. The platform aims to provide high-quality educational content to non-technical practitioners, managers, and legal professionals interested in privacy-focused technologies. LACE offers a range of courses, including introductory courses, advanced courses, and specialized courses on various topics related to Privacy-Enhancing Technologies.
 
 ## Features
 
+* [X] **Landing Page**: A modern and professional landing page that showcases the LACE Learning Platform and its courses.
+* [X] **Courses Overview**: A page that displays all available courses with detailed information and a "Learn More" button.
+* [X] **Course Detail Page**: A detailed page for each course that includes a course image, title, and content outline.
+* [X] **Learning Page**: A page that displays the learning content for each course, including modules, quizzes, and progress tracking.
+* [X] **Responsive Design**: A responsive design that adapts to different screen sizes and devices for optimal user experience.
+* [X] **Certification**: A certification feature that allows users to earn certificates upon course completion.
+* [X] **Verification**: A verification feature that allows users to verify the authenticity of certificates using a signature.
+* [X] **Analytics**: An analytics feature that tracks user progress and provides insights into course engagement.
+* [X] **Feedback**: A feedback feature that allows users to provide feedback on courses and the learning platform.
+* [X] **Device Switching**: A device switching feature that allows users to seamlessly switch between devices while learning.
+* [X] **Content Management System Integration**: Integration with a content management system (Directus) for managing learning content.
+* [X] **Preview Mode**: A preview mode that allows content managers to preview course content before enrolling.
+* [X] **Admin Dashboard**: An admin dashboard that allows content managers to manage courses, and analytics.
+* [ ] **Search Functionality**: A search functionality that allows users to search for specific courses or content.
+* [ ] **Social Sharing**: A social sharing feature that allows users to share courses and certificates on social media platforms.
+* [ ] **Gamification**: A gamification feature that includes badges, points, and leaderboards to motivate and engage learners.
+* [ ] **Notifications**: A notifications feature that sends reminders, updates, and announcements to users.
+* [ ] **Customization**: A customization feature that allows users to personalize their learning experience. Large language models could be used for this purpose.
 
 ## Development
 

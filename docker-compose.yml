@@ -10,7 +10,7 @@ services:
     networks:
       - custom-app-network
 
-  directus:
+  cms:
     image: directus/directus:10.12.1
     ports:
       - 8055:8055
@@ -24,7 +24,7 @@ services:
     networks:
       - custom-app-network
 
-  sveltekit:
+  web:
     image: ghcr.io/h3nkl3r/lace:main
     networks:
       - custom-app-network
@@ -43,7 +43,7 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - sveltekit
+      - web
     networks:
       - custom-app-network
 

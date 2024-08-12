@@ -10,7 +10,7 @@ services:
     networks:
       - custom-app-network
 
-  directus:
+  cms:
     image: directus/directus:10.12.1
     ports:
       - 8055:8055
@@ -24,9 +24,9 @@ services:
     networks:
       - custom-app-network
 
-  sveltekit:
+  web:
     build:
-      context: ./sveltekit
+      context: web
     networks:
       - custom-app-network
     ports:
@@ -36,13 +36,13 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - ./sveltekit/nginx.local.conf:/etc/nginx/nginx.conf
+      - ./web/nginx.local.conf:/etc/nginx/nginx.conf
       - ./nginx/ssl:/etc/nginx/ssl:ro
     ports:
       - "80:80"
       - "443:443"
     depends_on:
-      - sveltekit
+      - web
     networks:
       - custom-app-network
 

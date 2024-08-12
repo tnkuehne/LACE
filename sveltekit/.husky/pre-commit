@@ -1,2 +1,0 @@
-cd sveltekit
-npx lint-staged

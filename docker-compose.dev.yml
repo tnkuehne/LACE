@@ -5,7 +5,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./directus/postgres:/var/lib/postgresql/data
+      - ./cms/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: "directus"
       POSTGRES_PASSWORD: "directus"
@@ -13,18 +13,18 @@ services:
     networks:
       - custom-app-network
 
-  directus:
-    image: directus/directus:10.11.1
+  cms:
+    image: directus/directus:10.12.1
     ports:
       - 8055:8055
     volumes:
-      - ./directus/uploads:/directus/uploads
-      - ./directus/extensions:/directus/extensions
+      - ./cms/uploads:/directus/uploads
+      - ./cms/extensions:/directus/extensions
+      - ./cms/database:/directus/database
     depends_on:
       - database
     environment:
-      KEY: "replace-with-random-value"
-      SECRET: "replace-with-random-value"
+      SECRET: "4gexm6-E_uoqgidop994UUNnM7iQu.Jde3WPJuJW-Qk_-qA*hLmML4@z46Z2qeCN"
       DB_CLIENT: "pg"
       DB_HOST: "database"
       DB_PORT: "5432"
@@ -33,29 +33,45 @@ services:
       DB_PASSWORD: "directus"
       ADMIN_EMAIL: "admin@example.com"
       ADMIN_PASSWORD: "d1r3ctu5"
-      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://localhost:5173/"
+      CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "http://localhost/"
     networks:
       - custom-app-network
 
-  sveltekit:
+  web:
     build:
-      context: ./sveltekit
+      context: web
       dockerfile: Dockerfile.dev
     networks:
       - custom-app-network
     ports:
-      - "5173:5173"
+      - "3000:5173"
     volumes:
-      - ./sveltekit:/app
+      - ./web:/app
       - /app/node_modules
     environment:
       NODE_ENV: "development"
-      PUBLIC_APIURL: "http://localhost:5173/api"
-      PUBLIC_URL: "http://localhost:5173"
-      PRIVATE_APIURL: "http://directus:8055"
+      PUBLIC_URL: "https://localhost"
+      PRIVATE_APIURL: "http://cms:8055"
       PREVIEW_COOKIE_NAME: "__preview_mode"
       PREVIEW_SECRET: "53lt3k1t"
+      PRIVATE_KEY: "hallo"
+      PUBLIC_KEY: "hallo"
+      DIRECTUS_TOKEN: "gyVklUY5Ezrs2vRvfki21cHGdKjUDZaU"
     command: npm run dev -- --host
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./web/nginx.local.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    networks:
+      - custom-app-network
 
 networks:
   custom-app-network:
+    driver: bridge

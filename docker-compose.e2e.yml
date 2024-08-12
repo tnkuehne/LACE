@@ -25,20 +25,19 @@ services:
       - custom-app-network
 
   web:
-    image: ghcr.io/h3nkl3r/lace:main
+    build:
+      context: web
     networks:
       - custom-app-network
     ports:
       - "3000:3000"
     env_file: ".env"
-    restart: on-failure:3
 
   nginx:
     image: nginx:latest
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - /var/lib/rbg-cert:/var/lib/rbg-cert:ro
-      - /usr/local/cert.d/nginx:/usr/local/cert.d/nginx
+      - ./web/nginx.local.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl:ro
     ports:
       - "80:80"
       - "443:443"

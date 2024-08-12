@@ -66,7 +66,7 @@
 			<Button
 				variant="outline"
 				size="icon"
-				href={$page.url.pathname.split('/').slice(0, -1).join('/')}
+				href={$page.url.pathname.split('/').slice(0, -2).join('/')}
 			>
 				<ChevronLeft class="h-4 w-4" />
 			</Button>

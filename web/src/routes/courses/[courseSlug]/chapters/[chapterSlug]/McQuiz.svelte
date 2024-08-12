@@ -2,26 +2,25 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
+	import { toast } from 'svelte-sonner';
 
 	export let id: string;
 	export let question: string;
 	export let answers: { text: string; correct: boolean }[];
 
-	let selectedAnswers: number[] = []; // Explicitly define the type as number[]
-	let incorrectAnswers: number[] = []; // Array to store incorrect answers
-	let isCorrect: boolean | null = null; // Initialize as null
+	let selectedAnswers: number[] = [];
+	let incorrectAnswers: number[] = [];
+	let isCorrect: boolean | null = null;
 
 	function selectAnswer(index: number) {
-		// Explicitly define the type as number
-		// This function now toggles the selection of an answer
 		const answerIndex = selectedAnswers.indexOf(index);
 		if (answerIndex > -1) {
 			selectedAnswers.splice(answerIndex, 1);
 		} else {
 			selectedAnswers.push(index);
 		}
-		selectedAnswers = selectedAnswers; // Trigger Svelte reactivity
-		incorrectAnswers = []; // Clear incorrect answers when a new answer is selected
+		selectedAnswers = selectedAnswers;
+		incorrectAnswers = [];
 	}
 
 	async function logAnswer() {
@@ -39,24 +38,25 @@
 	}
 
 	function submitAnswer() {
-		// If no answers are selected, do nothing
 		if (selectedAnswers.length === 0) {
+			toast.error('Please select at least one answer.');
 			return;
 		}
 
-		// Get the correct answers
 		const correctAnswers = answers.filter((answer) => answer.correct);
+		const correctIndexes = correctAnswers.map((answer) => answers.indexOf(answer));
 
-		// Check if the selected answers are correct
-		isCorrect = selectedAnswers.every((index) => correctAnswers.includes(answers[index]));
+		isCorrect = selectedAnswers.length === correctIndexes.length &&
+				selectedAnswers.every((index) => correctIndexes.includes(index));
 
-		// If the answer is incorrect, find the incorrect answers
 		if (!isCorrect) {
 			incorrectAnswers = selectedAnswers.filter(
-				(index) => !correctAnswers.includes(answers[index])
+					(index) => !correctIndexes.includes(index)
 			);
+			toast.error('Some correct answers are still missing.');
 		} else {
 			incorrectAnswers = [];
+			toast.success('All correct answers selected!');
 		}
 
 		logAnswer();
@@ -78,13 +78,13 @@
 		<div class="flex flex-col items-start space-y-2">
 			{#each answers as { text }, index}
 				<Button
-					variant={incorrectAnswers.includes(index)
-						? 'destructive'
-						: selectedAnswers.includes(index)
+						variant={incorrectAnswers.includes(index)
+      ? 'destructive'
+      : selectedAnswers.includes(index)
 							? 'secondary'
-							: 'outline'}
-					on:click={() => selectAnswer(index)}
-					class="h-auto max-w-xl justify-start whitespace-normal text-left"
+       : 'outline'}
+						on:click={() => selectAnswer(index)}
+						class="h-auto max-w-xl justify-start whitespace-normal text-left"
 				>
 					{text}
 				</Button>

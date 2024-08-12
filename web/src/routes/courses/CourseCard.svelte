@@ -30,7 +30,7 @@
 	function getFirstNotCompletedChapter() {
 		for (let chapter of chapters) {
 			if (!progressStore.isChapterCompleted(course.id, chapter.id)) {
-				return `/courses/${course.slug}/${chapter.slug}`;
+				return `/courses/${course.slug}/chapters/${chapter.slug}`;
 			}
 		}
 		return null;
@@ -118,7 +118,7 @@
 											</div>
 											<Label class="text-sm">
 												<a
-													href={`/courses/${subchapter.kurs.slug}/${subchapter.slug}`}
+													href={`/courses/${subchapter.kurs.slug}/chapters/${subchapter.slug}`}
 													class="hover:text-blue-500"
 												>
 													{subchapter.title}
@@ -140,7 +140,7 @@
 							/>
 							<Label class="text-sm font-medium">
 								<a
-									href={`/courses/${chapter.kurs.slug}/${chapter.slug}`}
+									href={`/courses/${chapter.kurs.slug}/chapters/${chapter.slug}`}
 									class="hover:text-blue-500"
 								>
 									{chapter.title}

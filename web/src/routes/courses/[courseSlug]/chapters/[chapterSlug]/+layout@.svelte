@@ -155,7 +155,7 @@
 											</div>
 											<Label class="text-sm">
 												<a
-													href={`/courses/${subchapter.kurs.slug}/${subchapter.slug}`}
+													href={`/courses/${subchapter.kurs.slug}/chapters/${subchapter.slug}`}
 													class="hover:text-blue-500"
 												>
 													{subchapter.title}
@@ -177,7 +177,7 @@
 							/>
 							<Label class="text-sm font-medium">
 								<a
-									href={`/courses/${chapter.kurs.slug}/${chapter.slug}`}
+									href={`/courses/${chapter.kurs.slug}/chapters/${chapter.slug}`}
 									class="hover:text-blue-500"
 								>
 									{chapter.title}

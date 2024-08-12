@@ -23,6 +23,54 @@
 
 ## Development
 
+### Design decisions
+#### Landing Page
+
+##### Title and Header:
+The title is concise and action-oriented, clearly conveying the page's purpose. The header features a gradient background and the LACE logo, creating a modern, professional appearance and establishing brand identity. This creates a strong first impression and reinforces the brand's credibility.
+
+##### Courses Section:
+Three courses target different user groups: non-technical practitioners, managers, and legal professionals. Each course is presented as a card with a title, short description, and a "Learn More" button, allowing easy scanning and quick access to relevant information. The card layout enhances user experience by facilitating quick scanning and easy interaction.
+
+##### Publications Section:
+Scientific publications are listed vertically with icons for easy identification, ensuring a simple and intuitive browsing experience. Listing key scientific publications provides access to credible sources, establishing trust and authority.
+
+##### Footer Section:
+The footer includes branding, relevant links, sponsor information, and a copyright notice. The consistent color scheme and fonts ensure a cohesive look. Including branding and sponsor information adds legitimacy and transparency, while relevant links improve navigation and access to additional resources.
+
+#### Courses Overview
+
+##### Course Cards:
+All courses are presented as expandable cards with a course image, title, and detailed content outline. This design allows users to quickly identify and expand each course for more detailed information, enhancing the user experience through easy navigation.
+
+##### Navigation:
+Breadcrumb navigation is included at the top of the page to help users easily navigate back to the main courses page or other sections of the website. This improves the overall user experience by making navigation intuitive and straightforward.
+
+#### Course Detail Page
+
+##### Consistent Layout:
+All courses are displayed using a consistent card-based layout to ensure a uniform look and feel across different courses.
+
+##### Navigation:
+Breadcrumb navigation is included at the top of the page to help users easily navigate back to the main courses page or other sections of the website. This improves the overall user experience by making navigation intuitive and straightforward.
+
+##### Adaptability:
+The design is adaptable to accommodate different courses. While the basic layout remains consistent, the specific content and number of modules can vary based on the course requirements. This flexibility ensures that the design can cater to a wide range of topics within the realm of Privacy-Enhancing Technologies.
+
+#### Learning Page
+
+##### Sidebar Navigation:
+A sidebar displays the course title, progress bar, and module list. This design keeps navigation intuitive and accessible, allowing users to track their progress and easily switch between modules.
+
+##### Progress Tracking:
+The progress bar visually represents the user's completion percentage, motivating them to continue and complete the course.
+
+##### Module Expansion:
+Modules are presented as expandable sections. When clicked, they reveal detailed content such as definitions, benefits, applications, and quizzes. This keeps the interface clean and prevents information overload.
+
+##### Interactive Elements:
+Buttons for "Give Feedback" and "Switch Device" are included to enhance user interaction and flexibility. These options allow users to provide input on the course and switch devices seamlessly.
+
 ### Architecture
 
 #### Database

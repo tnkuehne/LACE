@@ -25,7 +25,7 @@
 		<div class="flex flex-row items-center gap-2">
 			<BookOpenText />
 			<Card.Title>
-				<a class="hover:text-blue-600" href={`/courses/${chapter.kurs.slug}/${chapter.slug}`}>
+				<a class="hover:text-blue-600" href={`/courses/${chapter.kurs.slug}/chapters/${chapter.slug}`}>
 					{chapter.title}
 				</a>
 			</Card.Title>
@@ -42,7 +42,7 @@
 						<a
 							class="border border-l-8 p-1 hover:text-blue-600"
 							style="border-color: {hexToRGBA(subchapter.color, 0.4)};"
-							href={`/courses/${chapter.kurs.slug}/${subchapter.slug}`}>{subchapter.title}</a
+							href={`/courses/${chapter.kurs.slug}/chapters/${subchapter.slug}`}>{subchapter.title}</a
 						>
 					{/each}
 				</div>

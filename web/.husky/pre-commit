@@ -1,2 +1,2 @@
-cd sveltekit
+cd web
 npx lint-staged

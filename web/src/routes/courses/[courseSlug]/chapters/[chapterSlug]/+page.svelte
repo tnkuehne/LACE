@@ -8,6 +8,10 @@
 	import ChapterFinal from './ChapterFinal.svelte';
 	import { env } from '$env/dynamic/public';
 	import { toast } from 'svelte-sonner';
+	import { Button } from '$lib/components/ui/button';
+	import Maximize from 'lucide-svelte/icons/maximize';
+	import Minimize from 'lucide-svelte/icons/minimize';
+	import { isFullScreen } from '$lib/stores/fullScreen';
 
 	export let data;
 
@@ -44,6 +48,10 @@
 		toast.success('Progress saved!');
 		console.log('Chapter completed');
 	}
+
+	function toggleFullScreen() {
+		isFullScreen.update(value => !value);
+	}
 </script>
 
 <svelte:head>
@@ -56,7 +64,16 @@
 		{#if chapter.parent}
 			<span class="text-sm font-medium text-blue-500">{chapter.parent.title}</span>
 		{/if}
-		<h1 class="text-2xl font-medium">{chapter.title}</h1>
+		<div class="flex items-center justify-between">
+			<h1 class="text-2xl font-medium">{chapter.title}</h1>
+			<Button variant="outline" size="icon" on:click={toggleFullScreen}>
+				{#if $isFullScreen}
+					<Minimize class="h-4 w-4" />
+				{:else}
+					<Maximize class="h-4 w-4" />
+				{/if}
+			</Button>
+		</div>
 		<Separator />
 	</div>
 	<div class="mx-auto w-5/6 pt-16">

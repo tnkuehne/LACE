@@ -13,6 +13,7 @@
 	import Sync from './Sync.svelte';
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 	import ExternalLink from 'lucide-svelte/icons/external-link';
+	import { isFullScreen } from '$lib/stores/fullScreen';
 
 	export let data;
 	let menu = false;
@@ -60,7 +61,11 @@
 <div class="flex min-h-screen">
 	<!-- Sidebar Menu -->
 	<div
-		class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${menu ? 'block' : 'hidden'} z-40 h-3/4 overflow-y-auto p-8 lg:relative lg:block lg:h-auto lg:w-1/4`}
+			class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${
+			menu ? 'block' : 'hidden'
+		} z-40 h-3/4 overflow-y-auto p-8 lg:relative lg:h-auto lg:w-1/4 ${
+			$isFullScreen ? 'lg:hidden' : 'lg:block'
+		}`}
 	>
 		<div class="flex flex-row items-center gap-2">
 			<Button
@@ -191,7 +196,7 @@
 	</div>
 
 	<!-- Main Content -->
-	<div class="p-16 lg:w-3/4">
+	<div class={`p-16 ${$isFullScreen ? 'w-full' : 'lg:w-3/4'}`}>
 		<slot />
 	</div>
 </div>

@@ -16,6 +16,6 @@ export const load: PageServerLoad = async ({ fetch, locals, url }) => {
 			})
 		),
 		sync,
-		settings: await directus.request(readSingleton('courses_page', { version }))
+		settings: await directus.request(readSingleton('courses_page', { version, fields: ['*.*'] }))
 	};
 };

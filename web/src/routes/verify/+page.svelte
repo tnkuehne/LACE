@@ -8,6 +8,12 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<title>Verify Certificate</title>
+	<meta name="description" content="Verify the authenticity of a certificate" />
+	<meta name="robots" content="noindex nofollow" />
+</svelte:head>
+
 <div class="relative flex min-h-screen items-center justify-center bg-cover bg-center">
 	<div
 		class="absolute inset-0 bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% opacity-30 dark:from-blue-400 dark:to-purple-300 dark:opacity-40"

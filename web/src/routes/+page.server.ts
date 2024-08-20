@@ -8,6 +8,6 @@ export const load: PageServerLoad = async ({ fetch, url, locals }) => {
 
 	return {
 		courses: await directus.request(readItems('Courses', { version })),
-		landing: await directus.request(readSingleton('landing', { version }))
+		landing: await directus.request(readSingleton('landing', { version, fields: ['*.*'] }))
 	};
 };

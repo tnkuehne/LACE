@@ -2,9 +2,13 @@
 	import CourseCard from './CourseCard.svelte';
 	import ScrollText from 'lucide-svelte/icons/scroll-text';
 	import Grainy from './Grainy.svelte';
+	import SEO from '$lib/components/SEO.svelte';
 
 	export let data;
+	const { seo } = data.landing;
 </script>
+
+<SEO seo={seo} defaultTitle="Learn about Privacy Enhancing Technology" defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"/>
 
 <div class="relative flex w-full flex-col overflow-x-hidden lg:flex-row">
 	<div class="absolute right-0 top-0">

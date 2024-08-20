@@ -46,6 +46,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>{chapter.title}</title>
+	<meta name="description" content={chapter.description} />
+</svelte:head>
+
 <div>
 	<div class="space-y-2">
 		{#if chapter.parent}

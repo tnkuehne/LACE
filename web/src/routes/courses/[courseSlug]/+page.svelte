@@ -4,6 +4,11 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>{data.chapters[0].kurs.Title}</title>
+	<meta name="description" content={data.chapters[0].kurs.Description} />
+</svelte:head>
+
 <div class="mx-auto mt-16 max-w-screen-2xl space-y-8 p-4 2xl:p-0">
 	<h1 class="text-2xl font-medium">{data.settings.title}</h1>
 	<div class="flex flex-col gap-8">

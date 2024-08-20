@@ -2,6 +2,7 @@
 	import CourseCard from './CourseCard.svelte';
 	import { toast } from 'svelte-sonner';
 	import { onMount } from 'svelte';
+	import SEO from "$lib/components/SEO.svelte";
 
 	export let data;
 
@@ -11,6 +12,8 @@
 		}
 	});
 </script>
+
+<SEO seo={data.settings.seo} defaultTitle="Courses" defaultDescription="Learn about Privacy Enhancing Technology"/>
 
 <div class="min-h-screen p-4">
 	<div class="mx-auto mt-16 max-w-screen-2xl">

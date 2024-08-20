@@ -21,6 +21,10 @@
 	})();
 </script>
 
+<svelte:head>
+	<meta name="robots" content="noindex nofollow" />
+</svelte:head>
+
 {#if $isDesktop}
 	<Dialog.Root bind:open closeOnOutsideClick={false}>
 		<Dialog.Content class="sm:max-w-[425px]">

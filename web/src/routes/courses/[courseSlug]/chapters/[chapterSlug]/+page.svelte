@@ -12,6 +12,7 @@
 	import Maximize from 'lucide-svelte/icons/maximize';
 	import Minimize from 'lucide-svelte/icons/minimize';
 	import { isFullScreen } from '$lib/stores/fullScreen';
+	import References from "./References.svelte";
 
 	export let data;
 
@@ -114,6 +115,11 @@
 						</Carousel.Item>
 					{/if}
 				{/each}
+				{#if chapter.references}
+					<Carousel.Item class="flex items-center justify-center">
+						<References references={chapter.references}/>
+					</Carousel.Item>
+				{/if}
 				<Carousel.Item class="flex items-center justify-center">
 					<ChapterFinal {nextChapterUrl} emptyChapter={chapter.content.length === 0} />
 				</Carousel.Item>

@@ -115,9 +115,11 @@
 						</Carousel.Item>
 					{/if}
 				{/each}
-				<Carousel.Item class="flex items-center justify-center">
-					<References />
-				</Carousel.Item>
+				{#if chapter.references}
+					<Carousel.Item class="flex items-center justify-center">
+						<References references={chapter.references}/>
+					</Carousel.Item>
+				{/if}
 				<Carousel.Item class="flex items-center justify-center">
 					<ChapterFinal {nextChapterUrl} emptyChapter={chapter.content.length === 0} />
 				</Carousel.Item>

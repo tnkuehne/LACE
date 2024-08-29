@@ -35,9 +35,9 @@
 						{description}
 					</Dialog.Description>
 				</Dialog.Header>
-				<ScrollArea class="h-[600px]">
+				<div>
 					<SurveyForm {questions} {submit_button} {course} {courseId} />
-				</ScrollArea>
+				</div>
 			</Dialog.Content>
 		</Dialog.Root>
 	{:else}
@@ -52,9 +52,9 @@
 						{description}
 					</Drawer.Description>
 				</Drawer.Header>
-				<ScrollArea class="h-[600px] px-4">
+				<div class="px-4">
 					<SurveyForm {questions} {submit_button} {course} {courseId} />
-				</ScrollArea>
+				</div>
 				<Drawer.Footer class="pt-2">
 					<Drawer.Close asChild let:builder>
 						<Button variant="outline" builders={[builder]}>Cancel</Button>

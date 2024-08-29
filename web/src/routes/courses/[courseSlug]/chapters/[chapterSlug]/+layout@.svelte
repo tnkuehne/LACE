@@ -175,9 +175,11 @@
 						<div class="flex items-center space-x-2 border-b pb-2 pt-4">
 							<Checkbox
 								id="chapter"
-								checked={!!$progressStore[chapter.kurs.id]?.completed_chapters.some(
-									(c) => c.chapter === chapter.id
-								)}
+								checked={chapter.title === $page.data.chapter[0].title
+														? 'indeterminate'
+														: !!$progressStore[chapter.kurs.id]?.completed_chapters.some(
+																(c) => c.chapter === chapter.id
+															)}
 								disabled
 							/>
 							<Label class="text-sm font-medium">

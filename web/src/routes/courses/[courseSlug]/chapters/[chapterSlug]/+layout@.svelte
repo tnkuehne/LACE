@@ -114,12 +114,14 @@
 			<ThemeToggle />
 		</div>
 
-		<ChapterList
-				chapters={data.chapters}
-				courseId={data.chapters[0].kurs.id}
-				currentChapterTitle={$page.data.chapter[0].title}
-				isPageComponent={true}
-		/>
+		<div class="pt-8">
+			<ChapterList
+					chapters={data.chapters}
+					courseId={data.chapters[0].kurs.id}
+					currentChapterTitle={$page.data.chapter[0].title}
+					isPageComponent={true}
+			/>
+		</div>
 	</div>
 
 	<!-- Main Content -->

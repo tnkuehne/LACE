@@ -53,6 +53,14 @@
 	function toggleFullScreen() {
 		isFullScreen.update(value => !value);
 	}
+
+	function chunkReferences(references, chunkSize = 7) {
+		const chunks = [];
+		for (let i = 0; i < references.length; i += chunkSize) {
+			chunks.push(references.slice(i, i + chunkSize));
+		}
+		return chunks;
+	}
 </script>
 
 <svelte:head>
@@ -116,9 +124,11 @@
 					{/if}
 				{/each}
 				{#if chapter.references}
-					<Carousel.Item class="flex items-center justify-center">
-						<References references={chapter.references}/>
-					</Carousel.Item>
+					{#each chunkReferences(chapter.references) as referenceChunk}
+						<Carousel.Item class="flex items-center justify-center">
+							<References references={referenceChunk}/>
+						</Carousel.Item>
+					{/each}
 				{/if}
 				<Carousel.Item class="flex items-center justify-center">
 					<ChapterFinal {nextChapterUrl} emptyChapter={chapter.content.length === 0} />

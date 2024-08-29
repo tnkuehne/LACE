@@ -3,13 +3,18 @@
     import { Label } from '$lib/components/ui/label';
     import * as Accordion from '$lib/components/ui/accordion';
     import { progressStore } from '$lib/stores/progressStore';
+    import { page } from '$app/stores';
 
     export let chapters;
     export let courseId;
+    export let currentChapterTitle = '';
+    export let isPageComponent = false;
 
     function hasChildren(chapterTitle: string) {
         return chapters.some((c) => c.parent?.title === chapterTitle);
     }
+
+    $: progress = $progressStore[courseId]?.completed_chapters || [];
 </script>
 
 <Accordion.Root>
@@ -31,18 +36,16 @@
                                     <div class="grid place-items-center">
                                         <Checkbox
                                                 class="h-4 w-4 text-blue-600"
-                                                checked={!!$progressStore[courseId]?.completed_chapters.some(
-                                                (c) => c.chapter === subchapter.id
-                                            )}
+                                                checked={isPageComponent && subchapter.title === currentChapterTitle
+                                                ? 'indeterminate'
+                                                : progress.some((c) => c.chapter === subchapter.id)}
                                                 disabled
                                         />
                                         {#if subchapter !== chapters
                                             .filter((item) => item.parent?.title === chapter.title)
                                             .slice(-1)[0]}
                                             <div
-                                                    class="my-2 border-l-2 {$progressStore[
-                                                    courseId
-                                                ]?.completed_chapters.some((c) => c.chapter === subchapter.id)
+                                                    class="my-2 border-l-2 {progress.some((c) => c.chapter === subchapter.id)
                                                     ? 'border-blue-600'
                                                     : 'border-gray-300'} h-6"
                                             ></div>
@@ -65,9 +68,9 @@
                 <div class="flex items-center space-x-2 border-b pb-2 pt-4">
                     <Checkbox
                             id="chapter"
-                            checked={!!$progressStore[courseId]?.completed_chapters.some(
-                            (c) => c.chapter === chapter.id
-                        )}
+                            checked={isPageComponent && chapter.title === currentChapterTitle
+                            ? 'indeterminate'
+                            : progress.some((c) => c.chapter === chapter.id)}
                             disabled
                     />
                     <Label class="text-sm font-medium">

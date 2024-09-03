@@ -62,8 +62,8 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - ./web/nginx.local.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./reverse-proxy/nginx.local.conf:/etc/nginx/nginx.conf
+      - ./reverse-proxy/ssl:/etc/nginx/ssl:ro
     ports:
       - "80:80"
       - "443:443"

@@ -34,8 +34,6 @@
 		: subchapterProgress.some((c) => c)
 			? 'in-progress'
 			: 'not-started';
-
-	$: console.log('Progress Status:', progressStatus);
 </script>
 
 <Card.Root>

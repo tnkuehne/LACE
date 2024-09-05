@@ -3,12 +3,17 @@
 	import ScrollText from 'lucide-svelte/icons/scroll-text';
 	import Grainy from './Grainy.svelte';
 	import SEO from '$lib/components/SEO.svelte';
+	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 
 	export let data;
 	const { seo } = data.landing;
 </script>
 
-<SEO seo={seo} defaultTitle="Learn about Privacy Enhancing Technology" defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"/>
+<SEO
+	{seo}
+	defaultTitle="Learn about Privacy Enhancing Technology"
+	defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"
+/>
 
 <div class="relative flex w-full flex-col overflow-x-hidden lg:flex-row">
 	<div class="absolute right-0 top-0">
@@ -40,11 +45,14 @@
 		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-16 pt-8 md:space-y-32 lg:space-y-64">
 			<div class="flex justify-start">
 				<div class="space-y-64">
-					<h1
-						class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"
-					>
-						LACE
-					</h1>
+					<div class="flex flex-row justify-between">
+						<h1
+							class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"
+						>
+							LACE
+						</h1>
+						<ThemeToggle buttonVariant="ghost" />
+					</div>
 					<div class="w-4/5 space-y-8">
 						<div class="space-y-2">
 							<p class="text-4xl font-bold md:text-6xl">{data.landing.title}</p>

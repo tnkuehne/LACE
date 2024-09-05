@@ -37,7 +37,9 @@
 	</Card.Header>
 	<Card.Content>
 		<div class="flex flex-row gap-2">
-			<Lightbulb class="h-16 w-16 fill-amber-300" />
+			<div class="h-16 w-16">
+				<Lightbulb />
+			</div>
 			<div class="flex flex-col gap-4">
 				<p>{chapter.description}</p>
 				<div class="flex w-2/3 flex-col gap-2">

@@ -3,9 +3,13 @@
 	import ScrollText from 'lucide-svelte/icons/scroll-text';
 	import Grainy from './Grainy.svelte';
 	import SEO from '$lib/components/SEO.svelte';
+	import { marked } from 'marked';
 
 	export let data;
 	const { seo } = data.landing;
+
+	$: parsedHeading = marked(data.landing.heading);
+
 </script>
 
 <SEO seo={seo} defaultTitle="Learn about Privacy Enhancing Technology" defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"/>
@@ -45,14 +49,8 @@
 					>
 						LACE
 					</h1>
-					<div class="w-4/5 space-y-8">
-						<div class="space-y-2">
-							<p class="text-4xl font-bold md:text-6xl">{data.landing.title}</p>
-							<p class="text-4xl font-bold md:text-6xl">{data.landing.subtitle}</p>
-						</div>
-						<div class="space-y-2">
-							<p class="text-xl md:text-3xl">{data.landing.description}</p>
-						</div>
+					<div class="lg:prose-2xl md:prose-xl sm:prose-lg prose-black dark:prose-invert prose-headings:my-2">
+						{@html parsedHeading}
 					</div>
 				</div>
 			</div>

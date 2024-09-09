@@ -34,7 +34,9 @@
 				<Dialog.Header>
 					<Dialog.Title>{title}</Dialog.Title>
 					<Dialog.Description>
-						{@html parsedDescription}
+						<div class="prose dark:prose-invert">
+							{@html parsedDescription}
+						</div>
 					</Dialog.Description>
 				</Dialog.Header>
 				<div>
@@ -51,7 +53,9 @@
 				<Drawer.Header class="text-left">
 					<Drawer.Title>{title}</Drawer.Title>
 					<Drawer.Description>
-						{@html parsedDescription}
+						<div class="prose dark:prose-invert">
+							{@html parsedDescription}
+						</div>
 					</Drawer.Description>
 				</Drawer.Header>
 				<div class="px-4">

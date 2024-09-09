@@ -49,7 +49,7 @@
 					>
 						LACE
 					</h1>
-					<div class="lg:prose-2xl md:prose-xl sm:prose-lg prose-black dark:prose-invert prose-headings:my-2">
+					<div class="lg:prose-2xl md:prose-xl prose prose-black dark:prose-invert prose-headings:my-2">
 						{@html parsedHeading}
 					</div>
 				</div>

@@ -3,14 +3,15 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Separator } from '$lib/components/ui/separator';
 	import { progressStore } from '$lib/stores/progressStore';
-	import { Label } from '$lib/components/ui/label';
-	import { Checkbox } from '$lib/components/ui/checkbox';
-	import * as Accordion from '$lib/components/ui/accordion';
 	import Share2 from 'lucide-svelte/icons/share-2';
 	import CirclePlay from 'lucide-svelte/icons/circle-play';
 	import { Button } from '$lib/components/ui/button';
 	import { toast } from 'svelte-sonner';
-	import ChapterList from "./ChapterList.svelte";
+	import ChapterList from './ChapterList.svelte';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+	import Linkedin from 'lucide-svelte/icons/linkedin';
+	import Link from 'lucide-svelte/icons/link';
+	import Mail from 'lucide-svelte/icons/mail';
 
 	export let course;
 	export let chapters;
@@ -28,6 +29,16 @@
 			});
 	}
 
+	function openLinkedinInNewTab() {
+		const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${env.PUBLIC_URL}/courses/${course.slug}`;
+		window.open(linkedinUrl, '_blank');
+	}
+
+	function openMailTo() {
+		const mailToUrl = `mailto:?subject=Check out this course&body=${env.PUBLIC_URL}/courses/${course.slug}`;
+		window.location.href = mailToUrl;
+	}
+
 	function getFirstNotCompletedChapter() {
 		for (let chapter of chapters) {
 			if (!progressStore.isChapterCompleted(course.id, chapter.id)) {
@@ -35,10 +46,6 @@
 			}
 		}
 		return null;
-	}
-
-	function hasChildren(chapterTitle: string) {
-		return chapters.some((c) => c.parent?.title === chapterTitle);
 	}
 
 	$: firstNotCompletedChapterUrl = getFirstNotCompletedChapter();
@@ -61,20 +68,35 @@
 					<Button variant="ghost" href={firstNotCompletedChapterUrl}>
 						<CirclePlay class="h-4 w-4" />
 					</Button>
-					<Button
-						variant="ghost"
-						size="icon"
-						class="ml-auto cursor-pointer"
-						on:click={copyCourseLink}
-					>
-						<Share2 class="h-4 w-4" />
-					</Button>
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger>
+							<Share2 class="h-4 w-4" />
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content>
+							<DropdownMenu.Group>
+								<DropdownMenu.Label>Share</DropdownMenu.Label>
+								<DropdownMenu.Separator />
+								<DropdownMenu.Item on:click={openLinkedinInNewTab}>
+									<Linkedin class="mr-2 h-4 w-4" />
+									<span>LinkedIn</span>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item on:click={copyCourseLink}>
+									<Link class="mr-2 h-4 w-4" />
+									<span>Link</span>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item on:click={openMailTo}>
+									<Mail class="mr-2 h-4 w-4" />
+									<span>Mail</span>
+								</DropdownMenu.Item>
+							</DropdownMenu.Group>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
 				</div>
 			</div>
 		</div>
 	</Card.Header>
 	<Separator class="h-1 bg-blue-400" />
 	<Card.Content class="flex flex-grow flex-col justify-between">
-		<ChapterList chapters={chapters} courseId={course.id} />
+		<ChapterList {chapters} courseId={course.id} />
 	</Card.Content>
 </Card.Root>

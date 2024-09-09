@@ -108,8 +108,9 @@ export const actions = {
 		const qrDims = qrImage.scale(2);
 
 		// Step 7: Add QR code to the PDF
+		const qrCodeX = (width - qrDims.width) / 2 + settings.qrcode_x;
 		page.drawImage(qrImage, {
-			x: settings.qrcode_x,
+			x: qrCodeX,
 			y: height - qrDims.height - settings.qrcode_y,
 			width: qrDims.width,
 			height: qrDims.height

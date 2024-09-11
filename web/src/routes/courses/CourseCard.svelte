@@ -17,6 +17,18 @@
 	export let chapters;
 	export let toast_text;
 
+	let firstNotCompletedChapterPromise: Promise<string>;
+
+	$: firstNotCompletedChapterPromise = (async () => {
+		for (let chapter of chapters) {
+			const isCompleted = await progressStore.isChapterCompleted(course.id, chapter.id);
+			if (!isCompleted) {
+				return `/courses/${course.slug}/chapters/${chapter.slug}`;
+			}
+		}
+		return ''; // All chapters completed
+	})();
+
 	function copyCourseLink() {
 		const courseLink = `${env.PUBLIC_URL}/courses/${course.slug}`;
 		navigator.clipboard
@@ -38,17 +50,6 @@
 		const mailToUrl = `mailto:?subject=Check out this course&body=${env.PUBLIC_URL}/courses/${course.slug}`;
 		window.location.href = mailToUrl;
 	}
-
-	function getFirstNotCompletedChapter() {
-		for (let chapter of chapters) {
-			if (!progressStore.isChapterCompleted(course.id, chapter.id)) {
-				return `/courses/${course.slug}/chapters/${chapter.slug}`;
-			}
-		}
-		return null;
-	}
-
-	$: firstNotCompletedChapterUrl = getFirstNotCompletedChapter();
 </script>
 
 <Card.Root class="flex flex-grow flex-col">
@@ -65,9 +66,21 @@
 			<div class="flex flex-row justify-between">
 				<span class="text-gray-500">Lectures</span>
 				<div class="flex flex-row">
-					<Button variant="ghost" href={firstNotCompletedChapterUrl}>
-						<CirclePlay class="h-4 w-4" />
-					</Button>
+					<div class="flex h-8 w-8 items-center justify-center">
+						{#await firstNotCompletedChapterPromise}
+							<!-- Placeholder while loading -->
+						{:then firstNotCompletedChapterUrl}
+							{#if firstNotCompletedChapterUrl}
+								<Button
+									variant="ghost"
+									href={firstNotCompletedChapterUrl}
+									class="h-full w-full p-0"
+								>
+									<CirclePlay class="h-4 w-4" />
+								</Button>
+							{/if}
+						{/await}
+					</div>
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger>
 							<Share2 class="h-4 w-4" />

@@ -4,6 +4,7 @@
 	import Grainy from './Grainy.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import { marked } from 'marked';
+	import { Button } from '$lib/components/ui/button/index';
 
 	export let data;
 	const { seo } = data.landing;
@@ -61,28 +62,33 @@
 	<div
 		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-16 p-4 pt-16"
 	>
-		<section class="space-y-8">
-			<div class="space-y-4">
-				<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing.courses_title}</h2>
-				<p class="text-center text-lg text-gray-600 lg:text-base">
-					{data.landing.courses_description}
-				</p>
+		<section>
+			<div class="space-y-8">
+				<div class="space-y-4">
+					<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing.courses_title}</h2>
+					<p class="text-center text-lg text-gray-600 lg:text-base">
+						{data.landing.courses_description}
+					</p>
+				</div>
+				<div
+						class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
+				>
+					{#each data.courses as course}
+						<div class="w-full p-2">
+							<CourseCard
+									title={course.Title}
+									slug={course.slug}
+									description={course.Description}
+									buttonText={data.landing.courses_action_button_text}
+									icon={course.icon}
+									color={course.color}
+							/>
+						</div>
+					{/each}
+				</div>
 			</div>
-			<div
-				class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
-			>
-				{#each data.courses as course}
-					<div class="w-full p-2">
-						<CourseCard
-							title={course.Title}
-							slug={course.slug}
-							description={course.Description}
-							buttonText={data.landing.courses_action_button_text}
-							icon={course.icon}
-							color={course.color}
-						/>
-					</div>
-				{/each}
+			<div class="flex justify-center">
+				<Button variant="link" href="/courses">Detailed Overview</Button>
 			</div>
 		</section>
 		<section class="space-y-8">

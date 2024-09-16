@@ -1,11 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-test.use({
-	ignoreHTTPSErrors: true
-});
-
 test('landing page shows text', async ({ page }) => {
-	await page.goto('https://localhost');
+	await page.goto('/');
 	// Check the logo
 	await expect(page.locator('text=LACE')).toBeVisible();
 
@@ -16,5 +12,5 @@ test('landing page shows text', async ({ page }) => {
 	).toBeVisible();
 
 	// Check the Courses section
-	await expect(page.locator('text=Courses')).toBeVisible();
+	await expect(page.locator('h2:has-text("Courses")')).toBeVisible();
 });

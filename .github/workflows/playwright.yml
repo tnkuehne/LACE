@@ -25,6 +25,9 @@ jobs:
         run: |
           cd web
           npx playwright test
+      - run:
+          ls
+          ls web
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:

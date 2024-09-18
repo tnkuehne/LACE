@@ -3,6 +3,9 @@
 	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb';
 	import { page } from '$app/stores';
+	import Footer from "$lib/components/Footer.svelte";
+
+	export let data;
 </script>
 
 <div class="p-4 shadow-sm">
@@ -46,3 +49,5 @@
 </div>
 
 <slot />
+
+<Footer links="{data.landing?.links}" />

@@ -65,15 +65,15 @@
 		</div>
 	</div>
 </div>
-<div class="min-h-screen">
+<div class="min-h-screen pb-16">
 	<div
-		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-16 p-4 pt-16"
+		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-32 p-4 pt-32"
 	>
 		<section>
-			<div class="space-y-8">
+			<div class="space-y-16">
 				<div class="space-y-4">
-					<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing?.courses_title ?? 'Courses'}</h2>
-					<p class="text-center text-lg text-gray-600 lg:text-base">
+					<h2 class="text-center text-3xl font-bold lg:text-5xl">{data.landing?.courses_title ?? 'Courses'}</h2>
+					<p class="text-center text-lg lg:text-base">
 						{data.landing?.courses_description ?? 'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
 					</p>
 				</div>
@@ -108,12 +108,12 @@
 				<Button variant="link" href="/courses">Detailed Overview</Button>
 			</div>
 		</section>
-		<section class="space-y-8">
+		<section class="space-y-16">
 			<div class="space-y-4">
-				<h2 class="text-center text-4xl font-bold lg:text-6xl">
+				<h2 class="text-center text-3xl font-bold lg:text-5xl">
 					{data.landing?.publications_title ?? 'Publications'}
 				</h2>
-				<p class="text-center text-lg text-gray-600 lg:text-base">
+				<p class="text-center text-lg lg:text-base">
 					{data.landing?.publications_description ?? 'Selected scientific publications on the topics of Data Privacy, Privacy-Enhancing Technologies and Compliance'}
 				</p>
 			</div>

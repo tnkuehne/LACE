@@ -78,6 +78,9 @@
 					<p class="text-center text-lg lg:text-base">
 						{data.landing?.courses_description ?? 'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
 					</p>
+					<div class="flex justify-center">
+						<Button variant="link" href="/courses">Detailed Overview</Button>
+					</div>
 				</div>
 				<div
 						class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
@@ -104,9 +107,6 @@
 						</Alert.Root>
 					{/if}
 				</div>
-			</div>
-			<div class="flex justify-center">
-				<Button variant="link" href="/courses">Detailed Overview</Button>
 			</div>
 		</section>
 		<section class="space-y-16">

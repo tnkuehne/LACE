@@ -71,10 +71,10 @@
 <div>
 	<div class="space-y-2">
 		{#if chapter.parent}
-			<span class="text-sm font-medium text-blue-500">{chapter.parent.title}</span>
+			<span class="text-sm font-medium text-sky-800 dark:text-sky-600">{chapter.parent.title}</span>
 		{/if}
 		<div class="flex items-center justify-between">
-			<h1 class="text-2xl font-medium">{chapter.title}</h1>
+			<h1 class="text-2xl font-semibold">{chapter.title}</h1>
 			<Button
 				variant="outline"
 				size="icon"

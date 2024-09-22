@@ -90,7 +90,6 @@
 										slug={course.slug}
 										description={course.Description}
 										buttonText={data.landing?.courses_action_button_text ?? "Learn More"}
-										icon={course.icon}
 										color={course.color}
 								/>
 							</div>

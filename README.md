@@ -1,5 +1,8 @@
 # LACE
 
+[![Build](https://github.com/H3nkl3r/LACE/actions/workflows/build.yml/badge.svg)](https://github.com/H3nkl3r/LACE/actions/workflows/build.yml)
+[![Tests](https://github.com/H3nkl3r/LACE/actions/workflows/playwright.yml/badge.svg)](https://github.com/H3nkl3r/LACE/actions/workflows/playwright.yml)
+
 LACE is a web-based learning platform that offers courses on Privacy-Enhancing Technologies. The platform aims to provide high-quality educational content to non-technical practitioners, managers, and legal professionals interested in privacy-focused technologies. LACE offers a range of courses, including introductory courses, advanced courses, and specialized courses on various topics related to Privacy-Enhancing Technologies.
 
 ## Features

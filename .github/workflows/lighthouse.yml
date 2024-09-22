@@ -18,30 +18,23 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           cache: npm
           cache-dependency-path: sveltekit/package-lock.json
 
       - name: Install dependencies
         run: |
-          cd sveltekit
+          cd web
           npm install
 
       - name: Install Lighthouse CI
         run: |
-          cd sveltekit
+          cd web
           npm install @lhci/cli
-
-      - name: Build site
-        env:
-          ADAPTER_ENV: node
-        run: |
-          cd sveltekit
-          npm run build
 
       - name: Run Lighthouse
         run: |
-          cd sveltekit
+          cd web
           npx lhci autorun
         # Ensure there's a "lhci autorun" script in your package.json
         # configure https://github.com/apps/lighthouse-ci for this repo

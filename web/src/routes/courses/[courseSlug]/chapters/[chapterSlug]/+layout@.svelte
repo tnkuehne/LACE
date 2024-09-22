@@ -74,7 +74,7 @@
 
 		<h4 class="mb-4 mt-8 text-sm font-medium text-gray-500">Your progress</h4>
 		<div class="mb-4">
-			<div class="mt-2 text-sm font-medium">
+			<div class="mb-1 mt-2 text-sm font-medium">
 				<span>{progress.toFixed(0)}% completed</span>
 			</div>
 			<Progress class="rounded-full bg-gray-200 dark:bg-gray-800" value={progress} />

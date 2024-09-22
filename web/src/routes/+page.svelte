@@ -50,7 +50,7 @@
 
 	<!-- Text Content within a centered max width container -->
 	<div class="relative flex w-full justify-center">
-		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-16 pt-8 md:space-y-32 lg:space-y-64">
+		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-32 pt-8 md:space-y-32 lg:space-y-64">
 				<div class="space-y-64">
 					<div class="flex flex-row justify-between">
 						<h1

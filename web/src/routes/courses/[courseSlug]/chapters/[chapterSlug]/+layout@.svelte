@@ -107,7 +107,7 @@
 			<ThemeToggle buttonVariant="outline" />
 		</div>
 
-		<div class="pt-8">
+		<div class="pb-8 pt-8">
 			<ChapterList
 				chapters={data.chapters}
 				courseId={data.chapters[0].kurs.id}

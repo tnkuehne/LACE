@@ -1,7 +1,8 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import * as icons from 'lucide-svelte';
+	import ScrollText from 'lucide-svelte/icons/scroll-text'; // Import the placeholder icon
+	import { onMount } from 'svelte';
 
 	export let title: string;
 	export let slug: string;
@@ -11,6 +12,7 @@
 	export let color: string;
 
 	let rgbaColor = hexToRGBA(color, 0.2);
+	let IconComponent = ScrollText; // Use ScrollText as the initial icon
 
 	function hexToRGBA(hex: string, alpha: number) {
 		let r = parseInt(hex.slice(1, 3), 16),
@@ -23,6 +25,18 @@
 			return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 		}
 	}
+
+	// Lazy load the desired icon when the component is mounted
+	onMount(async () => {
+		try {
+			const icons = await import('lucide-svelte');
+			if (icons[icon]) {
+				IconComponent = icons[icon];
+			}
+		} catch (error) {
+			console.error('Error loading icon:', error);
+		}
+	});
 </script>
 
 <Card.Root
@@ -35,7 +49,7 @@
 				style="background-color: {rgbaColor};"
 			>
 				<svelte:component
-					this={icons[icon]}
+					this={IconComponent}
 					{...$$props}
 					class="h-6 w-6"
 					style="stroke: {color};"

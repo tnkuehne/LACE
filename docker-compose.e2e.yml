@@ -5,7 +5,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./directus/postgres:/var/lib/postgresql/data
+      - ./cms/postgres:/var/lib/postgresql/data
     env_file: ".env"
     networks:
       - custom-app-network
@@ -15,9 +15,9 @@ services:
     ports:
       - 8055:8055
     volumes:
-      - ./directus/uploads:/directus/uploads
-      - ./directus/extensions:/directus/extensions
-      - ./directus/database:/directus/database
+      - ./cms/uploads:/directus/uploads
+      - ./cms/extensions:/directus/extensions
+      - ./cms/database:/directus/database
     depends_on:
       - database
     env_file: ".env"
@@ -30,7 +30,7 @@ services:
     networks:
       - custom-app-network
     ports:
-      - "3000:3000"
+      - "3000:5173"
     env_file: ".env"
 
   nginx:

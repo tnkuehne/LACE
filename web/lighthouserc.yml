@@ -1,8 +1,9 @@
+# ToDo: needs modifications to work
 ci:
   collect:
-    startServerCommand: 'npm run preview'
+    startServerCommand: ''
     url:
-      - 'http://localhost:4173/'
+      - 'https://localhost/'
   assert:
     presets: lighthouse:no-pwa
     assertions:

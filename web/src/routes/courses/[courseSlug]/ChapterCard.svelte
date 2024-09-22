@@ -2,7 +2,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Separator } from '$lib/components/ui/separator';
 	import Lightbulb from './Lightbulb.svelte';
-	import BookOpenText from 'lucide-svelte/icons/book-open-text';
+	import BookOpen from 'lucide-svelte/icons/book-open';
 	import { progressStore } from '$lib/stores/progressStore';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import CircleCheck from 'lucide-svelte/icons/circle-check';
@@ -11,16 +11,12 @@
 	export let chapter;
 	export let subchapters;
 
-	function hexToRGBA(hex: string, alpha: number) {
+	function hexToRGBA(hex: string) {
 		let r = parseInt(hex.slice(1, 3), 16),
 			g = parseInt(hex.slice(3, 5), 16),
 			b = parseInt(hex.slice(5, 7), 16);
 
-		if (alpha) {
-			return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
-		} else {
-			return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-		}
+		return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 	}
 
 	$: progress = $progressStore[chapter.kurs.id]?.completed_chapters || [];
@@ -40,7 +36,7 @@
 	<Card.Header>
 		<div class="flex flex-row justify-between">
 			<div class="flex flex-row items-center gap-2">
-				<BookOpenText />
+				<BookOpen />
 				<Card.Title>
 					<a
 						class="hover:text-blue-600"
@@ -79,7 +75,7 @@
 					{#each subchapters as subchapter}
 						<a
 							class="border border-l-8 p-1 hover:text-blue-600"
-							style="border-color: {hexToRGBA(subchapter.color, 0.4)};"
+							style="border-color: {hexToRGBA(subchapter.color)};"
 							href={`/courses/${chapter.kurs.slug}/chapters/${subchapter.slug}`}
 							>{subchapter.title}</a
 						>

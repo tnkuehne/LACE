@@ -42,7 +42,7 @@
 	</div>
 	<!-- Gradient Background -->
 	<div
-		class="absolute inset-0 bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% opacity-30"
+		class="absolute inset-0 bg-gradient-to-br from-blue-600 from-75% to-purple-700 to-100% opacity-30"
 	></div>
 
 	<!-- Image Overlay -->
@@ -122,7 +122,7 @@
 				{#if data.landing?.publications_links && data.landing?.publications_links.length > 0}
 					{#each data.landing?.publications_links as link}
 						<div class="flex flex-row gap-2">
-							<ScrollText class="h-6 w-6 min-w-[1.5rem] text-blue-800 dark:text-blue-600" />
+							<ScrollText class="h-6 w-6 min-w-[1.5rem] text-teal-400 dark:text-teal-600" />
 							<a
 									href={link.url}
 									class="line-clamp-2 border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"

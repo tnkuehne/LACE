@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { Progress } from '$lib/components/ui/progress';
-	import * as Accordion from '$lib/components/ui/accordion';
-	import { Checkbox } from '$lib/components/ui/checkbox';
-	import { Label } from '$lib/components/ui/label';
 	import { progressStore } from '$lib/stores/progressStore';
 	import Menu from 'lucide-svelte/icons/menu';
 	import X from 'lucide-svelte/icons/x';
@@ -14,7 +11,7 @@
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 	import ExternalLink from 'lucide-svelte/icons/external-link';
 	import { isFullScreen } from '$lib/stores/fullScreen';
-	import ChapterList from "../../../ChapterList.svelte";
+	import ChapterList from '../../../ChapterList.svelte';
 
 	export let data;
 	let menu = false;
@@ -35,10 +32,6 @@
 
 	function toggleMenu() {
 		menu = !menu;
-	}
-
-	function hasChildren(chapterTitle: string) {
-		return data.chapters.some((c) => c.parent?.title === chapterTitle);
 	}
 </script>
 
@@ -62,7 +55,7 @@
 <div class="flex min-h-screen">
 	<!-- Sidebar Menu -->
 	<div
-			class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${
+		class={`fixed inset-x-0 bottom-0 bg-slate-100 dark:bg-slate-900 ${
 			menu ? 'block' : 'hidden'
 		} z-40 h-3/4 overflow-y-auto p-8 lg:relative lg:h-auto lg:w-1/4 ${
 			$isFullScreen ? 'lg:hidden' : 'lg:block'
@@ -111,15 +104,15 @@
 				title={data.settings.sync_title}
 				description={data.settings.sync_description}
 			/>
-			<ThemeToggle />
+			<ThemeToggle buttonVariant="outline" />
 		</div>
 
 		<div class="pt-8">
 			<ChapterList
-					chapters={data.chapters}
-					courseId={data.chapters[0].kurs.id}
-					currentChapterTitle={$page.data.chapter[0].title}
-					isPageComponent={true}
+				chapters={data.chapters}
+				courseId={data.chapters[0].kurs.id}
+				currentChapterTitle={$page.data.chapter[0].title}
+				isPageComponent={true}
 			/>
 		</div>
 	</div>

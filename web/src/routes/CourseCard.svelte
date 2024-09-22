@@ -1,13 +1,12 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import * as icons from 'lucide-svelte';
+	import BookOpenText from "lucide-svelte/icons/book-open-text";
 
 	export let title: string;
 	export let slug: string;
 	export let description: string;
 	export let buttonText: string;
-	export let icon: string;
 	export let color: string;
 
 	let rgbaColor = hexToRGBA(color, 0.2);
@@ -34,9 +33,7 @@
 				class="flex h-16 w-16 items-center justify-center rounded-lg"
 				style="background-color: {rgbaColor};"
 			>
-				<svelte:component
-					this={icons[icon]}
-					{...$$props}
+				<BookOpenText
 					class="h-6 w-6"
 					style="stroke: {color};"
 				/>

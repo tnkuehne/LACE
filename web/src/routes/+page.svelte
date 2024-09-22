@@ -9,6 +9,7 @@
 	import * as Alert from "$lib/components/ui/alert/index";
 	import Footer from "$lib/components/Footer.svelte";
 
+	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 
 	export let data;
 
@@ -50,17 +51,18 @@
 	<!-- Text Content within a centered max width container -->
 	<div class="relative flex w-full justify-center">
 		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-16 pt-8 md:space-y-32 lg:space-y-64">
-			<div class="flex justify-start">
 				<div class="space-y-64">
-					<h1
-						class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"
-					>
-						LACE
-					</h1>
+					<div class="flex flex-row justify-between">
+						<h1
+							class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"
+						>
+							LACE
+						</h1>
+						<ThemeToggle buttonVariant="outline" class="rounded-full" />
+					</div>
 					<div class="lg:prose-2xl md:prose-xl prose prose-black dark:prose-invert prose-headings:my-2">
 						{@html parsedHeading}
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -88,7 +90,6 @@
 										slug={course.slug}
 										description={course.Description}
 										buttonText={data.landing?.courses_action_button_text ?? "Learn More"}
-										icon={course.icon}
 										color={course.color}
 								/>
 							</div>

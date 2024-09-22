@@ -2,18 +2,19 @@ version: 2
 updates:
   - package-ecosystem: 'npm'
     directory: '/web/'
+    open-pull-requests-limit: 20
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
     groups:
       eslint:
         patterns:
           - "eslint*"
           - "@typescript-eslint/*"
-  - package-ecosystem: github-actions
+  - package-ecosystem: "github-actions"
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
   - package-ecosystem: "docker"
-    directory: "/"
+    directory: "/web"
     schedule:
-      interval: "daily"
+      interval: "weekly"

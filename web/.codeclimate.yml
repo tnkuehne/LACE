@@ -1,0 +1,85 @@
+version: "2"
+checks:
+  argument-count:
+    enabled: true
+  complex-logic:
+    enabled: true
+  file-lines:
+    enabled: true
+  method-complexity:
+    enabled: true
+  method-count:
+    enabled: true
+  method-lines:
+    enabled: true
+  nested-control-flow:
+    enabled: true
+  return-statements:
+    enabled: true
+  similar-code:
+    enabled: true
+  identical-code:
+    enabled: true
+exclude_patterns:
+  # SvelteKit build output
+  - "build/"
+  - ".svelte-kit/"
+
+  # Node modules
+  - "node_modules/"
+
+  # Package manager files
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+
+  # Config files
+  - "svelte.config.js"
+  - "vite.config.js"
+  - "postcss.config.cjs"
+  - "tailwind.config.cjs"
+  - ".prettierrc"
+  - "tsconfig.json"
+  - "vite.config.ts"
+  - "lighthouserc.yml"
+  - "playwright.config.ts"
+  - ".npmrc"
+  - ".prettierignore"
+  - "tailwind.config.js"
+  - "eslint.config.mjs"
+  - "package.json"
+  - "components.json"
+
+  # Static assets
+  - "static/"
+
+  # git
+  - ".husky/"
+
+  # Test files
+  - "**/*.spec.js"
+  - "**/*.test.js"
+  - "tests/"
+  - "playwright.config.js"
+
+  # Documentation
+  - "README.md"
+  - "CHANGELOG.md"
+  - "LICENSE"
+  - "docs/"
+
+  # Version control
+  - ".git/"
+  - ".gitignore"
+
+  # IDE and editor files
+  - ".vscode/"
+  - ".idea/"
+
+  # Environment files
+  - ".env"
+  - ".env.*"
+
+  # Other common excludes
+  - "**/*.min.js"
+  - "**/*.bundle.js"

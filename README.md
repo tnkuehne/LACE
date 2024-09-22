@@ -357,3 +357,16 @@ erDiagram
     quiz_data }o--|| mcQuiz : "quiz"
 
 ```
+
+### Security
+
+```bash
+semgrep scan --config auto
+```
+
+### Quality
+
+```bash
+cd web
+sudo codeclimate analyze
+```

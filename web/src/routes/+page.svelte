@@ -3,17 +3,25 @@
 	import ScrollText from 'lucide-svelte/icons/scroll-text';
 	import Grainy from './Grainy.svelte';
 	import SEO from '$lib/components/SEO.svelte';
+	import { marked } from 'marked';
+	import { Button } from '$lib/components/ui/button/index';
+	import CircleAlert from "lucide-svelte/icons/circle-alert";
+	import * as Alert from "$lib/components/ui/alert/index";
+	import Footer from "$lib/components/Footer.svelte";
+
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 
 	export let data;
-	const { seo } = data.landing;
+
+	const defaultHeading = "# **Learn. Apply. Comply.**\n" +
+			"## **Continuing Education Materials on <br> Privacy-Enhancing Technologies**\n" +
+			"Support your organization in adapting  to Privacy Enhancing Technologies"
+
+	$: parsedHeading = marked(data.landing?.heading ?? defaultHeading);
+
 </script>
 
-<SEO
-	{seo}
-	defaultTitle="Learn about Privacy Enhancing Technology"
-	defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"
-/>
+<SEO seo={data.landing?.seo} defaultTitle="Learn about Privacy Enhancing Technology" defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"/>
 
 <div class="relative flex w-full flex-col overflow-x-hidden lg:flex-row">
 	<div class="absolute right-0 top-0">
@@ -53,14 +61,8 @@
 						</h1>
 						<ThemeToggle buttonVariant="outline" class="rounded-full" />
 					</div>
-					<div class="w-4/5 space-y-8">
-						<div class="space-y-2">
-							<p class="text-4xl font-bold md:text-6xl">{data.landing.title}</p>
-							<p class="text-4xl font-bold md:text-6xl">{data.landing.subtitle}</p>
-						</div>
-						<div class="space-y-2">
-							<p class="text-xl md:text-3xl">{data.landing.description}</p>
-						</div>
+					<div class="lg:prose-2xl md:prose-xl prose prose-black dark:prose-invert prose-headings:my-2">
+						{@html parsedHeading}
 					</div>
 				</div>
 			</div>
@@ -71,82 +73,77 @@
 	<div
 		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-16 p-4 pt-16"
 	>
-		<section class="space-y-8">
-			<div class="space-y-4">
-				<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing.courses_title}</h2>
-				<p class="text-center text-lg text-gray-600 lg:text-base">
-					{data.landing.courses_description}
-				</p>
+		<section>
+			<div class="space-y-8">
+				<div class="space-y-4">
+					<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing?.courses_title ?? 'Courses'}</h2>
+					<p class="text-center text-lg text-gray-600 lg:text-base">
+						{data.landing?.courses_description ?? 'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
+					</p>
+				</div>
+				<div
+						class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
+				>
+					{#if data.courses && data.courses.length > 0}
+						{#each data.courses as course}
+							<div class="w-full p-2">
+								<CourseCard
+										title={course.Title}
+										slug={course.slug}
+										description={course.Description}
+										buttonText={data.landing?.courses_action_button_text ?? "Learn More"}
+										icon={course.icon}
+										color={course.color}
+								/>
+							</div>
+						{/each}
+					{:else}
+						<Alert.Root>
+							<CircleAlert class="h-4 w-4" />
+							<Alert.Title>Courses Display Error</Alert.Title>
+							<Alert.Description>
+								We're currently unable to display our courses. Please check back later.
+							</Alert.Description>
+						</Alert.Root>
+					{/if}
+				</div>
 			</div>
-			<div
-				class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
-			>
-				{#each data.courses as course}
-					<div class="w-full p-2">
-						<CourseCard
-							title={course.Title}
-							slug={course.slug}
-							description={course.Description}
-							buttonText={data.landing.courses_action_button_text}
-							icon={course.icon}
-							color={course.color}
-						/>
-					</div>
-				{/each}
+			<div class="flex justify-center">
+				<Button variant="link" href="/courses">Detailed Overview</Button>
 			</div>
 		</section>
 		<section class="space-y-8">
 			<div class="space-y-4">
 				<h2 class="text-center text-4xl font-bold lg:text-6xl">
-					{data.landing.publications_title}
+					{data.landing?.publications_title ?? 'Publications'}
 				</h2>
 				<p class="text-center text-lg text-gray-600 lg:text-base">
-					{data.landing.publications_description}
+					{data.landing?.publications_description ?? 'Selected scientific publications on the topics of Data Privacy, Privacy-Enhancing Technologies and Compliance'}
 				</p>
 			</div>
 			<div class="flex flex-col gap-2">
-				{#each data.landing.publications_links as link}
-					<div class="flex flex-row gap-2">
-						<ScrollText class="h-6 w-6 min-w-[1.5rem] text-blue-800 dark:text-blue-600" />
-						<a
-							href={link.url}
-							class="line-clamp-2 border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"
+				{#if data.landing?.publications_links && data.landing?.publications_links.length > 0}
+					{#each data.landing?.publications_links as link}
+						<div class="flex flex-row gap-2">
+							<ScrollText class="h-6 w-6 min-w-[1.5rem] text-blue-800 dark:text-blue-600" />
+							<a
+									href={link.url}
+									class="line-clamp-2 border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"
 							>{link.title}</a
-						>
-					</div>
-				{/each}
+							>
+						</div>
+					{/each}
+				{:else}
+					<Alert.Root>
+						<CircleAlert class="h-4 w-4" />
+						<Alert.Title>Publications Display Error</Alert.Title>
+						<Alert.Description>
+							We're currently unable to display our publications. Please check back later.
+						</Alert.Description>
+					</Alert.Root>
+				{/if}
 			</div>
 		</section>
 	</div>
 </div>
-<footer class="bg-sky-100 dark:bg-blue-950">
-	<div
-		class="mx-auto flex max-w-screen-2xl flex-col justify-between space-y-16 px-8 py-16 md:flex-row md:space-y-0 md:px-0"
-	>
-		<div class="flex flex-col gap-8">
-			<enhanced:img src="./logo_sebis_cit.png?w=400" alt="Logo" loading="lazy" />
-			<div class="text-sm text-gray-600 dark:text-gray-400">
-				<p>Copyright © 2024 SEBIS Chair @TUM</p>
-				<p>All rights reserved</p>
-			</div>
-		</div>
-		<div class="flex flex-row gap-32">
-			<div class="space-y-4">
-				<h5 class="font-medium">Links</h5>
-				<ul>
-					{#each data.landing.links as link}
-						<li>
-							<a href={link.url} class="hover:text-blue-800 dark:hover:text-blue-600"
-								>{link.title}</a
-							>
-						</li>
-					{/each}
-				</ul>
-			</div>
-			<div class="space-y-4">
-				<h5 class="font-medium">Sponsor</h5>
-				<enhanced:img src="./publisherlogo-en.svg" alt="Sponsor" loading="lazy" />
-			</div>
-		</div>
-	</div>
-</footer>
+<Footer links="{data.landing?.links}" />

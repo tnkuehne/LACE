@@ -4,9 +4,9 @@
 	import * as Drawer from '$lib/components/ui/drawer/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import SurveyForm from './SurveyForm.svelte';
 	import Info from 'lucide-svelte/icons/info';
+	import { marked } from 'marked';
 
 	export let trigger_button: string;
 	export let title: string;
@@ -17,6 +17,8 @@
 	export let courseId: string;
 	export let disabled: boolean;
 	export let trigger_button_info: string;
+
+	$: parsedDescription = marked(description);
 
 	let open = false;
 	const isDesktop = mediaQuery('(min-width: 768px)');
@@ -32,7 +34,9 @@
 				<Dialog.Header>
 					<Dialog.Title>{title}</Dialog.Title>
 					<Dialog.Description>
-						{description}
+						<div class="prose dark:prose-invert">
+							{@html parsedDescription}
+						</div>
 					</Dialog.Description>
 				</Dialog.Header>
 				<div>
@@ -49,7 +53,9 @@
 				<Drawer.Header class="text-left">
 					<Drawer.Title>{title}</Drawer.Title>
 					<Drawer.Description>
-						{description}
+						<div class="prose dark:prose-invert">
+							{@html parsedDescription}
+						</div>
 					</Drawer.Description>
 				</Drawer.Header>
 				<div class="px-4">

@@ -12,7 +12,7 @@
 	import Maximize from 'lucide-svelte/icons/maximize';
 	import Minimize from 'lucide-svelte/icons/minimize';
 	import { isFullScreen } from '$lib/stores/fullScreen';
-	import References from "./References.svelte";
+	import References from './References.svelte';
 
 	export let data;
 
@@ -51,7 +51,7 @@
 	}
 
 	function toggleFullScreen() {
-		isFullScreen.update(value => !value);
+		isFullScreen.update((value) => !value);
 	}
 
 	function chunkReferences(references, chunkSize = 7) {
@@ -75,7 +75,12 @@
 		{/if}
 		<div class="flex items-center justify-between">
 			<h1 class="text-2xl font-medium">{chapter.title}</h1>
-			<Button variant="outline" size="icon" on:click={toggleFullScreen}>
+			<Button
+				variant="outline"
+				size="icon"
+				on:click={toggleFullScreen}
+				class="invisible lg:visible"
+			>
 				{#if $isFullScreen}
 					<Minimize class="h-4 w-4" />
 				{:else}
@@ -126,7 +131,7 @@
 				{#if chapter.references}
 					{#each chunkReferences(chapter.references) as referenceChunk}
 						<Carousel.Item class="flex items-center justify-center">
-							<References references={referenceChunk}/>
+							<References references={referenceChunk} />
 						</Carousel.Item>
 					{/each}
 				{/if}

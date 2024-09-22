@@ -2,7 +2,7 @@ import { readSingleton, createItem, readItem, uploadFiles } from '@directus/sdk'
 import getDirectusInstance from '$lib/server/directus';
 import type { PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
-import { PDFDocument, rgb } from 'pdf-lib';
+import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import QRCode from 'qrcode';
 import { createHmac } from 'crypto';
 import { TextEncoder } from 'util';
@@ -50,19 +50,33 @@ export const actions = {
 
 		const pdfDoc = await PDFDocument.load(existingPdfBytes);
 		const page = pdfDoc.getPages()[0];
-		const { height } = page.getSize();
+		const { width, height } = page.getSize();
+
+		// Load a font
+		const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+		// Calculate text width and center position
+		const userNameSize = 164;
+		const userNameWidth = font.widthOfTextAtSize(userName as string, userNameSize);
+		const userNameX = (width - userNameWidth) / 2 + settings.username_x;
+
+		const courseNameSize = 96;
+		const courseNameWidth = font.widthOfTextAtSize(courseName, courseNameSize);
+		const courseNameX = (width - courseNameWidth) / 2 + settings.coursename_x;
 
 		// Step 2: Add text to the PDF
 		page.drawText(`${userName}`, {
-			x: settings.username_x,
+			x: userNameX,
 			y: height - settings.username_y,
-			size: 164,
+			size: userNameSize,
+			font: font,
 			color: rgb(22 / 256, 93 / 256, 177 / 256)
 		});
 		page.drawText(`${courseName}`, {
-			x: settings.coursename_x,
+			x: courseNameX,
 			y: height - settings.coursename_y,
-			size: 96,
+			size: courseNameSize,
+			font: font,
 			color: rgb(0, 0, 0)
 		});
 
@@ -94,8 +108,9 @@ export const actions = {
 		const qrDims = qrImage.scale(2);
 
 		// Step 7: Add QR code to the PDF
+		const qrCodeX = (width - qrDims.width) / 2 + settings.qrcode_x;
 		page.drawImage(qrImage, {
-			x: settings.qrcode_x,
+			x: qrCodeX,
 			y: height - qrDims.height - settings.qrcode_y,
 			width: qrDims.width,
 			height: qrDims.height

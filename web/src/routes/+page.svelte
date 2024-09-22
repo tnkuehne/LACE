@@ -51,7 +51,6 @@
 	<!-- Text Content within a centered max width container -->
 	<div class="relative flex w-full justify-center">
 		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-16 pt-8 md:space-y-32 lg:space-y-64">
-			<div class="flex justify-start">
 				<div class="space-y-64">
 					<div class="flex flex-row justify-between">
 						<h1
@@ -64,7 +63,6 @@
 					<div class="lg:prose-2xl md:prose-xl prose prose-black dark:prose-invert prose-headings:my-2">
 						{@html parsedHeading}
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>

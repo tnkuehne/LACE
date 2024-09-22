@@ -51,7 +51,7 @@
 						>
 							LACE
 						</h1>
-						<ThemeToggle buttonVariant="ghost" />
+						<ThemeToggle buttonVariant="outline" class="rounded-full" />
 					</div>
 					<div class="w-4/5 space-y-8">
 						<div class="space-y-2">

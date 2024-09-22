@@ -5,13 +5,19 @@
 	import { resetMode, setMode } from 'mode-watcher';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import type { HTMLTextareaAttributes } from 'svelte/elements';
+	import { cn } from '$lib/utils.js';
+
+	type $$Props = HTMLTextareaAttributes;
 
 	export let buttonVariant: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+	let className: $$Props['class'] = undefined;
+	export { className as class };
 </script>
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger asChild let:builder>
-		<Button builders={[builder]} variant={buttonVariant} size="icon">
+		<Button builders={[builder]} variant={buttonVariant} size="icon" class={cn('', className)}>
 			<Sun
 				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
 			/>

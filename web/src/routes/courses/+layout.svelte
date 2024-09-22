@@ -20,9 +20,10 @@
 			</Button>
 			<div class="flex flex-col">
 				<h2 class="text-2xl font-bold capitalize">
+					<!-- ToDo: remove this Pfusch with capitalizing PETs -->
 					{decodeURIComponent(
 						$page.url.pathname.split('/').slice(-1).toString().replace(/-/g, ' ')
-					)}
+					).replace(/\bpets\b/g, 'PETs')}
 				</h2>
 				<Breadcrumb.Root>
 					<Breadcrumb.List>
@@ -32,13 +33,17 @@
 						<Breadcrumb.Separator />
 						{#each $page.url.pathname.split('/').slice(1) as crumb, index (crumb)}
 							<Breadcrumb.Item>
+								<!-- ToDo: remove this Pfusch with capitalizing PETs -->
 								<Breadcrumb.Link
 									class="capitalize"
 									href={`/${$page.url.pathname
 										.split('/')
 										.slice(1, index + 2)
 										.join('/')}`}
-									>{decodeURIComponent(crumb.toString().replace(/-/g, ' '))}</Breadcrumb.Link
+									>{decodeURIComponent(crumb.toString().replace(/-/g, ' ')).replace(
+										/\bpets\b/g,
+										'PETs'
+									)}</Breadcrumb.Link
 								>
 							</Breadcrumb.Item>
 							{#if index !== $page.url.pathname.split('/').slice(1).length - 1}

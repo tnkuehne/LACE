@@ -42,7 +42,7 @@
 	</div>
 	<!-- Gradient Background -->
 	<div
-		class="absolute inset-0 bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% opacity-30"
+		class="absolute inset-0 bg-gradient-to-br from-blue-600 from-75% to-purple-700 to-100% opacity-30"
 	></div>
 
 	<!-- Image Overlay -->
@@ -67,15 +67,15 @@
 		</div>
 	</div>
 </div>
-<div class="min-h-screen">
+<div class="min-h-screen pb-16">
 	<div
-		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-16 p-4 pt-16"
+		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-32 p-4 pt-32"
 	>
 		<section>
-			<div class="space-y-8">
+			<div class="space-y-16">
 				<div class="space-y-4">
-					<h2 class="text-center text-4xl font-bold lg:text-6xl">{data.landing?.courses_title ?? 'Courses'}</h2>
-					<p class="text-center text-lg text-gray-600 lg:text-base">
+					<h2 class="text-center text-3xl font-bold lg:text-5xl">{data.landing?.courses_title ?? 'Courses'}</h2>
+					<p class="text-center text-lg lg:text-base">
 						{data.landing?.courses_description ?? 'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
 					</p>
 				</div>
@@ -109,12 +109,12 @@
 				<Button variant="link" href="/courses">Detailed Overview</Button>
 			</div>
 		</section>
-		<section class="space-y-8">
+		<section class="space-y-16">
 			<div class="space-y-4">
-				<h2 class="text-center text-4xl font-bold lg:text-6xl">
+				<h2 class="text-center text-3xl font-bold lg:text-5xl">
 					{data.landing?.publications_title ?? 'Publications'}
 				</h2>
-				<p class="text-center text-lg text-gray-600 lg:text-base">
+				<p class="text-center text-lg lg:text-base">
 					{data.landing?.publications_description ?? 'Selected scientific publications on the topics of Data Privacy, Privacy-Enhancing Technologies and Compliance'}
 				</p>
 			</div>
@@ -122,7 +122,7 @@
 				{#if data.landing?.publications_links && data.landing?.publications_links.length > 0}
 					{#each data.landing?.publications_links as link}
 						<div class="flex flex-row gap-2">
-							<ScrollText class="h-6 w-6 min-w-[1.5rem] text-blue-800 dark:text-blue-600" />
+							<ScrollText class="h-6 w-6 min-w-[1.5rem] text-teal-400 dark:text-teal-600" />
 							<a
 									href={link.url}
 									class="line-clamp-2 border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"

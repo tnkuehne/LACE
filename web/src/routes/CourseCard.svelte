@@ -25,7 +25,7 @@
 </script>
 
 <Card.Root
-	class="light:border-teal-50 light:shadow-2xl flex h-full flex-col items-center justify-center rounded-2xl shadow-indigo-500/10"
+	class="light:border-teal-50 border light:shadow-[34.854px_29.626px_48.34px_0px_rgba(51,102,255,0.05)] flex h-full flex-col items-center justify-center rounded-2xl"
 >
 	<Card.Header>
 		<Card.Title>

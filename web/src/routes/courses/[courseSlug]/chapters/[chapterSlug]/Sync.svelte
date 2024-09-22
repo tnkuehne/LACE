@@ -23,11 +23,11 @@
 				if (!enabled) {
 					console.log('Syncing enabled');
 					const code = await progressStore.enableSyncing();
-					url = `${env.PUBLIC_URL}/c/${code}`;
+					url = `${env.PUBLIC_URL.replace(/^https?:\/\//, '')}/c/${code}`;
 				} else {
 					console.log('Syncing already enabled');
 					const code = await progressStore.getSyncCode();
-					url = `${env.PUBLIC_URL}/c/${code}`;
+					url = `${env.PUBLIC_URL.replace(/^https?:\/\//, '')}/c/${code}`;
 				}
 			})();
 		}
@@ -39,7 +39,7 @@
 		<Dialog.Trigger asChild let:builder>
 			<Button variant="outline" builders={[builder]}>{trigger_button}</Button>
 		</Dialog.Trigger>
-		<Dialog.Content class="sm:max-w-[425px]">
+		<Dialog.Content class="sm:max-w-[600px]">
 			<Dialog.Header>
 				<Dialog.Title>{title}</Dialog.Title>
 				<Dialog.Description>

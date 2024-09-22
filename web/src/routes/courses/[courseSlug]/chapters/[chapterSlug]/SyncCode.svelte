@@ -4,9 +4,9 @@
 
 	export let url: string;
 
-	let qrCodeCanvas;
+	let qrCodeCanvas: HTMLCanvasElement | null = null;
 
-	$: if (url) {
+	$: if (url && qrCodeCanvas) {
 		QRCode.toCanvas(qrCodeCanvas, url, function (error) {
 			if (error) console.error(error);
 			console.log('QR code generated!');
@@ -14,9 +14,11 @@
 	}
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col items-center gap-8 py-8">
 	<canvas bind:this={qrCodeCanvas}></canvas>
-	<div class="flew-row flex">
+	<div class="flex w-[150px] flex-row items-center justify-center">
+		<Separator />
+		<p class="mx-2">or</p>
 		<Separator />
 	</div>
 	<p>{url}</p>

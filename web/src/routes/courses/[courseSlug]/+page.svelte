@@ -6,7 +6,7 @@
 
 	$: jsonLd = JSON.stringify({
 		"@context": "https://schema.org",
-		"@id": `${env.PUBLIC_URL}/course/${data.chapters[0].kurs.slug}`,
+		"@id": `${env.PUBLIC_URL}/courses/${data.chapters[0].kurs.slug}`,
 		"@type": "Course",
 		"name": data.chapters[0].kurs.Title,
 		"description": data.chapters[0].kurs.Description,

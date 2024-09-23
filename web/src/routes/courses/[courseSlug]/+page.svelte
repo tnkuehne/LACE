@@ -19,7 +19,7 @@
 			`${env.PUBLIC_URL}/cms/assets/${data.chapters[0].kurs.Image}`
 		],
 		"inLanguage": "en",
-		"datePublished": "2024-09-20",
+		"datePublished": data.chapters[0].kurs.date_updated ? data.chapters[0].kurs.date_updated.split('T')[0] : "2024-08-15",
 		"educationalCredentialAwarded": [{
 			"@type": "EducationalOccupationalCredential",
 			"name": "LACE Certificate",

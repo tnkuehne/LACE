@@ -41,7 +41,7 @@
 		"lint-staged": "^15.2.2",
 		"lucide-svelte": "^0.445.0",
 		"marked": "^14.1.2",
-		"mode-watcher": "^0.4.0",
+		"mode-watcher": "^0.4.1",
 		"pdf-lib": "^1.17.1",
 		"postcss": "^8.4.45",
 		"postcss-load-config": "^6.0.1",

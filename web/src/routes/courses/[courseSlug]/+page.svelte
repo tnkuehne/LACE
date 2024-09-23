@@ -3,6 +3,30 @@
 	import { env } from '$env/dynamic/public';
 
 	export let data;
+
+	$: jsonLd = JSON.stringify({
+		"@context": "https://schema.org",
+		"@id": `${env.PUBLIC_URL}/course/${data.chapters[0].kurs.slug}`,
+		"@type": "Course",
+		"name": data.chapters[0].kurs.Title,
+		"description": data.chapters[0].kurs.Description,
+		"provider": {
+			"@type": "Organization",
+			"name": "Chair for Software Engineering for Business Information Systems",
+			"sameAs": "https://wwwmatthes.in.tum.de"
+		},
+		"image": [
+			`${env.PUBLIC_URL}/cms/assets/${data.chapters[0].kurs.Image}`
+		],
+		"inLanguage": "en",
+		"datePublished": "2024-09-20",
+		"educationalCredentialAwarded": [{
+			"@type": "EducationalOccupationalCredential",
+			"name": "LACE Certificate",
+			"url": `${env.PUBLIC_URL}`,
+			"credentialCategory": "Certificate",
+		}],
+	});
 </script>
 
 <svelte:head>
@@ -14,6 +38,7 @@
 		content={`${env.PUBLIC_URL}/cms/assets/${data.chapters[0].kurs.Image}`}
 	/>
 	<meta property="og:description" content={data.chapters[0].kurs.Description} />
+	{@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>
 
 <div class="mx-auto mt-16 max-w-screen-2xl space-y-8 p-4 2xl:p-0">

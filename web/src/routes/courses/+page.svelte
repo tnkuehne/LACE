@@ -3,6 +3,7 @@
 	import { toast } from 'svelte-sonner';
 	import { onMount } from 'svelte';
 	import SEO from "$lib/components/SEO.svelte";
+	import {env} from "$env/dynamic/public";
 
 	export let data;
 
@@ -11,9 +12,23 @@
 			toast.info('Syncing completed!');
 		}
 	});
+
+	$: jsonLd = JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "ItemList",
+		"itemListElement": data.courses.map((course, index) => ({
+			"@type": "ListItem",
+			"position": index + 1,
+			"url": `${env.PUBLIC_URL}/courses/${course.slug}`
+		}))
+	});
 </script>
 
 <SEO seo={data.settings.seo} defaultTitle="Courses" defaultDescription="Learn about Privacy Enhancing Technology"/>
+
+<svelte:head>
+	{@html `<script type="application/ld+json">${jsonLd}</script>`}
+</svelte:head>
 
 <div class="min-h-screen p-4">
 	<div class="mx-auto mt-16 max-w-screen-2xl">

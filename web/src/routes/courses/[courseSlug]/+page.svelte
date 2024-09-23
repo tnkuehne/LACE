@@ -34,6 +34,7 @@
 	<meta name="description" content={data.chapters[0].kurs.Description} />
 	<meta property="og:title" content={data.chapters[0].kurs.Title} />
 	<meta
+		name="image"
 		property="og:image"
 		content={`${env.PUBLIC_URL}/cms/assets/${data.chapters[0].kurs.Image}`}
 	/>

@@ -56,7 +56,7 @@
 	<img
 		src={`${env.PUBLIC_URL}/cms/assets/${course.Image}`}
 		alt="Slide {course.Title}"
-		class="h-48 w-full rounded-t-lg bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% object-right"
+		class="h-48 w-full rounded-t-lg bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% object-contain"
 	/>
 	<Card.Header class="flex flex-col pb-0 pl-6">
 		<div class="flex flex-col">

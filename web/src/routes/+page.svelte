@@ -85,8 +85,10 @@
 				<div
 						class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
 				>
-					{#if data.courses && data.courses.length > 0}
-						{#each data.courses as course}
+					{#await data.courses}
+						<!-- ToDo: Evaluate Skeleton -->
+					{:then courses}
+						{#each courses as course}
 							<div class="w-full p-2">
 								<CourseCard
 										title={course.Title}
@@ -97,15 +99,15 @@
 								/>
 							</div>
 						{/each}
-					{:else}
+					{:catch error}
 						<Alert.Root>
 							<CircleAlert class="h-4 w-4" />
 							<Alert.Title>Courses Display Error</Alert.Title>
 							<Alert.Description>
-								We're currently unable to display our courses. Please check back later.
+								We encountered an error while loading the courses. Please try again later. Error details: {error.message}
 							</Alert.Description>
 						</Alert.Root>
-					{/if}
+					{/await}
 				</div>
 			</div>
 		</section>

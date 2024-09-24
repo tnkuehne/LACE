@@ -3,10 +3,10 @@ import { json } from '@sveltejs/kit';
 import { createItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request, fetch }) => {
 	const { id, isCorrect, incorrectAnswers } = await request.json();
 
-	await getDirectusInstance().request(
+	await getDirectusInstance(fetch).request(
 		createItem('quiz_data', {
 			quiz: id,
 			correct: isCorrect,

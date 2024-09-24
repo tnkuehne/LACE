@@ -3,7 +3,7 @@ import { json } from '@sveltejs/kit';
 import { createItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request, fetch }) => {
 	let { event, error } = await request.json();
 	const { statusCode, stack, message } = await request.json();
 
@@ -16,7 +16,7 @@ export const POST: RequestHandler = async ({ request }) => {
 	}
 
 	try {
-		await getDirectusInstance().request(
+		await getDirectusInstance(fetch).request(
 			createItem('error', {
 				statusCode: statusCode,
 				stack: stack,

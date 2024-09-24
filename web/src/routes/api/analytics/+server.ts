@@ -27,7 +27,7 @@ function extractDeviceType(userAgent: string): string {
 	}
 }
 
-export const POST: RequestHandler = async ({ request, getClientAddress }) => {
+export const POST: RequestHandler = async ({ request, getClientAddress, fetch }) => {
 	const directus = getDirectusInstance(fetch);
 
 	const { path, referrer } = await request.json();

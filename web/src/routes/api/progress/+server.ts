@@ -3,7 +3,7 @@ import { readItems, createItem, updateItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 import { json, error } from '@sveltejs/kit';
 
-export const PATCH: RequestHandler = async ({ request, cookies }) => {
+export const PATCH: RequestHandler = async ({ request, cookies, fetch }) => {
 	const directus = getDirectusInstance(fetch);
 	const userId = cookies.get('user');
 

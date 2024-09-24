@@ -8,7 +8,7 @@ interface Page {
 	updated: string;
 }
 
-export const GET: RequestHandler = async () => {
+export const GET: RequestHandler = async ({ fetch }) => {
 	const directus = getDirectusInstance(fetch);
 
 	const courses = await directus.request(readItems('Courses'));

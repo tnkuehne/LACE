@@ -39,7 +39,7 @@
 		"globals": "^15.9.0",
 		"husky": "^9.1.6",
 		"lint-staged": "^15.2.2",
-		"lucide-svelte": "^0.445.0",
+		"lucide-svelte": "^0.446.0",
 		"marked": "^14.1.2",
 		"mode-watcher": "^0.4.1",
 		"pdf-lib": "^1.17.1",

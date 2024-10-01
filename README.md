@@ -374,5 +374,12 @@ cd web
 sudo codeclimate analyze
 ```
 
-Good example of SvelteKit code:
+#### Good example of SvelteKit code:
 - https://github.com/sveltejs/realworld
+
+#### Analyzing bundle size
+```bash 
+cd web
+npm run build
+open ./svelte-kit/adapter-node/stats.html
+```

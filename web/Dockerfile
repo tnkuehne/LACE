@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+ARG NODE_ENV=production
+
 RUN npm ci --omit dev --ignore-scripts
 
 RUN npm cache clean --force
@@ -11,8 +13,6 @@ RUN npm cache clean --force
 COPY . .
 
 RUN npm run build
-
-RUN npm prune --production
 
 CMD ["node", "build"]
 

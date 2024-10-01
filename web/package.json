@@ -41,15 +41,16 @@
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1",
 		"tailwindcss": "^3.4.12",
+		"@tailwindcss/typography": "^0.5.15",
 		"vaul-svelte": "^0.3.2",
 		"vite": "^5.4.7",
-		"zod": "^3.23.8"
+		"zod": "^3.23.8",
+		"util": "^0.12.5"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3.1.0",
 		"@eslint/js": "^9.9.1",
 		"@playwright/test": "^1.47.2",
-		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.1",
 		"@typescript-eslint/eslint-plugin": "^8.6.0",
 		"@typescript-eslint/parser": "^8.6.0",
@@ -65,7 +66,6 @@
 		"svelte-check": "^4.0.2",
 		"tslib": "^2.7.0",
 		"typescript": "^5.6.2",
-		"util": "^0.12.5",
 		"vitest": "^2.1.1"
 	},
 	"type": "module",

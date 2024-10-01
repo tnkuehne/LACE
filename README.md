@@ -373,3 +373,6 @@ semgrep scan --config auto
 cd web
 sudo codeclimate analyze
 ```
+
+Good example of SvelteKit code:
+- https://github.com/sveltejs/realworld

@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci --include dev --ignore-scripts
+RUN npm ci --omit dev
 
 RUN npm cache clean --force
 

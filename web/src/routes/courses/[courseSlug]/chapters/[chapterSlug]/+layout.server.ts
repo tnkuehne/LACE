@@ -6,14 +6,20 @@ export const load: LayoutServerLoad = async ({ fetch, params }) => {
 	const { courseSlug } = params;
 	const directus = getDirectusInstance(fetch);
 
-	return {
-		chapters: await directus.request(
+	const [chapters, survey, settings] = await Promise.all([
+		directus.request(
 			readItems('kapitel', {
 				fields: ['*', 'kurs.*', 'content.*.*.*', 'parent.title'],
 				filter: { kurs: { slug: courseSlug } }
 			})
 		),
-		survey: await directus.request(readSingleton('survey')),
-		settings: await directus.request(readSingleton('learning_page'))
+		directus.request(readSingleton('survey')),
+		directus.request(readSingleton('learning_page'))
+	]);
+
+	return {
+		chapters,
+		survey,
+		settings
 	};
 };

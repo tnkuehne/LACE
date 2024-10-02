@@ -8,19 +8,22 @@ export const load: PageServerLoad = async ({ fetch, params, url, locals }) => {
 	const { chapterSlug } = params;
 	const directus = getDirectusInstance(fetch);
 
-	const chapter = await directus.request(
-		readItems('kapitel', {
-			filter: { slug: chapterSlug },
-			fields: [
-				'*',
-				'content.collection',
-				'content.item.*',
-				'kurs.*',
-				'content.item.answers.sort',
-				'parent.title'
-			] // Specify the fields you want to retrieve
-		})
-	);
+	const [chapter, settings] = await Promise.all([
+		directus.request(
+			readItems('kapitel', {
+				filter: { slug: chapterSlug },
+				fields: [
+					'*',
+					'content.collection',
+					'content.item.*',
+					'kurs.*',
+					'content.item.answers.sort',
+					'parent.title'
+				]
+			})
+		),
+		directus.request(readSingleton('learning_page', { version }))
+	]);
 
 	if (!chapter.length) {
 		error(404, 'Chapter not found');
@@ -28,6 +31,6 @@ export const load: PageServerLoad = async ({ fetch, params, url, locals }) => {
 
 	return {
 		chapter,
-		settings: await directus.request(readSingleton('learning_page', { version }))
+		settings
 	};
 };

@@ -378,6 +378,7 @@ sudo codeclimate analyze
 - https://github.com/sveltejs/realworld
 
 #### Analyzing bundle size
+Need to remove the comment in the `vite.config.ts` file.
 ```bash 
 cd web
 npm run build

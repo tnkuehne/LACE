@@ -8,20 +8,23 @@ export const load: PageServerLoad = async ({ fetch, params, url, locals }) => {
 	const { courseSlug } = params;
 	const directus = getDirectusInstance(fetch);
 
-	const chapters = await directus.request(
-		readItems('kapitel', {
-			filter: {
-				_and: [
-					{
-						kurs: {
-							slug: courseSlug
+	const [chapters, settings] = await Promise.all([
+		directus.request(
+			readItems('kapitel', {
+				filter: {
+					_and: [
+						{
+							kurs: {
+								slug: courseSlug
+							}
 						}
-					}
-				]
-			},
-			fields: ['*', 'kurs.*', 'parent.title'] // Specify the fields you want to retrieve
-		})
-	);
+					]
+				},
+				fields: ['*', 'kurs.*', 'parent.title']
+			})
+		),
+		directus.request(readSingleton('course_page', { version }))
+	]);
 
 	if (!chapters.length) {
 		redirect(307, '/courses');
@@ -29,6 +32,6 @@ export const load: PageServerLoad = async ({ fetch, params, url, locals }) => {
 
 	return {
 		chapters,
-		settings: await directus.request(readSingleton('course_page', { version }))
+		settings
 	};
 };

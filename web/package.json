@@ -16,7 +16,7 @@
 		"prepare": "cd .. && husky web/.husky"
 	},
 	"dependencies": {
-		"@directus/sdk": "^16.1.1",
+		"@directus/sdk": "^17.0.1",
 		"@sveltejs/adapter-node": "^5.2.5",
 		"@sveltejs/enhanced-img": "^0.3.8",
 		"@sveltejs/kit": "^2.6.1",

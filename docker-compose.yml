@@ -33,12 +33,32 @@ services:
     env_file: ".env"
     restart: on-failure:3
 
+  web-staging:
+    image: ghcr.io/h3nkl3r/lace:staging
+    networks:
+      - custom-app-network
+    ports:
+      - "3001:3000"
+    env_file: ".env.staging"
+    restart: on-failure:3
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 --cleanup
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+
   nginx:
     image: nginx:latest
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /var/lib/rbg-cert:/var/lib/rbg-cert:ro
       - /usr/local/cert.d/nginx:/usr/local/cert.d/nginx
+      - ./.htpasswd:/etc/nginx/.htpasswd:ro
     ports:
       - "80:80"
       - "443:443"

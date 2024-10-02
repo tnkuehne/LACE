@@ -103,7 +103,7 @@ export const actions = {
 
 		// Step 5: Encode data and signature in URL
 		const encodedData = encodeURIComponent(btoa(certificateData));
-		const verificationUrl = `${envPub.PUBLIC_URL}/verify?data=${encodedData}&signature=${signature}`;
+		const verificationUrl = `${envPub.PUBLIC_WEB_URL}/verify?data=${encodedData}&signature=${signature}`;
 
 		console.log('Verification URL:', verificationUrl);
 
@@ -138,7 +138,7 @@ export const actions = {
 
 		await directus.request(uploadFiles(formDataUpload));
 
-		const fileURL = `${envPub.PUBLIC_URL}/cms/assets/${certificateFileId}`;
+		const fileURL = `${envPub.PUBLIC_WEB_URL}/cms/assets/${certificateFileId}`;
 
 		return redirect(303, fileURL);
 	}

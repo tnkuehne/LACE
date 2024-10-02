@@ -19,7 +19,7 @@
 		"itemListElement": data.courses.map((course, index) => ({
 			"@type": "ListItem",
 			"position": index + 1,
-			"url": `${env.PUBLIC_URL}/courses/${course.slug}`
+			"url": `${env.PUBLIC_WEB_URL}/courses/${course.slug}`
 		}))
 	});
 </script>

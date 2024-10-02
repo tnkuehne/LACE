@@ -23,11 +23,11 @@
 				if (!enabled) {
 					console.log('Syncing enabled');
 					const code = await progressStore.enableSyncing();
-					url = `${env.PUBLIC_URL.replace(/^https?:\/\//, '')}/c/${code}`;
+					url = `${env.PUBLIC_WEB_URL.replace(/^https?:\/\//, '')}/c/${code}`;
 				} else {
 					console.log('Syncing already enabled');
 					const code = await progressStore.getSyncCode();
-					url = `${env.PUBLIC_URL.replace(/^https?:\/\//, '')}/c/${code}`;
+					url = `${env.PUBLIC_WEB_URL.replace(/^https?:\/\//, '')}/c/${code}`;
 				}
 			})();
 		}

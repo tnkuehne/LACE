@@ -6,7 +6,7 @@
 
 	$: jsonLd = JSON.stringify({
 		"@context": "https://schema.org",
-		"@id": `${env.PUBLIC_URL}/courses/${data.chapters[0].kurs.slug}`,
+		"@id": `${env.PUBLIC_WEB_URL}/courses/${data.chapters[0].kurs.slug}`,
 		"@type": "Course",
 		"name": data.chapters[0].kurs.Title,
 		"description": data.chapters[0].kurs.Description,
@@ -16,14 +16,14 @@
 			"sameAs": "https://wwwmatthes.in.tum.de"
 		},
 		"image": [
-			`${env.PUBLIC_URL}/cms/assets/${data.chapters[0].kurs.Image}`
+			`${env.PUBLIC_WEB_URL}/cms/assets/${data.chapters[0].kurs.Image}`
 		],
 		"inLanguage": "en",
 		"datePublished": data.chapters[0].kurs.date_updated ? data.chapters[0].kurs.date_updated.split('T')[0] : "2024-08-15",
 		"educationalCredentialAwarded": [{
 			"@type": "EducationalOccupationalCredential",
 			"name": "LACE Certificate",
-			"url": `${env.PUBLIC_URL}`,
+			"url": `${env.PUBLIC_WEB_URL}`,
 			"credentialCategory": "Certificate",
 		}],
 	});
@@ -36,7 +36,7 @@
 	<meta
 		name="image"
 		property="og:image"
-		content={`${env.PUBLIC_URL}/cms/assets/${data.chapters[0].kurs.Image}`}
+		content={`${env.PUBLIC_WEB_URL}/cms/assets/${data.chapters[0].kurs.Image}`}
 	/>
 	<meta property="og:description" content={data.chapters[0].kurs.Description} />
 	{@html `<script type="application/ld+json">${jsonLd}</script>`}

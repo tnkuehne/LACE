@@ -5,7 +5,7 @@ export const handleError: HandleClientError = async ({ error, event, status, mes
 	try {
 		console.error('Error logging client:', error);
 		// Send the log entry to your logging endpoint
-		await fetch(`${envPublic.PUBLIC_URL}/api/analytics/error`, {
+		await fetch(`${envPublic.PUBLIC_WEB_URL}/api/analytics/error`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

@@ -21,7 +21,7 @@
 
 	<!-- Image Overlay -->
 	<img
-		src="{env.PUBLIC_URL}/grainy.png"
+		src="{env.PUBLIC_WEB_URL}/grainy.png"
 		alt="Overlay"
 		class="absolute inset-0 h-full w-full object-cover mix-blend-overlay"
 	/>

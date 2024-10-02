@@ -121,7 +121,7 @@
 					{#if content.collection === 'directus_files'}
 						<Carousel.Item>
 							<img
-								src={`${env.PUBLIC_URL}/cms/assets/${content.item.id}?format=webp`}
+								src={`${env.PUBLIC_WEB_URL}/cms/assets/${content.item.id}?format=webp`}
 								alt={`Slide ${index + 1}`}
 								loading="lazy"
 							/>

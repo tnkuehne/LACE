@@ -30,7 +30,7 @@
 	})();
 
 	function copyCourseLink() {
-		const courseLink = `${env.PUBLIC_URL}/courses/${course.slug}`;
+		const courseLink = `${env.PUBLIC_WEB_URL}/courses/${course.slug}`;
 		navigator.clipboard
 			.writeText(courseLink)
 			.then(() => {
@@ -42,19 +42,19 @@
 	}
 
 	function openLinkedinInNewTab() {
-		const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${env.PUBLIC_URL}/courses/${course.slug}`;
+		const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${env.PUBLIC_WEB_URL}/courses/${course.slug}`;
 		window.open(linkedinUrl, '_blank');
 	}
 
 	function openMailTo() {
-		const mailToUrl = `mailto:?subject=Check out this course&body=${env.PUBLIC_URL}/courses/${course.slug}`;
+		const mailToUrl = `mailto:?subject=Check out this course&body=${env.PUBLIC_WEB_URL}/courses/${course.slug}`;
 		window.location.href = mailToUrl;
 	}
 </script>
 
 <Card.Root class="flex flex-grow flex-col">
 	<img
-		src={`${env.PUBLIC_URL}/cms/assets/${course.Image}`}
+		src={`${env.PUBLIC_WEB_URL}/cms/assets/${course.Image}`}
 		alt="Slide {course.Title}"
 		class="h-48 w-full rounded-t-lg bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% object-contain"
 	/>

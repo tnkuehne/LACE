@@ -11,14 +11,15 @@ interface Page {
 export const GET: RequestHandler = async ({ fetch }) => {
 	const directus = getDirectusInstance(fetch);
 
-	const courses = await directus.request(readItems('Courses'));
-	const landing = await directus.request(readSingleton('landing'));
-
-	const chapters = await directus.request(
-		readItems('kapitel', {
-			fields: ['*', 'kurs.*', 'content.*.*.*']
-		})
-	);
+	const [courses, landing, chapters] = await Promise.all([
+		directus.request(readItems('Courses')),
+		directus.request(readSingleton('landing')),
+		directus.request(
+			readItems('kapitel', {
+				fields: ['*', 'kurs.*', 'content.*.*.*']
+			})
+		)
+	]);
 
 	const pages: Page[] = [
 		{ url: '/', updated: landing.date_updated ? landing.date_updated.split('T')[0] : 'N/A' },

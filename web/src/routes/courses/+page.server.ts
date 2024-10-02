@@ -8,14 +8,20 @@ export const load: PageServerLoad = async ({ fetch, locals, url }) => {
 
 	const sync = url.searchParams.get('sync');
 
-	return {
-		courses: await directus.request(readItems('Courses')),
-		chapters: await directus.request(
+	const [courses, chapters, settings] = await Promise.all([
+		directus.request(readItems('Courses')),
+		directus.request(
 			readItems('kapitel', {
 				fields: ['*', 'kurs.*', 'content.*.*.*', 'parent.title']
 			})
 		),
+		directus.request(readSingleton('courses_page', { version, fields: ['*.*'] }))
+	]);
+
+	return {
+		courses,
+		chapters,
 		sync,
-		settings: await directus.request(readSingleton('courses_page', { version, fields: ['*.*'] }))
+		settings
 	};
 };

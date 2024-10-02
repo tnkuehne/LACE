@@ -12,9 +12,14 @@ import { env as envPub } from '$env/dynamic/public';
 export const load: PageServerLoad = async ({ fetch, url }) => {
 	const directus = getDirectusInstance(fetch);
 
+	const [settings, course] = await Promise.all([
+		directus.request(readSingleton('certification')),
+		directus.request(readItem('Courses', url.searchParams.get('course')))
+	]);
+
 	return {
-		settings: await directus.request(readSingleton('certification')),
-		course: await directus.request(readItem('Courses', url.searchParams.get('course')))
+		settings,
+		course
 	};
 };
 

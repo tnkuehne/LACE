@@ -1,19 +1,19 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { enhancedImages } from '@sveltejs/enhanced-img';
+//import { visualizer }from 'rollup-plugin-visualizer';
 
 export default defineConfig(async () => {
-	const plugins = [enhancedImages(), sveltekit()];
-
-	if (process.env.NODE_ENV !== 'production') {
-		const { visualizer } = await import('rollup-plugin-visualizer');
-		plugins.push(
-			visualizer({
-				emitFile: true,
-				filename: 'stats.html'
-			})
-		);
-	}
+	const plugins = [
+		enhancedImages(),
+		sveltekit()
+		/*
+		visualizer({
+		emitFile: true,
+		filename: 'stats.html'
+		})
+		*/
+	];
 
 	return {
 		plugins,

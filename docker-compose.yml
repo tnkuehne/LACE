@@ -58,6 +58,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /var/lib/rbg-cert:/var/lib/rbg-cert:ro
       - /usr/local/cert.d/nginx:/usr/local/cert.d/nginx
+      - ./.htpasswd:/etc/nginx/.htpasswd:ro
     ports:
       - "80:80"
       - "443:443"

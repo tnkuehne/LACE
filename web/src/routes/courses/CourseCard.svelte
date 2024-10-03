@@ -54,7 +54,7 @@
 
 <Card.Root class="flex flex-grow flex-col">
 	<img
-		src={`${env.PUBLIC_WEB_URL}/cms/assets/${course.Image}`}
+		src={`${env.PUBLIC_CMS_URL}/assets/${course.Image}`}
 		alt="Slide {course.Title}"
 		class="h-48 w-full rounded-t-lg bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% object-contain"
 	/>

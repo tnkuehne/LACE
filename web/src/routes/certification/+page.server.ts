@@ -138,7 +138,7 @@ export const actions = {
 
 		await directus.request(uploadFiles(formDataUpload));
 
-		const fileURL = `${envPub.PUBLIC_WEB_URL}/cms/assets/${certificateFileId}`;
+		const fileURL = `${envPub.PUBLIC_CMS_URL}/assets/${certificateFileId}`;
 
 		return redirect(303, fileURL);
 	}

@@ -23,8 +23,13 @@
 	$: parsedWhitePaper = marked(data.landing?.white_paper_abstract ?? '');
 
 	function handleDownloadClick() {
-		console.log('Download PDF button clicked');
-		// Add any additional logic you want to execute here
+		fetch('/api/analytics', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ path: '/download', referrer: '/' })
+		});
 	}
 </script>
 

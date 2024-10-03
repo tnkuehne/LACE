@@ -32,6 +32,10 @@ services:
       - "3000:3000"
     env_file: ".env"
     restart: on-failure:3
+    #deploy:
+    #  mode: replicated
+    #  replicas: 2
+    #  endpoint_mode: vip
 
   web-staging:
     image: ghcr.io/h3nkl3r/lace:staging
@@ -40,7 +44,7 @@ services:
     ports:
       - "3001:3000"
     env_file: ".env.staging"
-    restart: on-failure:3
+    restart: on-failure
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
 
@@ -48,7 +52,8 @@ services:
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 --cleanup
+      - .docker/config.json:/config.json
+    command: --interval 30 --cleanup --rolling-restart
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
 

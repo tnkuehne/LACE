@@ -143,8 +143,9 @@
 					</div>
 					<Button
 						class="text-md size-fit px-6 font-bold text-secondary"
-						href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}/${data.landing?.file_name}`}
-						download={`${data.landing?.file_name}`}
+						href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}?download`}
+						target="_blank"
+						download="WhitePaper.pdf"
 						on:click={handleDownloadClick}>{data.landing?.white_paper_button}</Button
 					>
 				</div>

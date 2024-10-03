@@ -131,7 +131,7 @@
 				{#if chapter.references}
 					{#each chunkReferences(chapter.references) as referenceChunk}
 						<Carousel.Item class="flex items-center justify-center">
-							<References references={referenceChunk} />
+							<References references={referenceChunk} note={chapter.kurs.reference_note} />
 						</Carousel.Item>
 					{/each}
 				{/if}

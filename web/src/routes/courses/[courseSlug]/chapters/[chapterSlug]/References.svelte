@@ -4,6 +4,7 @@
 	import * as Table from '$lib/components/ui/table';
 
 	export let references;
+	export let note;
 </script>
 
 <Card.Root>
@@ -17,10 +18,9 @@
 	</Card.Header>
 	<Card.Content>
 		<Table.Root>
-			<Table.Caption
-				>Note: The sources marked in purple are ideal for further reading, particularly for a
-				non-technical audience.</Table.Caption
-			>
+			{#if note}
+				<Table.Caption>{note}</Table.Caption>
+			{/if}
 			<Table.Body>
 				{#each references as reference, i (i)}
 					<Table.Row>

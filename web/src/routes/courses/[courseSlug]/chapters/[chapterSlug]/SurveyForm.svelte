@@ -4,6 +4,7 @@
 	import { Textarea } from '$lib/components/ui/textarea';
 	import * as Select from '$lib/components/ui/select';
 	import { enhance } from '$app/forms';
+	import { env } from '$env/dynamic/public';
 
 	export let questions;
 	export let submit_button: string;
@@ -44,7 +45,7 @@
 
 <form
 		class="grid items-start gap-4 pr-4"
-		action="/courses/{course}/survey?course={courseId}"
+		action={`${env.PUBLIC_WEB_URL}/courses/${course}/survey?course=${courseId}`}
 		method="POST"
 		use:enhance
 >

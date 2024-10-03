@@ -3,6 +3,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
 	import { toast } from 'svelte-sonner';
+	import { env } from '$env/dynamic/public';
 
 	export let id: string;
 	export let question: string;
@@ -24,7 +25,7 @@
 	}
 
 	async function logAnswer() {
-		await fetch('/api/analytics/quiz', {
+		await fetch(`${env.PUBLIC_WEB_URL}/api/analytics/quiz`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

@@ -10,6 +10,7 @@
 	import Footer from "$lib/components/Footer.svelte";
 
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
+	import {env} from "$env/dynamic/public";
 
 	export let data;
 
@@ -79,7 +80,7 @@
 						{data.landing?.courses_description ?? 'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
 					</p>
 					<div class="flex justify-center">
-						<Button variant="link" href="/courses">Detailed Overview</Button>
+						<Button variant="link" href={`${env.PUBLIC_WEB_URL}/courses`}>Detailed Overview</Button>
 					</div>
 				</div>
 				<div

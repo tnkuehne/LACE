@@ -3,6 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import SortableList from '$lib/components/ui/sortableList/SortableList.svelte';
+	import { env } from '$env/dynamic/public';
 
 	export let id: string;
 	export let question: string;
@@ -16,7 +17,7 @@
 	let isCorrect: boolean | null = null;
 
 	async function logAnswer() {
-		await fetch('/api/analytics/quiz', {
+		await fetch(`${env.PUBLIC_WEB_URL}/api/analytics/quiz`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

@@ -4,6 +4,7 @@
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb';
 	import { page } from '$app/stores';
 	import Footer from '$lib/components/Footer.svelte';
+	import { env } from '$env/dynamic/public';
 
 	export let data;
 </script>
@@ -28,7 +29,7 @@
 				<Breadcrumb.Root>
 					<Breadcrumb.List>
 						<Breadcrumb.Item>
-							<Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+							<Breadcrumb.Link href={`${env.PUBLIC_WEB_URL}`}>Home</Breadcrumb.Link>
 						</Breadcrumb.Item>
 						<Breadcrumb.Separator />
 						{#each $page.url.pathname.split('/').slice(1) as crumb, index (crumb)}
@@ -56,7 +57,7 @@
 		</div>
 		<a
 			class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-5xl"
-			href="/"
+			href={`${env.PUBLIC_WEB_URL}`}
 		>
 			LACE
 		</a>

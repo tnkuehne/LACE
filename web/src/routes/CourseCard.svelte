@@ -2,6 +2,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import BookOpenText from "lucide-svelte/icons/book-open-text";
+	import { env } from '$env/dynamic/public';
 
 	export let title: string;
 	export let slug: string;
@@ -41,12 +42,12 @@
 		</Card.Title>
 	</Card.Header>
 	<Card.Content class="flex flex-grow flex-col items-center justify-center space-y-4 text-center">
-		<a class="text-3xl font-bold" href="/courses/{slug}">{title}</a>
+		<a class="text-3xl font-bold" href={`${env.PUBLIC_WEB_URL}/courses/${slug}`}>{title}</a>
 		<p class="text-sm text-gray-500">
 			{description}
 		</p>
 	</Card.Content>
 	<Card.Footer class="mt-auto">
-		<Button variant="link" href="/courses/{slug}">{buttonText}</Button>
+		<Button variant="link" href={`${env.PUBLIC_WEB_URL}/courses/${slug}`}>{buttonText}</Button>
 	</Card.Footer>
 </Card.Root>

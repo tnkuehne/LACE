@@ -3,7 +3,7 @@
     import { Label } from '$lib/components/ui/label';
     import * as Accordion from '$lib/components/ui/accordion';
     import { progressStore } from '$lib/stores/progressStore';
-    import { page } from '$app/stores';
+    import { env } from '$env/dynamic/public';
 
     export let chapters;
     export let courseId;
@@ -53,7 +53,7 @@
                                     </div>
                                     <Label class="text-sm">
                                         <a
-                                                href={`/courses/${subchapter.kurs.slug}/chapters/${subchapter.slug}`}
+                                                href={`${env.PUBLIC_WEB_URL}/courses/${subchapter.kurs.slug}/chapters/${subchapter.slug}`}
                                                 class="hover:text-blue-500"
                                         >
                                             {subchapter.title}
@@ -75,7 +75,7 @@
                     />
                     <Label class="text-sm font-medium">
                         <a
-                                href={`/courses/${chapter.kurs.slug}/chapters/${chapter.slug}`}
+                                href={`${env.PUBLIC_WEB_URL}/courses/${chapter.kurs.slug}/chapters/${chapter.slug}`}
                                 class="hover:text-blue-500"
                         >
                             {chapter.title}

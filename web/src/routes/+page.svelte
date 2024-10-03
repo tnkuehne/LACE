@@ -134,9 +134,9 @@
 				</div>
 			</div>
 		</section>
-		<section class="flex flex-row justify-between">
+		<section class="flex flex-col justify-between space-y-8 lg:flex-row lg:space-y-0">
 			{#if data.landing?.white_paper_pdf && data.landing?.white_paper_pdf.length > 0}
-				<div class="flex flex-col space-y-4 rounded-3xl bg-sky-100 p-16">
+				<div class="order-2 flex flex-col space-y-4 rounded-3xl bg-sky-100 p-8 lg:order-1 lg:p-16">
 					<div class="prose-black prose dark:prose-invert">
 						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 						{@html parsedWhitePaper}
@@ -148,13 +148,15 @@
 						on:click={handleDownloadClick}>{data.landing?.white_paper_button}</Button
 					>
 				</div>
-				<div class="flex w-1/2 justify-center">
-					<img
-						src={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.cover}`}
-						alt="White Paper"
-						class="w-1/2 shadow-xl"
-						loading="lazy"
-					/>
+				<div class="order-1 flex justify-center pb-8 lg:order-2 lg:w-1/2 lg:pb-0">
+					<div class="w-1/2 content-center">
+						<img
+							src={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.cover}`}
+							alt="White Paper"
+							class="h-auto shadow-xl"
+							loading="lazy"
+						/>
+					</div>
 				</div>
 			{:else}
 				<Alert.Root>

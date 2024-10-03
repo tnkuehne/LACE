@@ -19,6 +19,7 @@
 			"Support your organization in adapting  to Privacy Enhancing Technologies"
 
 	$: parsedHeading = marked(data.landing?.heading ?? defaultHeading);
+	$: parsedWhitePaper = marked(data.landing?.white_paper_abstract ?? '');
 
 </script>
 
@@ -111,6 +112,32 @@
 					{/await}
 				</div>
 			</div>
+		</section>
+		<section class="flex flex-row justify-between">
+			{#if data.landing?.white_paper_pdf && data.landing?.white_paper_pdf.length > 0}
+				<div class="flex flex-col space-y-4 bg-sky-100 p-16 rounded-3xl">
+					<div class="prose prose-black dark:prose-invert">
+						{@html parsedWhitePaper}
+					</div>
+					<Button class="text-secondary size-fit font-bold px-6 text-md" href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}`}>{data.landing?.white_paper_button}</Button>
+				</div>
+				<div class="w-1/2 flex justify-center">
+					<img
+							src={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.cover}`}
+							alt="White Paper"
+							class="w-1/2 shadow-xl"
+							loading="lazy"
+					/>
+				</div>
+			{:else}
+				<Alert.Root>
+					<CircleAlert class="h-4 w-4" />
+					<Alert.Title>White Paper Display Error</Alert.Title>
+					<Alert.Description>
+						We're currently unable to display our white paper. Please check back later.
+					</Alert.Description>
+				</Alert.Root>
+			{/if}
 		</section>
 		<section class="space-y-16">
 			<div class="space-y-4">

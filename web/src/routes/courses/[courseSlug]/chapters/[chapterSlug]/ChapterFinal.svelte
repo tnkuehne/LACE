@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
+	import { env } from '$env/dynamic/public';
 
 	export let nextChapterUrl = '';
 	export let emptyChapter: boolean;
@@ -14,7 +15,7 @@
 		if (nextChapterUrl) {
 			goto(nextChapterUrl);
 		} else {
-			goto('/courses'); // Navigate to home page or course list
+			goto(`${env.PUBLIC_WEB_URL}/courses`); // Navigate to home page or course list
 		}
 	}
 </script>

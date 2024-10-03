@@ -23,7 +23,7 @@
 		for (let chapter of chapters) {
 			const isCompleted = await progressStore.isChapterCompleted(course.id, chapter.id);
 			if (!isCompleted) {
-				return `/courses/${course.slug}/chapters/${chapter.slug}`;
+				return `${env.PUBLIC_WEB_URL}/courses/${course.slug}/chapters/${chapter.slug}`;
 			}
 		}
 		return ''; // All chapters completed
@@ -54,14 +54,14 @@
 
 <Card.Root class="flex flex-grow flex-col">
 	<img
-		src={`${env.PUBLIC_WEB_URL}/cms/assets/${course.Image}`}
+		src={`${env.PUBLIC_CMS_URL}/assets/${course.Image}`}
 		alt="Slide {course.Title}"
 		class="h-48 w-full rounded-t-lg bg-gradient-to-br from-blue-600 from-40% to-purple-700 to-90% object-contain"
 	/>
 	<Card.Header class="flex flex-col pb-0 pl-6">
 		<div class="flex flex-col">
 			<Card.Title class="text-left hover:text-blue-600">
-				<a href={`/courses/${course.slug}`}>{course.Title}</a>
+				<a href={`${env.PUBLIC_WEB_URL}/courses/${course.slug}`}>{course.Title}</a>
 			</Card.Title>
 			<div class="flex flex-row justify-between">
 				<span class="text-gray-500">Lectures</span>

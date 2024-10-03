@@ -28,7 +28,7 @@
 		const currentChapterIndex = data.chapters.findIndex((_chapter) => _chapter.id === chapter.id);
 		if (currentChapterIndex !== -1 && currentChapterIndex < data.chapters.length - 1) {
 			const nextChapter = data.chapters[currentChapterIndex + 1];
-			nextChapterUrl = `/courses/${chapter.kurs.slug}/chapters/${nextChapter.slug}`;
+			nextChapterUrl = `${env.PUBLIC_WEB_URL}/courses/${chapter.kurs.slug}/chapters/${nextChapter.slug}`;
 		} else {
 			nextChapterUrl = '';
 		}
@@ -121,7 +121,7 @@
 					{#if content.collection === 'directus_files'}
 						<Carousel.Item>
 							<img
-								src={`${env.PUBLIC_WEB_URL}/cms/assets/${content.item.id}?format=webp`}
+								src={`${env.PUBLIC_CMS_URL}/assets/${content.item.id}?format=webp`}
 								alt={`Slide ${index + 1}`}
 								loading="lazy"
 							/>

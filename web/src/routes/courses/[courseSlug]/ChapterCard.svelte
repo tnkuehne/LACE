@@ -7,6 +7,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import CircleCheck from 'lucide-svelte/icons/circle-check';
 	import Clock4 from 'lucide-svelte/icons/clock-4';
+	import { env } from '$env/dynamic/public';
 
 	export let chapter;
 	export let subchapters;
@@ -40,7 +41,7 @@
 				<Card.Title>
 					<a
 						class="hover:text-blue-600"
-						href={`/courses/${chapter.kurs.slug}/chapters/${chapter.slug}`}
+						href={`${env.PUBLIC_WEB_URL}/courses/${chapter.kurs.slug}/chapters/${chapter.slug}`}
 					>
 						{chapter.title}
 					</a>
@@ -76,7 +77,7 @@
 						<a
 							class="border border-l-8 p-1 hover:text-blue-600"
 							style="border-color: {hexToRGBA(subchapter.color)};"
-							href={`/courses/${chapter.kurs.slug}/chapters/${subchapter.slug}`}
+							href={`${env.PUBLIC_WEB_URL}/courses/${chapter.kurs.slug}/chapters/${subchapter.slug}`}
 							>{subchapter.title}</a
 						>
 					{/each}

@@ -4,6 +4,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import { env } from '$env/dynamic/public';
 
 	import { progressStore } from '$lib/stores/progressStore';
 	import { browser } from '$app/environment';
@@ -59,7 +60,7 @@
 <ModeWatcher />
 {#if data.previewMode}
 	<div class="fixed bottom-0 right-0 z-20 w-full bg-black py-2 text-center text-white">
-		You are viewing the site in draft mode, <a href="/api/exit-preview" class="underline"
+		You are viewing the site in draft mode, <a href={`${env.PUBLIC_WEB_URL}/api/exit-preview`} class="underline"
 			>click here exit.</a
 		>
 	</div>

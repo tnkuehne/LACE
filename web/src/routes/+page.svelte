@@ -21,6 +21,11 @@
 
 	$: parsedHeading = marked(data.landing?.heading ?? defaultHeading);
 	$: parsedWhitePaper = marked(data.landing?.white_paper_abstract ?? '');
+
+	function handleDownloadClick() {
+		console.log('Download PDF button clicked');
+		// Add any additional logic you want to execute here
+	}
 </script>
 
 <SEO
@@ -133,8 +138,9 @@
 					</div>
 					<Button
 						class="text-md size-fit px-6 font-bold text-secondary"
-						href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}`}
-						>{data.landing?.white_paper_button}</Button
+						href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}/${data.landing?.file_name}`}
+						download={`${data.landing?.file_name}`}
+						on:click={handleDownloadClick}>{data.landing?.white_paper_button}</Button
 					>
 				</div>
 				<div class="flex w-1/2 justify-center">

@@ -15,7 +15,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 export const handleError: HandleServerError = async ({ error, event, status, message }) => {
-	await logError(error, event, status, message);
+	logError(error, event, status, message);
 
 	return {
 		status,

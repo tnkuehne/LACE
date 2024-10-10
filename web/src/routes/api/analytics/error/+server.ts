@@ -4,16 +4,12 @@ import { createItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 
 export const POST: RequestHandler = async ({ request, fetch }) => {
-	let { event, error } = await request.json();
-	const { statusCode, stack, message } = await request.json();
+	const { event, error, statusCode, stack, message } = await request.json();
+	console.log('Error logging:', event, error, statusCode, stack, message);
 
 	// if event and error is not json format, convert them to json
-	if (typeof event === 'object') {
-		event = JSON.stringify(event);
-	}
-	if (typeof error === 'object') {
-		error = JSON.stringify(error);
-	}
+	const eventString = typeof event === 'object' ? JSON.stringify(event) : event;
+	const errorString = typeof error === 'object' ? JSON.stringify(error) : error;
 
 	try {
 		await getDirectusInstance(fetch).request(
@@ -21,8 +17,8 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 				statusCode: statusCode,
 				stack: stack,
 				message: message,
-				event: event,
-				error: error
+				event: eventString,
+				error: errorString
 			})
 		);
 

@@ -3,6 +3,62 @@ import { readItems, createItem, updateItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 import { json, error } from '@sveltejs/kit';
 
+const mergeChapters = (currentChapters: { chapter: string }[], completedChapters) => {
+	return [
+		...currentChapters,
+		...completedChapters.filter(
+			(newChapter: { chapter: string }) =>
+				!currentChapters.some(
+					(existingChapter: { chapter: string }) => existingChapter.chapter === newChapter.chapter
+				)
+		)
+	];
+};
+
+const updateProgress = async (
+	directus,
+	entryId: string,
+	completedChapters,
+	certificateIssued: boolean | undefined,
+	currentChapters: { chapter: string }[],
+	currentCertificateIssued: boolean
+) => {
+	let updatedChapters = completedChapters;
+	let updatedCertificateIssued = certificateIssued;
+
+	if (currentChapters) {
+		updatedChapters = mergeChapters(currentChapters, completedChapters);
+	}
+
+	if (typeof certificateIssued === 'undefined') {
+		updatedCertificateIssued = currentCertificateIssued;
+	}
+
+	await directus.request(
+		updateItem('progress', entryId, {
+			completed_chapters: updatedChapters,
+			certificate_issued: updatedCertificateIssued
+		})
+	);
+};
+
+const createProgress = async (
+	directus,
+	userId: string,
+	course: string,
+	completedChapters,
+	certificateIssued: boolean | undefined
+) => {
+	await directus.request(
+		createItem('progress', {
+			user: userId,
+			course,
+			completed_chapters: completedChapters,
+			certificate_issued: certificateIssued || false
+		})
+	);
+};
+
 export const PATCH: RequestHandler = async ({ request, cookies, fetch }) => {
 	const directus = getDirectusInstance(fetch);
 	const userId = cookies.get('user');
@@ -24,53 +80,26 @@ export const PATCH: RequestHandler = async ({ request, cookies, fetch }) => {
 
 		if (existingEntries.length > 0) {
 			const entryId = existingEntries[0].id;
-
 			const currentChapters = existingEntries[0].completed_chapters;
 			const currentCertificateIssued = existingEntries[0].certificate_issued;
 
-			let updatedChapters = completedChapters;
-			let updatedCertificateIssued = certificateIssued;
-
-			if (currentChapters) {
-				// Merge current progress with new progress
-				updatedChapters = [
-					...currentChapters,
-					...completedChapters.filter(
-						(newChapter: { chapter: string }) =>
-							!currentChapters.some(
-								(existingChapter: { chapter: string }) =>
-									existingChapter.chapter === newChapter.chapter
-							)
-					)
-				];
-			}
-
-			if (typeof certificateIssued === 'undefined') {
-				updatedCertificateIssued = currentCertificateIssued;
-			}
-
-			await directus.request(
-				updateItem('progress', entryId, {
-					completed_chapters: updatedChapters,
-					certificate_issued: updatedCertificateIssued
-				})
+			await updateProgress(
+				directus,
+				entryId,
+				completedChapters,
+				certificateIssued,
+				currentChapters,
+				currentCertificateIssued
 			);
 		} else {
-			await directus.request(
-				createItem('progress', {
-					user: userId,
-					course,
-					completed_chapters: completedChapters,
-					certificate_issued: certificateIssued || false
-				})
-			);
+			await createProgress(directus, userId, course, completedChapters, certificateIssued);
 		}
 
 		return json({ message: 'Progress updated' });
 	} catch (err) {
+		console.error(err);
 		return error(500, {
-			message: 'Failed to update progress',
-			error: err.message
+			message: 'Failed to update progress'
 		});
 	}
 };

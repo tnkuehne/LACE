@@ -211,6 +211,55 @@ function createProgressStore() {
 		return progress?.certificate_issued || false;
 	}
 
+	async function enableSyncing() {
+		if (browser) {
+			const user = await initSync();
+			const progress = await loadInitialState();
+			for (const course in progress) {
+				await syncProgress(course, progress[course]);
+			}
+			console.log('Syncing enabled');
+			localStorage.clear(); // Optionally clear local storage
+			return user;
+		}
+	}
+
+	async function getCourseProgress(course: string, totalChapters: number) {
+		if (browser) {
+			if (course in progressCache) {
+				return progressCache[course];
+			}
+			let progress;
+			const syncEnabled = await isSyncEnabled();
+			if (syncEnabled) {
+				progress = await fetchProgress(course);
+			} else {
+				const localProgress = localStorage.getItem(`progress_${course}`);
+				progress = localProgress ? JSON.parse(localProgress) : null;
+			}
+
+			if (progress) {
+				const { completed_chapters } = progress;
+				if (completed_chapters !== null && completed_chapters !== undefined) {
+					const calculatedProgress = Math.round((completed_chapters.length / totalChapters) * 100);
+					progressCache[course] = calculatedProgress;
+					return calculatedProgress;
+				}
+			}
+		}
+		progressCache[course] = 0;
+		return 0;
+	}
+
+	async function isChapterCompleted(course: string, chapter: string) {
+		const progress = await getProgress(course);
+		if (progress) {
+			const { completed_chapters } = progress;
+			return completed_chapters.some((c) => c.chapter === chapter);
+		}
+		return false;
+	}
+
 	return {
 		subscribe,
 		completeChapter,
@@ -220,54 +269,9 @@ function createProgressStore() {
 		isSyncEnabled,
 		issueCertificate,
 		isCertificateIssued,
-		isChapterCompleted: async (course: string, chapter: string) => {
-			const progress = await getProgress(course);
-			if (progress) {
-				const { completed_chapters } = progress;
-				return completed_chapters.some((c) => c.chapter === chapter);
-			}
-			return false;
-		},
-		getCourseProgress: async (course: string, totalChapters: number) => {
-			if (browser) {
-				if (course in progressCache) {
-					return progressCache[course];
-				}
-				let progress;
-				const syncEnabled = await isSyncEnabled();
-				if (syncEnabled) {
-					progress = await fetchProgress(course);
-				} else {
-					const localProgress = localStorage.getItem(`progress_${course}`);
-					progress = localProgress ? JSON.parse(localProgress) : null;
-				}
-
-				if (progress) {
-					const { completed_chapters } = progress;
-					if (completed_chapters !== null && completed_chapters !== undefined) {
-						const calculatedProgress = Math.round(
-							(completed_chapters.length / totalChapters) * 100
-						);
-						progressCache[course] = calculatedProgress;
-						return calculatedProgress;
-					}
-				}
-			}
-			progressCache[course] = 0;
-			return 0;
-		},
-		enableSyncing: async () => {
-			if (browser) {
-				const user = await initSync();
-				const progress = await loadInitialState();
-				for (const course in progress) {
-					await syncProgress(course, progress[course]);
-				}
-				console.log('Syncing enabled');
-				localStorage.clear(); // Optionally clear local storage
-				return user;
-			}
-		}
+		isChapterCompleted,
+		getCourseProgress,
+		enableSyncing
 	};
 }
 

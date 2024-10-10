@@ -1,26 +1,8 @@
 import type { HandleClientError } from '@sveltejs/kit';
-import { env as envPublic } from '$env/dynamic/public';
+import { logError } from '$lib/logError';
 
 export const handleError: HandleClientError = async ({ error, event, status, message }) => {
-	try {
-		console.error('Error logging client:', error);
-		// Send the log entry to your logging endpoint
-		await fetch(`${envPublic.PUBLIC_WEB_URL}/api/analytics/error`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				statusCode: status,
-				stack: error.stack,
-				message,
-				event,
-				error
-			})
-		});
-	} catch (err) {
-		console.error('Error while logging error on client:', err);
-	}
+	await logError(error, event, status, message);
 
 	return {
 		status,

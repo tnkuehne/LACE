@@ -5,24 +5,33 @@
 	import SEO from '$lib/components/SEO.svelte';
 	import { marked } from 'marked';
 	import { Button } from '$lib/components/ui/button/index';
-	import CircleAlert from "lucide-svelte/icons/circle-alert";
-	import * as Alert from "$lib/components/ui/alert/index";
-	import Footer from "$lib/components/Footer.svelte";
+	import CircleAlert from 'lucide-svelte/icons/circle-alert';
+	import * as Alert from '$lib/components/ui/alert/index';
+	import Footer from '$lib/components/Footer.svelte';
+	import WandSparkles from 'lucide-svelte/icons/wand-sparkles';
+	import PartyPopper from 'lucide-svelte/icons/party-popper';
+	import Satellite from 'lucide-svelte/icons/satellite';
+
+	const icons = [WandSparkles, Satellite, PartyPopper];
 
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
-	import {env} from "$env/dynamic/public";
+	import { env } from '$env/dynamic/public';
 
 	export let data;
 
-	const defaultHeading = "# **Learn. Apply. Comply.**\n" +
-			"## **Continuing Education Materials on <br> Privacy-Enhancing Technologies**\n" +
-			"Support your organization in adapting  to Privacy Enhancing Technologies"
+	const defaultHeading =
+		'# **Learn. Apply. Comply.**\n' +
+		'## **Continuing Education Materials on <br> Privacy-Enhancing Technologies**\n' +
+		'Support your organization in adapting  to Privacy Enhancing Technologies';
 
 	$: parsedHeading = marked(data.landing?.heading ?? defaultHeading);
-
 </script>
 
-<SEO seo={data.landing?.seo} defaultTitle="Learn about Privacy Enhancing Technology" defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"/>
+<SEO
+	seo={data.landing?.seo}
+	defaultTitle="Learn about Privacy Enhancing Technology"
+	defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"
+/>
 
 <div class="relative flex w-full flex-col overflow-x-hidden lg:flex-row">
 	<div class="absolute right-0 top-0">
@@ -52,18 +61,21 @@
 	<!-- Text Content within a centered max width container -->
 	<div class="relative flex w-full justify-center">
 		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-32 pt-8 md:space-y-32 lg:space-y-64">
-				<div class="space-y-64">
-					<div class="flex flex-row justify-between">
-						<h1
-							class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"
-						>
-							LACE
-						</h1>
-						<ThemeToggle buttonVariant="outline" class="rounded-full" />
-					</div>
-					<div class="lg:prose-2xl md:prose-xl prose prose-black dark:prose-invert prose-headings:my-2">
-						{@html parsedHeading}
-					</div>
+			<div class="space-y-64">
+				<div class="flex flex-row justify-between">
+					<h1
+						class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"
+					>
+						LACE
+					</h1>
+					<ThemeToggle buttonVariant="outline" class="rounded-full" />
+				</div>
+				<div
+					class="prose-black prose dark:prose-invert md:prose-xl lg:prose-2xl prose-headings:my-2"
+				>
+					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+					{@html parsedHeading}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -75,28 +87,32 @@
 		<section>
 			<div class="space-y-16">
 				<div class="space-y-4">
-					<h2 class="text-center text-3xl font-bold lg:text-5xl">{data.landing?.courses_title ?? 'Courses'}</h2>
+					<h2 class="text-center text-3xl font-bold lg:text-5xl">
+						{data.landing?.courses_title ?? 'Courses'}
+					</h2>
 					<p class="text-center text-lg lg:text-base">
-						{data.landing?.courses_description ?? 'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
+						{data.landing?.courses_description ??
+							'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
 					</p>
 					<div class="flex justify-center">
 						<Button variant="link" href={`${env.PUBLIC_WEB_URL}/courses`}>Detailed Overview</Button>
 					</div>
 				</div>
 				<div
-						class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
+					class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
 				>
 					{#await data.courses}
 						<!-- ToDo: Evaluate Skeleton -->
 					{:then courses}
-						{#each courses as course}
+						{#each courses as course, index}
 							<div class="w-full p-2">
 								<CourseCard
-										title={course.Title}
-										slug={course.slug}
-										description={course.Description}
-										buttonText={data.landing?.courses_action_button_text ?? "Learn More"}
-										color={course.color}
+									title={course.Title}
+									slug={course.slug}
+									description={course.Description}
+									buttonText={data.landing?.courses_action_button_text ?? 'Learn More'}
+									color={course.color}
+									Icon={icons[index % icons.length]}
 								/>
 							</div>
 						{/each}
@@ -105,7 +121,8 @@
 							<CircleAlert class="h-4 w-4" />
 							<Alert.Title>Courses Display Error</Alert.Title>
 							<Alert.Description>
-								We encountered an error while loading the courses. Please try again later. Error details: {error.message}
+								We encountered an error while loading the courses. Please try again later. Error
+								details: {error.message}
 							</Alert.Description>
 						</Alert.Root>
 					{/await}
@@ -118,7 +135,8 @@
 					{data.landing?.publications_title ?? 'Publications'}
 				</h2>
 				<p class="text-center text-lg lg:text-base">
-					{data.landing?.publications_description ?? 'Selected scientific publications on the topics of Data Privacy, Privacy-Enhancing Technologies and Compliance'}
+					{data.landing?.publications_description ??
+						'Selected scientific publications on the topics of Data Privacy, Privacy-Enhancing Technologies and Compliance'}
 				</p>
 			</div>
 			<div class="flex flex-col gap-2">
@@ -127,9 +145,9 @@
 						<div class="flex flex-row gap-2">
 							<ScrollText class="h-6 w-6 min-w-[1.5rem] text-teal-400 dark:text-teal-600" />
 							<a
-									href={link.url}
-									class="line-clamp-2 border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"
-							>{link.title}</a
+								href={link.url}
+								class="line-clamp-2 border-l-2 border-orange-200 pl-2 text-xl hover:text-blue-800 dark:hover:text-blue-600"
+								>{link.title}</a
 							>
 						</div>
 					{/each}
@@ -146,4 +164,4 @@
 		</section>
 	</div>
 </div>
-<Footer links="{data.landing?.links}" />
+<Footer links={data.landing?.links} />

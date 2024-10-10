@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import BookOpenText from "lucide-svelte/icons/book-open-text";
 	import { env } from '$env/dynamic/public';
 
 	export let title: string;
@@ -9,6 +8,7 @@
 	export let description: string;
 	export let buttonText: string;
 	export let color: string;
+	export let Icon;
 
 	let rgbaColor = hexToRGBA(color, 0.2);
 
@@ -26,7 +26,7 @@
 </script>
 
 <Card.Root
-	class="light:border-teal-50 border light:shadow-[34.854px_29.626px_48.34px_0px_rgba(51,102,255,0.05)] flex h-full flex-col items-center justify-center rounded-2xl"
+	class="light:border-teal-50 light:shadow-[34.854px_29.626px_48.34px_0px_rgba(51,102,255,0.05)] flex h-full flex-col items-center justify-center rounded-2xl border"
 >
 	<Card.Header>
 		<Card.Title>
@@ -34,10 +34,7 @@
 				class="flex h-16 w-16 items-center justify-center rounded-lg"
 				style="background-color: {rgbaColor};"
 			>
-				<BookOpenText
-					class="h-6 w-6"
-					style="stroke: {color};"
-				/>
+				<Icon class="h-6 w-6" style="stroke: {color};" />
 			</div>
 		</Card.Title>
 	</Card.Header>

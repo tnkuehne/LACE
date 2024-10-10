@@ -8,9 +8,30 @@ interface Progress {
 	};
 }
 
+async function fetchSyncData(method: string, body?) {
+	try {
+		const response = await fetch('/api/progress', {
+			method,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: body ? JSON.stringify(body) : undefined
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to fetch sync data');
+		}
+
+		return await response.json();
+	} catch (error) {
+		console.error('Failed to fetch sync data', error);
+		return null;
+	}
+}
+
 function createProgressStore() {
 	const { subscribe, set, update } = writable<Progress>({});
-	let isSyncEnabledCached: boolean | null = null;
+	const isSyncEnabledCached: boolean | null = null;
 	const progressCache: { [key: string]: number } = {};
 
 	async function loadInitialState() {
@@ -93,34 +114,16 @@ function createProgressStore() {
 	}
 
 	async function initSync() {
-		try {
-			const response = await fetch('/api/progress', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-			const data = await response.json();
+		const data = await fetchSyncData('POST');
+		if (data) {
 			return data.user;
-		} catch (error) {
-			console.error('Failed to init sync', error);
 		}
 	}
 
 	async function isSyncEnabled() {
-		if (isSyncEnabledCached !== null) return isSyncEnabledCached;
 		try {
-			const response = await fetch('/api/progress', {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-
-			const data = await response.json();
-
-			isSyncEnabledCached = data.status === 200;
-			return isSyncEnabledCached;
+			const data = await fetchSyncData('GET');
+			return data.status === 200;
 		} catch (error) {
 			console.error('Failed to check if syncing is enabled', error);
 			return false;
@@ -128,20 +131,11 @@ function createProgressStore() {
 	}
 
 	async function getSyncCode() {
-		try {
-			const response = await fetch('/api/progress', {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-
-			const data = await response.json();
+		const data = await fetchSyncData('GET');
+		if (data) {
 			return data.user;
-		} catch (error) {
-			console.error('Failed to check if syncing is enabled', error);
-			return false;
 		}
+		return false;
 	}
 
 	async function completeChapter(course: string, chapter: string) {

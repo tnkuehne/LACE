@@ -59,6 +59,17 @@ const createProgress = async (
 	);
 };
 
+const getExistingEntries = async (directus, userId: string, course: string) => {
+	return await directus.request(
+		readItems('progress', {
+			filter: {
+				user: { _eq: userId },
+				course: { _eq: course }
+			}
+		})
+	);
+};
+
 export const PATCH: RequestHandler = async ({ request, cookies, fetch }) => {
 	const directus = getDirectusInstance(fetch);
 	const userId = cookies.get('user');
@@ -69,14 +80,7 @@ export const PATCH: RequestHandler = async ({ request, cookies, fetch }) => {
 
 	const { course, completedChapters, certificateIssued } = await request.json();
 	try {
-		const existingEntries = await directus.request(
-			readItems('progress', {
-				filter: {
-					user: { _eq: userId },
-					course: { _eq: course }
-				}
-			})
-		);
+		const existingEntries = await getExistingEntries(directus, userId, course);
 
 		if (existingEntries.length > 0) {
 			const entryId = existingEntries[0].id;
@@ -121,20 +125,17 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 	}
 
 	try {
-		const data = await directus.request(
-			readItems('progress', {
-				filter: {
-					user: { _eq: userId },
-					course: { _eq: courseId }
-				}
-			})
-		);
+		const existingEntries = await getExistingEntries(directus, userId, courseId);
 
-		return json(data.length ? data[0] : { completed_chapters: [], certificate_issued: false });
-	} catch (error) {
+		return json(
+			existingEntries.length
+				? existingEntries[0]
+				: { completed_chapters: [], certificate_issued: false }
+		);
+	} catch (err) {
+		console.error(err);
 		return error(500, {
-			message: 'Failed to fetch progress',
-			error: error.message
+			message: 'Failed to fetch progress'
 		});
 	}
 };

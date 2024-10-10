@@ -367,6 +367,11 @@ erDiagram
 semgrep scan --config auto
 ```
 
+```bash
+sudo docker pull zaproxy/zap-stable
+sudo docker run -u zap -p 8080:8080 -p 8090:8090 -i zaproxy/zap-stable zap-webswing.sh
+```
+
 ### Quality
 
 ```bash

@@ -33,9 +33,6 @@ export const POST: RequestHandler = async ({ request, getClientAddress, fetch })
 	const { path, referrer } = await request.json();
 	let ip = request.headers.get('x-forwarded-for') || getClientAddress();
 
-	// Log the X-Forwarded-For header
-	console.log('X-Forwarded-For header:', ip);
-
 	// Get the last IP address from the x-forwarded-for header
 	if (ip.includes(',')) {
 		const ipArray = ip.split(',');

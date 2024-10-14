@@ -134,7 +134,10 @@
 				</div>
 			</div>
 		</section>
-		<section class="flex flex-col justify-between space-y-8 lg:flex-row lg:space-y-0">
+		<section
+			class="flex flex-col justify-between space-y-8 lg:flex-row lg:space-y-0"
+			id="white-paper"
+		>
 			{#if data.landing?.white_paper_pdf && data.landing?.white_paper_pdf.length > 0}
 				<div class="order-2 flex flex-col space-y-4 rounded-3xl bg-sky-100 p-8 lg:order-1 lg:p-16">
 					<div class="prose-black prose dark:prose-invert">

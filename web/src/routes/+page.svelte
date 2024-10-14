@@ -72,7 +72,7 @@
 	<!-- Text Content within a centered max width container -->
 	<div class="relative flex w-full justify-center">
 		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-32 pt-8 md:space-y-32 lg:space-y-64">
-			<div class="space-y-80">
+			<div class="space-y-64 md:space-y-80">
 				<div class="flex flex-row justify-between">
 					<h1
 						class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"

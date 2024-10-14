@@ -3,7 +3,7 @@
 [![Build](https://github.com/H3nkl3r/LACE/actions/workflows/build.yml/badge.svg)](https://github.com/H3nkl3r/LACE/actions/workflows/build.yml)
 [![Tests](https://github.com/H3nkl3r/LACE/actions/workflows/playwright.yml/badge.svg)](https://github.com/H3nkl3r/LACE/actions/workflows/playwright.yml)
 
-LACE is a web-based learning platform that offers courses on Privacy-Enhancing Technologies. The platform aims to provide high-quality educational content to non-technical practitioners, managers, and legal professionals interested in privacy-focused technologies. LACE offers a range of courses, including introductory courses, advanced courses, and specialized courses on various topics related to Privacy-Enhancing Technologies.
+LACE is a web-based learning platform that offers courses on Privacy-Enhancing Technologies. The platform aims to provide high-quality educational content to non-technical practitioners, managers, and legal professionals interested in privacy-focused technologies. LACE offers a range of courses, including introductory, advanced, and specialized courses on various topics related to Privacy-Enhancing Technologies.
 
 ## Features
 
@@ -19,11 +19,11 @@ LACE is a web-based learning platform that offers courses on Privacy-Enhancing T
 * [X] 🔄 **Device Switching**: A device switching feature that allows users to seamlessly switch between devices while learning.
 * [X] 🛠️ **Content Management System Integration**: Integration with a content management system (Directus) for managing learning content.
 * [X] 👁️ **Preview Mode**: A preview mode that allows content managers to preview course content before enrolling.
-* [X] 📊 **Admin Dashboard**: An admin dashboard that allows content managers to manage courses, and analytics.
+* [X] 📊 **Admin Dashboard**: An admin dashboard that allows content managers to manage courses and analytics.
 * [ ] 🔍 **Search Functionality**: A search functionality that allows users to search for specific courses or content.
-* [ ] 📤 **Social Sharing**: A social sharing feature that allows users to share courses and certificates on social media platforms.
+* [X] 📤 **Social Sharing**: A social sharing feature that allows users to share courses and certificates on social media platforms.
 * [ ] 🏆 **Gamification**: A gamification feature that includes badges, points, and leaderboards to motivate and engage learners.
-* [ ] 🔔 **Notifications**: A notifications feature that sends reminders, updates, and announcements to users.
+* [ ] 🔔 **Notifications**: A notifications feature that sends users reminders, updates, and announcements.
 * [ ] 🎨 **Customization**: A customization feature that allows users to personalize their learning experience. Large language models could be used for this purpose.
 
 ## Development
@@ -35,13 +35,13 @@ LACE is a web-based learning platform that offers courses on Privacy-Enhancing T
 The title is concise and action-oriented, clearly conveying the page's purpose. The header features a gradient background and the LACE logo, creating a modern, professional appearance and establishing brand identity. This creates a strong first impression and reinforces the brand's credibility.
 
 ##### Courses Section:
-Three courses target different user groups: non-technical practitioners, managers, and legal professionals. Each course is presented as a card with a title, short description, and a "Learn More" button, allowing easy scanning and quick access to relevant information. The card layout enhances user experience by facilitating quick scanning and easy interaction.
+Three courses target different user groups: non-technical practitioners, managers, and legal professionals. Each course is presented as a card with a title, a short description, and a "Learn More" button, allowing easy scanning and quick access to relevant information. The card layout enhances user experience by facilitating quick scanning and easy interaction.
 
 ##### Publications Section:
 Scientific publications are listed vertically with icons for easy identification, ensuring a simple and intuitive browsing experience. Listing key scientific publications provides access to credible sources, establishing trust and authority.
 
 ##### Footer Section:
-The footer includes branding, relevant links, sponsor information, and a copyright notice. The consistent color scheme and fonts ensure a cohesive look. Including branding and sponsor information adds legitimacy and transparency, while relevant links improve navigation and access to additional resources.
+The footer includes branding, relevant links, sponsor information, and a copyright notice. The consistent colour scheme and fonts ensure a cohesive look. Including branding and sponsor information adds legitimacy and transparency, while relevant links improve navigation and access to additional resources.
 
 #### Courses Overview
 

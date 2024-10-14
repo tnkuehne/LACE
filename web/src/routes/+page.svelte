@@ -11,6 +11,8 @@
 	import WandSparkles from 'lucide-svelte/icons/wand-sparkles';
 	import PartyPopper from 'lucide-svelte/icons/party-popper';
 	import Satellite from 'lucide-svelte/icons/satellite';
+	import { spring } from 'svelte/motion';
+	import CircleArrowDown from 'lucide-svelte/icons/circle-arrow-down';
 
 	const icons = [WandSparkles, Satellite, PartyPopper];
 
@@ -25,6 +27,15 @@
 		'Support your organization in adapting  to Privacy Enhancing Technologies';
 
 	$: parsedHeading = marked(data.landing?.heading ?? defaultHeading);
+
+	let bounceStore = spring({ y: 0 }, { stiffness: 0.1, damping: 0.25 });
+
+	$: {
+		setInterval(() => {
+			bounceStore.set({ y: 10 });
+			setTimeout(() => bounceStore.set({ y: 0 }), 1000);
+		}, 5000);
+	}
 </script>
 
 <SEO
@@ -33,7 +44,7 @@
 	defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"
 />
 
-<div class="relative flex w-full flex-col overflow-x-hidden lg:flex-row">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden lg:flex-row">
 	<div class="absolute right-0 top-0">
 		<!-- Largest Circle -->
 		<div
@@ -77,6 +88,11 @@
 					{@html parsedHeading}
 				</div>
 			</div>
+			<div class="absolute bottom-8 left-1/2 -translate-x-1/2 transform">
+				<a href="#courses" style="transform: translateY({$bounceStore.y}px);" class="inline-block">
+					<CircleArrowDown class="h-8 w-8" />
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -84,7 +100,7 @@
 	<div
 		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-32 p-4 pt-32"
 	>
-		<section>
+		<section id="courses">
 			<div class="space-y-16">
 				<div class="space-y-4">
 					<h2 class="text-center text-3xl font-bold lg:text-5xl">

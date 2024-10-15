@@ -23,8 +23,16 @@
 
 	$: chapter = data.chapter[0];
 
+	function getSlideIndexFromFragment() {
+		const fragment = window.location.hash.substring(1);
+		console.log('Fragment: ', fragment);
+		const index = parseInt(fragment, 10);
+		return isNaN(index) ? 0 : index;
+	}
+
 	$: if (api && data) {
-		api.scrollTo(0); // Scroll to the first slide
+		const initialSlideIndex = getSlideIndexFromFragment();
+		api.scrollTo(initialSlideIndex); // Scroll to the slide from the URL fragment
 		const currentChapterIndex = data.chapters.findIndex((_chapter) => _chapter.id === chapter.id);
 		if (currentChapterIndex !== -1 && currentChapterIndex < data.chapters.length - 1) {
 			const nextChapter = data.chapters[currentChapterIndex + 1];
@@ -34,11 +42,16 @@
 		}
 	}
 
+	function updateFragment(index: number) {
+		window.location.hash = `#${index}`;
+	}
+
 	$: if (api) {
 		count = api.scrollSnapList().length;
 		current = api.selectedScrollSnap() + 1;
 		api.on('select', () => {
 			current = api.selectedScrollSnap() + 1;
+			updateFragment(current - 1); // Update the URL fragment
 			console.log('slide: ', current, '/', count);
 		});
 	}

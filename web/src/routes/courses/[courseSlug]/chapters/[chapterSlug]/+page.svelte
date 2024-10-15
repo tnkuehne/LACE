@@ -42,8 +42,8 @@
 		}
 	}
 
-	function updateFragment(index: number) {
-		window.location.hash = `#${index}`;
+	function updateFragment(index: number, type: string) {
+		window.location.hash = `#${index}-${type}`;
 	}
 
 	$: if (api) {
@@ -51,7 +51,24 @@
 		current = api.selectedScrollSnap() + 1;
 		api.on('select', () => {
 			current = api.selectedScrollSnap() + 1;
-			updateFragment(current - 1); // Update the URL fragment
+			const content = chapter.content[current - 1];
+			let type = 'slide';
+
+			if (current < count) {
+				// Only update fragment if it's not the last slide
+				if (content) {
+					if (content.item && 'type' in content.item) {
+						if (content.item.type === 'mc' || content.item.type === 'order') {
+							type = 'quiz';
+						}
+					} else if (content.collection === 'directus_files') {
+						type = 'image';
+					}
+				} else if (chapter.references && current > chapter.content.length) {
+					type = 'reference';
+				}
+				updateFragment(current - 1, type);
+			}
 			console.log('slide: ', current, '/', count);
 		});
 	}

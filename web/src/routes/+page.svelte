@@ -11,6 +11,7 @@
 
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 	import { env } from '$env/dynamic/public';
+	import CoverBack from './CoverBack.svelte';
 
 	export let data;
 
@@ -134,43 +135,60 @@
 				</div>
 			</div>
 		</section>
-		<section
-			class="flex flex-col justify-between space-y-8 lg:flex-row lg:space-y-0"
-			id="white-paper"
-		>
-			{#if data.landing?.white_paper_pdf && data.landing?.white_paper_pdf.length > 0}
-				<div class="order-2 flex flex-col space-y-4 rounded-3xl bg-sky-100 p-8 lg:order-1 lg:p-16">
-					<div class="prose-black prose dark:prose-invert">
-						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-						{@html parsedWhitePaper}
-					</div>
-					<Button
-						class="text-md size-fit px-6 font-bold text-secondary"
-						href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}?download`}
-						target="_blank"
-						download="WhitePaper.pdf"
-						on:click={handleDownloadClick}>{data.landing?.white_paper_button}</Button
-					>
+		<section id="white-paper">
+			<div class="space-y-16">
+				<div class="space-y-4">
+					<h2 class="text-center text-3xl font-bold lg:text-5xl">
+						{data.landing?.white_paper_section_title ?? 'White Paper'}
+					</h2>
+					<p class="text-center text-lg lg:text-base">
+						{data.landing?.white_paper_section_description ??
+							'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
+					</p>
 				</div>
-				<div class="order-1 flex justify-center pb-8 lg:order-2 lg:w-1/2 lg:pb-0">
-					<div class="w-1/2 content-center">
-						<img
-							src={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.cover}`}
-							alt="White Paper"
-							class="h-auto shadow-xl"
-							loading="lazy"
-						/>
-					</div>
+				<div
+					class="flex flex-col justify-between space-y-8 rounded-3xl bg-white px-16 py-16 lg:flex-row lg:space-y-0"
+				>
+					{#if data.landing?.white_paper_pdf && data.landing?.white_paper_pdf.length > 0}
+						<div class="order-2 flex flex-col items-center space-y-4 lg:order-1">
+							<div class="prose-black prose dark:prose-invert">
+								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+								{@html parsedWhitePaper}
+							</div>
+							<Button
+								class="text-md size-fit px-6 py-3 font-bold text-secondary"
+								href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}?download`}
+								target="_blank"
+								download="WhitePaper.pdf"
+								on:click={handleDownloadClick}>{data.landing?.white_paper_button}</Button
+							>
+						</div>
+						<div class="relative order-1 flex justify-center pb-8 lg:order-2 lg:w-1/2 lg:pb-0">
+							<div
+								class="absolute left-0 top-0 z-0 h-full w-full origin-top-left scale-[0.3] transform lg:h-1/2 lg:w-1/2 lg:origin-top lg:scale-[0.55]"
+							>
+								<CoverBack />
+							</div>
+							<div class="relative z-10 w-full content-center p-4 lg:w-1/2">
+								<img
+									src={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.cover}`}
+									alt="White Paper"
+									class="h-auto w-full shadow-xl"
+									loading="lazy"
+								/>
+							</div>
+						</div>
+					{:else}
+						<Alert.Root>
+							<CircleAlert class="h-4 w-4" />
+							<Alert.Title>White Paper Display Error</Alert.Title>
+							<Alert.Description>
+								We're currently unable to display our white paper. Please check back later.
+							</Alert.Description>
+						</Alert.Root>
+					{/if}
 				</div>
-			{:else}
-				<Alert.Root>
-					<CircleAlert class="h-4 w-4" />
-					<Alert.Title>White Paper Display Error</Alert.Title>
-					<Alert.Description>
-						We're currently unable to display our white paper. Please check back later.
-					</Alert.Description>
-				</Alert.Root>
-			{/if}
+			</div>
 		</section>
 		<section class="space-y-16">
 			<div class="space-y-4">

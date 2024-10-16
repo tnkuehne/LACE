@@ -156,7 +156,7 @@ collections:
       item_duplication_fields: null
       note: null
       preview_url: >-
-        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses/Incentives
+        https://lace.sebis.cit.tum.de/api/preview/?secret=53lt3k1t&slug=/courses/Incentives
         for the Adoption of PETs for Managers&version={{$version}}
       singleton: true
       sort: 3
@@ -182,7 +182,7 @@ collections:
       item_duplication_fields: null
       note: null
       preview_url: >-
-        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses&version={{$version}}
+        https://lace.sebis.cit.tum.de/api/preview/?secret=53lt3k1t&slug=/courses&version={{$version}}
       singleton: true
       sort: 2
       sort_field: null
@@ -303,7 +303,7 @@ collections:
       item_duplication_fields: null
       note: null
       preview_url: >-
-        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/&version={{$version}}
+        https://lace.sebis.cit.tum.de/api/preview/?secret=53lt3k1t&slug=/&version={{$version}}
       singleton: true
       sort: 1
       sort_field: null
@@ -328,7 +328,7 @@ collections:
       item_duplication_fields: null
       note: null
       preview_url: >-
-        http://localhost:5173/api/preview/?secret=53lt3k1t&slug=/courses/Incentives
+        https://lace.sebis.cit.tum.de/api/preview/?secret=53lt3k1t&slug=/courses/Incentives
         for the Adoption of PETs for Managers/Definitions &
         Characteristics&version={{$version}}
       singleton: true

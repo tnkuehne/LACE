@@ -1,5 +1,5 @@
 version: 1
-directus: 10.12.1
+directus: 11.1.1
 vendor: postgres
 collections:
   - collection: Content
@@ -19,7 +19,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 3
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -65,7 +65,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 2
+      sort: 3
       sort_field: null
       translations: null
       unarchive_value: null
@@ -87,7 +87,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 1
+      sort: 2
       sort_field: null
       translations: null
       unarchive_value: null
@@ -215,30 +215,6 @@ collections:
       versioning: false
     schema:
       name: error
-  - collection: folien
-    meta:
-      accountability: all
-      archive_app_filter: true
-      archive_field: status
-      archive_value: archived
-      collapse: open
-      collection: folien
-      color: null
-      display_template: '{{bild}}'
-      group: Content
-      hidden: true
-      icon: null
-      item_duplication_fields: null
-      note: null
-      preview_url: null
-      singleton: false
-      sort: 3
-      sort_field: sort
-      translations: null
-      unarchive_value: draft
-      versioning: false
-    schema:
-      name: folien
   - collection: ip2city
     meta:
       accountability: all
@@ -461,6 +437,30 @@ collections:
       versioning: false
     schema:
       name: quiz_data
+  - collection: seo
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: seo
+      color: null
+      display_template: null
+      group: null
+      hidden: false
+      icon: saved_search
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: seo
   - collection: survey
     meta:
       accountability: all
@@ -763,19 +763,19 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: Published
-            value: published
-            color: '#6644FF'
+          - color: '#6644FF'
             foreground: '#6644FF'
-          - text: Draft
-            value: draft
+            text: Published
+            value: published
+          - background: '#F0F4F9'
             color: '#4F5464'
             foreground: '#4F5464'
-            background: '#F0F4F9'
-          - text: Archived
-            value: archived
-            color: '#FFA439'
+            text: Draft
+            value: draft
+          - color: '#FFA439'
             foreground: '#FFA439'
+            text: Archived
+            value: archived
         showAsDot: true
       field: status
       group: null
@@ -784,15 +784,15 @@ fields:
       note: null
       options:
         choices:
-          - text: Published
+          - color: '#6644FF'
+            text: Published
             value: published
-            color: '#6644FF'
-          - text: Draft
+          - color: '#4F5464'
+            text: Draft
             value: draft
-            color: '#4F5464'
-          - text: Archived
+          - color: '#FFA439'
+            text: Archived
             value: archived
-            color: '#FFA439'
       readonly: false
       required: false
       sort: 6
@@ -851,6 +851,84 @@ fields:
       numeric_scale: null
       is_nullable: true
       is_unique: true
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Courses
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: Courses
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 9
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: Courses
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: Courses
+    field: reference_note
+    type: text
+    meta:
+      collection: Courses
+      conditions: null
+      display: null
+      display_options: null
+      field: reference_note
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: reference_note
+      table: Courses
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
       is_primary_key: false
       is_generated: false
       generation_expression: null
@@ -1576,21 +1654,21 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: $t:published
-            value: published
+          - background: var(--theme--primary-background)
             color: var(--theme--primary)
             foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
+            text: $t:published
+            value: published
+          - background: var(--theme--background-normal)
             color: var(--theme--foreground)
             foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
+            text: $t:draft
+            value: draft
+          - background: var(--theme--warning-background)
             color: var(--theme--warning)
             foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
+            text: $t:archived
+            value: archived
         showAsDot: true
       field: status
       group: null
@@ -1599,15 +1677,15 @@ fields:
       note: null
       options:
         choices:
-          - text: $t:published
+          - color: var(--theme--primary)
+            text: $t:published
             value: published
-            color: var(--theme--primary)
-          - text: $t:draft
+          - color: var(--theme--foreground)
+            text: $t:draft
             value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
+          - color: var(--theme--warning)
+            text: $t:archived
             value: archived
-            color: var(--theme--warning)
       readonly: false
       required: false
       sort: 2
@@ -1710,6 +1788,45 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: course_page
+    field: seo
+    type: uuid
+    meta:
+      collection: course_page
+      conditions: null
+      display: null
+      display_options: null
+      field: seo
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: seo
+      table: course_page
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: seo
+      foreign_key_column: id
   - collection: courses_page
     field: Toast_text
     type: string
@@ -1837,21 +1954,21 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: $t:published
-            value: published
+          - background: var(--theme--primary-background)
             color: var(--theme--primary)
             foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
+            text: $t:published
+            value: published
+          - background: var(--theme--background-normal)
             color: var(--theme--foreground)
             foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
+            text: $t:draft
+            value: draft
+          - background: var(--theme--warning-background)
             color: var(--theme--warning)
             foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
+            text: $t:archived
+            value: archived
         showAsDot: true
       field: status
       group: null
@@ -1860,15 +1977,15 @@ fields:
       note: null
       options:
         choices:
-          - text: $t:published
+          - color: var(--theme--primary)
+            text: $t:published
             value: published
-            color: var(--theme--primary)
-          - text: $t:draft
+          - color: var(--theme--foreground)
+            text: $t:draft
             value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
+          - color: var(--theme--warning)
+            text: $t:archived
             value: archived
-            color: var(--theme--warning)
       readonly: false
       required: false
       sort: 2
@@ -1971,6 +2088,45 @@ fields:
       has_auto_increment: false
       foreign_key_table: directus_users
       foreign_key_column: id
+  - collection: courses_page
+    field: seo
+    type: uuid
+    meta:
+      collection: courses_page
+      conditions: null
+      display: null
+      display_options: null
+      field: seo
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: seo
+      table: courses_page
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: seo
+      foreign_key_column: id
   - collection: error
     field: id
     type: uuid
@@ -2019,24 +2175,24 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: $t:published
-            value: published
+          - background: var(--theme--primary-background)
             color: var(--theme--primary)
             foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
+            text: $t:published
+            value: published
+          - background: var(--theme--background-normal)
             color: var(--theme--foreground)
             foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
+            text: $t:draft
+            value: draft
+          - background: var(--theme--warning-background)
             color: var(--theme--warning)
             foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
-          - text: Open
+            text: $t:archived
+            value: archived
+          - color: '#E35169'
+            text: Open
             value: open
-            color: '#E35169'
         showAsDot: true
       field: status
       group: null
@@ -2045,18 +2201,18 @@ fields:
       note: null
       options:
         choices:
-          - text: Pending
+          - color: var(--theme--primary)
+            text: Pending
             value: pending
-            color: var(--theme--primary)
-          - text: Resolved
+          - color: var(--theme--foreground)
+            text: Resolved
             value: resolved
-            color: var(--theme--foreground)
-          - text: Closed
+          - color: var(--theme--warning)
+            text: Closed
             value: closed
-            color: var(--theme--warning)
-          - text: Open
+          - color: '#E35169'
+            text: Open
             value: open
-            color: '#E35169'
       readonly: false
       required: false
       sort: 2
@@ -2472,350 +2628,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: folien
-    field: bild
-    type: uuid
-    meta:
-      collection: folien
-      conditions: null
-      display: image
-      display_options: null
-      field: bild
-      group: null
-      hidden: false
-      interface: file-image
-      note: null
-      options:
-        folder: 40e84181-19bd-4145-8cb5-aeef9be7652d
-      readonly: false
-      required: true
-      sort: 8
-      special:
-        - file
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: bild
-      table: folien
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_files
-      foreign_key_column: id
-  - collection: folien
-    field: date_created
-    type: timestamp
-    meta:
-      collection: folien
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 5
-      special:
-        - cast-timestamp
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_created
-      table: folien
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: folien
-    field: date_updated
-    type: timestamp
-    meta:
-      collection: folien
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_updated
-      group: null
-      hidden: true
-      interface: datetime
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 7
-      special:
-        - cast-timestamp
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: date_updated
-      table: folien
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: folien
-    field: id
-    type: uuid
-    meta:
-      collection: folien
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: true
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: folien
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: folien
-    field: sort
-    type: integer
-    meta:
-      collection: folien
-      conditions: null
-      display: null
-      display_options: null
-      field: sort
-      group: null
-      hidden: true
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: sort
-      table: folien
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: folien
-    field: status
-    type: string
-    meta:
-      collection: folien
-      conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-            foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-            foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-            foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
-        showAsDot: true
-      field: status
-      group: null
-      hidden: false
-      interface: select-dropdown
-      note: null
-      options:
-        choices:
-          - text: $t:published
-            value: published
-            color: var(--theme--primary)
-          - text: $t:draft
-            value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
-            value: archived
-            color: var(--theme--warning)
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: status
-      table: folien
-      data_type: character varying
-      default_value: draft
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: folien
-    field: user_created
-    type: uuid
-    meta:
-      collection: folien
-      conditions: null
-      display: user
-      display_options: null
-      field: user_created
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 4
-      special:
-        - user-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_created
-      table: folien
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: folien
-    field: user_updated
-    type: uuid
-    meta:
-      collection: folien
-      conditions: null
-      display: user
-      display_options: null
-      field: user_updated
-      group: null
-      hidden: true
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: true
-      required: false
-      sort: 6
-      special:
-        - user-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: user_updated
-      table: folien
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
   - collection: ip2city
     field: city_name
     type: string
@@ -3473,6 +3285,10 @@ fields:
       interface: select-dropdown-m2o
       note: null
       options:
+        filter:
+          _and:
+            - parent:
+                _null: true
         template: '{{title}}'
       readonly: false
       required: false
@@ -3546,21 +3362,21 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: $t:published
-            value: published
+          - background: var(--theme--primary-background)
             color: var(--theme--primary)
             foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
+            text: $t:published
+            value: published
+          - background: var(--theme--background-normal)
             color: var(--theme--foreground)
             foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
+            text: $t:draft
+            value: draft
+          - background: var(--theme--warning-background)
             color: var(--theme--warning)
             foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
+            text: $t:archived
+            value: archived
         showAsDot: true
       field: status
       group: null
@@ -3569,15 +3385,15 @@ fields:
       note: null
       options:
         choices:
-          - text: $t:published
+          - color: var(--theme--primary)
+            text: $t:published
             value: published
-            color: var(--theme--primary)
-          - text: $t:draft
+          - color: var(--theme--foreground)
+            text: $t:draft
             value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
+          - color: var(--theme--warning)
+            text: $t:archived
             value: archived
-            color: var(--theme--warning)
       readonly: false
       required: false
       sort: 2
@@ -3615,8 +3431,7 @@ fields:
       hidden: false
       interface: input
       note: null
-      options:
-        slug: true
+      options: {}
       readonly: false
       required: true
       sort: 8
@@ -3793,6 +3608,68 @@ fields:
       numeric_scale: null
       is_nullable: true
       is_unique: true
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: kapitel
+    field: references
+    type: json
+    meta:
+      collection: kapitel
+      conditions: null
+      display: null
+      display_options: null
+      field: references
+      group: null
+      hidden: false
+      interface: list
+      note: null
+      options:
+        addLabel: Add ref
+        fields:
+          - field: text
+            meta:
+              field: text
+              interface: input
+              type: string
+            name: text
+            type: string
+          - field: link
+            meta:
+              field: link
+              interface: input
+              type: string
+            name: link
+            type: string
+          - field: reading
+            meta:
+              field: reading
+              interface: boolean
+              type: boolean
+            name: reading
+            type: boolean
+      readonly: false
+      required: false
+      sort: 15
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: references
+      table: kapitel
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
       is_primary_key: false
       is_generated: false
       generation_expression: null
@@ -4006,7 +3883,7 @@ fields:
         start: closed
       readonly: false
       required: false
-      sort: 9
+      sort: 8
       special:
         - alias
         - group
@@ -4057,44 +3934,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: landing
-    field: description
-    type: string
-    meta:
-      collection: landing
-      conditions: null
-      display: null
-      display_options: null
-      field: description
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 7
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: description
-      table: landing
-      data_type: character varying
-      default_value: This is a description
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: landing
     field: divider-yftyet
     type: alias
     meta:
@@ -4110,7 +3949,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 8
+      sort: 7
       special:
         - alias
         - no-data
@@ -4166,21 +4005,21 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: $t:published
-            value: published
+          - background: var(--theme--primary-background)
             color: var(--theme--primary)
             foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
+            text: $t:published
+            value: published
+          - background: var(--theme--background-normal)
             color: var(--theme--foreground)
             foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
+            text: $t:draft
+            value: draft
+          - background: var(--theme--warning-background)
             color: var(--theme--warning)
             foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
+            text: $t:archived
+            value: archived
         showAsDot: true
       field: status
       group: null
@@ -4189,15 +4028,15 @@ fields:
       note: null
       options:
         choices:
-          - text: $t:published
+          - color: var(--theme--primary)
+            text: $t:published
             value: published
-            color: var(--theme--primary)
-          - text: $t:draft
+          - color: var(--theme--foreground)
+            text: $t:draft
             value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
+          - color: var(--theme--warning)
+            text: $t:archived
             value: archived
-            color: var(--theme--warning)
       readonly: false
       required: false
       sort: 2
@@ -4215,82 +4054,6 @@ fields:
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: landing
-    field: subtitle
-    type: string
-    meta:
-      collection: landing
-      conditions: null
-      display: null
-      display_options: null
-      field: subtitle
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 6
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: subtitle
-      table: landing
-      data_type: character varying
-      default_value: This is a subtitle
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: landing
-    field: title
-    type: string
-    meta:
-      collection: landing
-      conditions: null
-      display: null
-      display_options: null
-      field: title
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 5
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: title
-      table: landing
-      data_type: character varying
-      default_value: This is a title
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -4468,7 +4231,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 10
+      sort: 9
       special:
         - alias
         - group
@@ -4594,23 +4357,23 @@ fields:
       options:
         fields:
           - field: title
-            name: title
-            type: string
             meta:
               field: title
-              width: half
-              type: string
-              required: true
               interface: input
-          - field: url
-            name: url
+              required: true
+              type: string
+              width: half
+            name: title
             type: string
+          - field: url
             meta:
               field: url
-              width: half
-              type: string
               interface: input
               options: {}
+              type: string
+              width: half
+            name: url
+            type: string
       readonly: false
       required: false
       sort: 1
@@ -4653,22 +4416,22 @@ fields:
         addLabel: Add publication
         fields:
           - field: title
-            name: title
-            type: string
             meta:
               field: title
-              width: full
-              type: string
-              required: true
               interface: input
-          - field: url
-            name: url
+              required: true
+              type: string
+              width: full
+            name: title
             type: string
+          - field: url
             meta:
               field: url
-              width: full
-              type: string
               interface: input
+              type: string
+              width: full
+            name: url
+            type: string
       readonly: false
       required: false
       sort: 3
@@ -4684,6 +4447,355 @@ fields:
       data_type: json
       default_value: null
       max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: seo
+    type: uuid
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: seo
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: seo
+      table: landing
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: seo
+      foreign_key_column: id
+  - collection: landing
+    field: heading
+    type: text
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: heading
+      group: null
+      hidden: false
+      interface: input-rich-text-md
+      note: null
+      options:
+        toolbar:
+          - heading
+          - bold
+          - italic
+          - strikethrough
+          - empty
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: heading
+      table: landing
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: white_paper
+    type: alias
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: white_paper
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - alias
+        - no-data
+        - group
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: landing
+    field: cover
+    type: uuid
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: cover
+      group: white_paper
+      hidden: false
+      interface: file-image
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: cover
+      table: landing
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: landing
+    field: white_paper_abstract
+    type: text
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: white_paper_abstract
+      group: white_paper
+      hidden: false
+      interface: input-rich-text-md
+      note: null
+      options:
+        toolbar:
+          - heading
+          - bold
+          - italic
+          - strikethrough
+          - blockquote
+          - bullist
+          - numlist
+          - table
+          - link
+          - empty
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: white_paper_abstract
+      table: landing
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: white_paper_button
+    type: string
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: white_paper_button
+      group: white_paper
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: white_paper_button
+      table: landing
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: white_paper_pdf
+    type: uuid
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: white_paper_pdf
+      group: white_paper
+      hidden: false
+      interface: file
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: white_paper_pdf
+      table: landing
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: landing
+    field: white_paper_section_title
+    type: string
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: white_paper_section_title
+      group: white_paper
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: white_paper_section_title
+      table: landing
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: landing
+    field: white_paper_section_description
+    type: string
+    meta:
+      collection: landing
+      conditions: null
+      display: null
+      display_options: null
+      field: white_paper_section_description
+      group: white_paper
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: white_paper_section_description
+      table: landing
+      data_type: character varying
+      default_value: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4808,21 +4920,21 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: $t:published
-            value: published
+          - background: var(--theme--primary-background)
             color: var(--theme--primary)
             foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
+            text: $t:published
+            value: published
+          - background: var(--theme--background-normal)
             color: var(--theme--foreground)
             foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
+            text: $t:draft
+            value: draft
+          - background: var(--theme--warning-background)
             color: var(--theme--warning)
             foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
+            text: $t:archived
+            value: archived
         showAsDot: true
       field: status
       group: null
@@ -4831,15 +4943,15 @@ fields:
       note: null
       options:
         choices:
-          - text: $t:published
+          - color: var(--theme--primary)
+            text: $t:published
             value: published
-            color: var(--theme--primary)
-          - text: $t:draft
+          - color: var(--theme--foreground)
+            text: $t:draft
             value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
+          - color: var(--theme--warning)
+            text: $t:archived
             value: archived
-            color: var(--theme--warning)
       readonly: false
       required: false
       sort: 2
@@ -5325,21 +5437,21 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: $t:published
-            value: published
+          - background: var(--theme--primary-background)
             color: var(--theme--primary)
             foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
+            text: $t:published
+            value: published
+          - background: var(--theme--background-normal)
             color: var(--theme--foreground)
             foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
+            text: $t:draft
+            value: draft
+          - background: var(--theme--warning-background)
             color: var(--theme--warning)
             foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
+            text: $t:archived
+            value: archived
         showAsDot: true
       field: status
       group: null
@@ -5348,15 +5460,15 @@ fields:
       note: null
       options:
         choices:
-          - text: $t:published
+          - color: var(--theme--primary)
+            text: $t:published
             value: published
-            color: var(--theme--primary)
-          - text: $t:draft
+          - color: var(--theme--foreground)
+            text: $t:draft
             value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
+          - color: var(--theme--warning)
+            text: $t:archived
             value: archived
-            color: var(--theme--warning)
       readonly: false
       required: false
       sort: 2
@@ -5478,24 +5590,24 @@ fields:
         addLabel: Add answer
         fields:
           - field: text
-            name: text
-            type: string
             meta:
               field: text
-              width: half
-              type: string
-              required: true
               interface: input
+              required: true
+              type: string
+              width: half
+            name: text
+            type: string
           - field: correct
-            name: correct
-            type: boolean
             meta:
               field: correct
-              width: half
-              type: boolean
-              required: false
               interface: boolean
               note: In case of ordering quiz, the value will be ignored
+              required: false
+              type: boolean
+              width: half
+            name: correct
+            type: boolean
       readonly: false
       required: true
       sort: 10
@@ -6092,21 +6204,21 @@ fields:
       options:
         fields:
           - field: chapter
-            name: chapter
-            type: string
             meta:
               field: chapter
-              type: string
               interface: input
               options:
                 defaultView:
-                  center:
-                    lng: 0
-                    lat: 0
-                  zoom: 0
                   bearing: 0
+                  center:
+                    lat: 0
+                    lng: 0
                   pitch: 0
+                  zoom: 0
                 geometryType: Point
+              type: string
+            name: chapter
+            type: string
       readonly: false
       required: false
       sort: 5
@@ -6384,14 +6496,14 @@ fields:
       options:
         fields:
           - field: text
-            name: text
-            type: string
             meta:
               field: text
-              width: full
-              type: string
-              required: false
               interface: input
+              required: false
+              type: string
+              width: full
+            name: text
+            type: string
       readonly: false
       required: false
       sort: 5
@@ -6409,6 +6521,438 @@ fields:
       max_length: null
       numeric_precision: null
       numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: id
+    type: uuid
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: seo
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: user_updated
+    type: uuid
+    meta:
+      collection: seo
+      conditions: null
+      display: user
+      display_options: null
+      field: user_updated
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: true
+      required: false
+      sort: 2
+      special:
+        - user-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: user_updated
+      table: seo
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: seo
+    field: date_updated
+    type: timestamp
+    meta:
+      collection: seo
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: date_updated
+      group: null
+      hidden: true
+      interface: datetime
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 3
+      special:
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: date_updated
+      table: seo
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: title
+    type: string
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: title
+      table: seo
+      data_type: character varying
+      default_value: null
+      max_length: 70
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: meta_description
+    type: text
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: meta_description
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: meta_description
+      table: seo
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: canonical_url
+    type: string
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: canonical_url
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: canonical_url
+      table: seo
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: no_index
+    type: boolean
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: no_index
+      group: null
+      hidden: false
+      interface: boolean
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: no_index
+      table: seo
+      data_type: boolean
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: no_follow
+    type: boolean
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: no_follow
+      group: null
+      hidden: false
+      interface: boolean
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - cast-boolean
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: no_follow
+      table: seo
+      data_type: boolean
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: og_image
+    type: uuid
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: og_image
+      group: null
+      hidden: false
+      interface: file-image
+      note: >-
+        This item's OG image. Defaults to global site OG image. The recommended
+        size is 1200px x 630px. The image will be focal cropped to this
+        dimension.
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - file
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: og_image
+      table: seo
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: seo
+    field: sitemap_change_frequency
+    type: string
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: sitemap_change_frequency
+      group: null
+      hidden: false
+      interface: input
+      note: How often to instruct search engines to crawl.
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: sitemap_change_frequency
+      table: seo
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: seo
+    field: sitemap_priority
+    type: decimal
+    meta:
+      collection: seo
+      conditions: null
+      display: null
+      display_options: null
+      field: sitemap_priority
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        max: 1
+        min: 0
+        step: 0.1
+      readonly: false
+      required: false
+      sort: 11
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: sitemap_priority
+      table: seo
+      data_type: numeric
+      default_value: null
+      max_length: null
+      numeric_precision: 10
+      numeric_scale: 5
       is_nullable: true
       is_unique: false
       is_primary_key: false
@@ -6465,21 +7009,21 @@ fields:
       display: labels
       display_options:
         choices:
-          - text: $t:published
-            value: published
+          - background: var(--theme--primary-background)
             color: var(--theme--primary)
             foreground: var(--theme--primary)
-            background: var(--theme--primary-background)
-          - text: $t:draft
-            value: draft
+            text: $t:published
+            value: published
+          - background: var(--theme--background-normal)
             color: var(--theme--foreground)
             foreground: var(--theme--foreground)
-            background: var(--theme--background-normal)
-          - text: $t:archived
-            value: archived
+            text: $t:draft
+            value: draft
+          - background: var(--theme--warning-background)
             color: var(--theme--warning)
             foreground: var(--theme--warning)
-            background: var(--theme--warning-background)
+            text: $t:archived
+            value: archived
         showAsDot: true
       field: status
       group: null
@@ -6488,15 +7032,15 @@ fields:
       note: null
       options:
         choices:
-          - text: $t:published
+          - color: var(--theme--primary)
+            text: $t:published
             value: published
-            color: var(--theme--primary)
-          - text: $t:draft
+          - color: var(--theme--foreground)
+            text: $t:draft
             value: draft
-            color: var(--theme--foreground)
-          - text: $t:archived
+          - color: var(--theme--warning)
+            text: $t:archived
             value: archived
-            color: var(--theme--warning)
       readonly: false
       required: false
       sort: 2
@@ -6682,44 +7226,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: survey
-    field: description
-    type: string
-    meta:
-      collection: survey
-      conditions: null
-      display: null
-      display_options: null
-      field: description
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 9
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: description
-      table: survey
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: survey
     field: title
     type: string
     meta:
@@ -6774,63 +7280,59 @@ fields:
         addLabel: Add question
         fields:
           - field: question
-            name: question
-            type: string
             meta:
               field: question
-              width: full
-              type: string
-              required: true
               interface: input
-          - field: type
-            name: type
+              required: true
+              type: string
+              width: full
+            name: question
             type: string
+          - field: type
             meta:
               field: type
-              width: half
-              type: string
-              required: true
               interface: select-dropdown
               options:
+                allowOther: true
                 choices:
                   - text: Likert
                     value: likert
                   - text: Open
                     value: open
-                allowOther: true
-          - field: course
-            name: course
+              required: true
+              type: string
+              width: half
+            name: type
             type: string
+          - field: course
             meta:
               field: course
-              width: half
-              type: string
-              required: false
               interface: input-autocomplete-api
               options:
-                url: http://localhost:8055/items/Courses
                 resultsPath: data
                 textPath: Title
+                url: http://131.159.30.111:8055/items/Courses
                 valuePath: Title
+              required: false
+              type: string
+              width: half
+            name: course
+            type: string
           - field: required
-            name: required
-            type: boolean
             meta:
               field: required
-              width: half
-              type: boolean
-              required: false
               interface: boolean
+              required: false
+              type: boolean
+              width: half
+            name: required
+            type: boolean
           - field: section
-            name: section
-            type: string
             meta:
               field: section
-              width: half
-              type: string
-              required: true
               interface: select-dropdown
               options:
+                allowOther: true
                 choices:
                   - text: Your Background
                     value: Your Background
@@ -6840,7 +7342,11 @@ fields:
                     value: Acquired Competence
                   - text: Final Thoughts
                     value: Final Thoughts
-                allowOther: true
+              required: true
+              type: string
+              width: half
+            name: section
+            type: string
       readonly: false
       required: true
       sort: 10
@@ -6982,6 +7488,51 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: survey
+    field: description
+    type: text
+    meta:
+      collection: survey
+      conditions: null
+      display: null
+      display_options: null
+      field: description
+      group: null
+      hidden: false
+      interface: input-rich-text-md
+      note: null
+      options:
+        toolbar:
+          - bold
+          - italic
+          - strikethrough
+          - blockquote
+          - empty
+          - link
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: description
+      table: survey
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: survey_data
     field: id
     type: uuid
@@ -7077,23 +7628,23 @@ fields:
       options:
         fields:
           - field: question
-            name: question
-            type: string
             meta:
               field: question
-              width: full
-              type: string
-              required: true
               interface: input
-          - field: answer
-            name: answer
+              required: true
+              type: string
+              width: full
+            name: question
             type: string
+          - field: answer
             meta:
               field: answer
-              width: full
-              type: string
-              required: false
               interface: input
+              required: false
+              type: string
+              width: full
+            name: answer
+            type: string
       readonly: true
       required: false
       sort: 3
@@ -7204,6 +7755,27 @@ relations:
       constraint_name: course_page_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
+  - collection: course_page
+    field: seo
+    related_collection: seo
+    meta:
+      junction_field: null
+      many_collection: course_page
+      many_field: seo
+      one_allowed_collections: null
+      one_collection: seo
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: course_page
+      column: seo
+      foreign_key_table: seo
+      foreign_key_column: id
+      constraint_name: course_page_seo_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: courses_page
     field: user_updated
     related_collection: directus_users
@@ -7225,28 +7797,25 @@ relations:
       constraint_name: courses_page_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
-  - collection: directus_settings
-    field: public_registration_role
-    related_collection: directus_roles
-    meta: null
+  - collection: courses_page
+    field: seo
+    related_collection: seo
+    meta:
+      junction_field: null
+      many_collection: courses_page
+      many_field: seo
+      one_allowed_collections: null
+      one_collection: seo
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
     schema:
-      table: directus_settings
-      column: public_registration_role
-      foreign_key_table: directus_roles
+      table: courses_page
+      column: seo
+      foreign_key_table: seo
       foreign_key_column: id
-      constraint_name: directus_settings_public_registration_role_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: directus_webhooks
-    field: migrated_flow
-    related_collection: directus_flows
-    meta: null
-    schema:
-      table: directus_webhooks
-      column: migrated_flow
-      foreign_key_table: directus_flows
-      foreign_key_column: id
-      constraint_name: directus_webhooks_migrated_flow_foreign
+      constraint_name: courses_page_seo_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: error
@@ -7289,69 +7858,6 @@ relations:
       foreign_key_table: directus_users
       foreign_key_column: id
       constraint_name: error_user_updated_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: folien
-    field: bild
-    related_collection: directus_files
-    meta:
-      junction_field: null
-      many_collection: folien
-      many_field: bild
-      one_allowed_collections: null
-      one_collection: directus_files
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: folien
-      column: bild
-      foreign_key_table: directus_files
-      foreign_key_column: id
-      constraint_name: folien_bild_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: folien
-    field: user_created
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: folien
-      many_field: user_created
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: folien
-      column: user_created
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: folien_user_created_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: folien
-    field: user_updated
-    related_collection: directus_users
-    meta:
-      junction_field: null
-      many_collection: folien
-      many_field: user_updated
-      one_allowed_collections: null
-      one_collection: directus_users
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: folien
-      column: user_updated
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: folien_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: kapitel
@@ -7446,8 +7952,8 @@ relations:
       many_collection: kapitel_content_1
       many_field: item
       one_allowed_collections:
-        - folien
         - mcQuiz
+        - directus_files
       one_collection: null
       one_collection_field: collection
       one_deselect_action: nullify
@@ -7495,6 +8001,69 @@ relations:
       constraint_name: landing_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
+  - collection: landing
+    field: seo
+    related_collection: seo
+    meta:
+      junction_field: null
+      many_collection: landing
+      many_field: seo
+      one_allowed_collections: null
+      one_collection: seo
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: landing
+      column: seo
+      foreign_key_table: seo
+      foreign_key_column: id
+      constraint_name: landing_seo_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: landing
+    field: cover
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: landing
+      many_field: cover
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: landing
+      column: cover
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: landing_cover_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: landing
+    field: white_paper_pdf
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: landing
+      many_field: white_paper_pdf
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: landing
+      column: white_paper_pdf
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: landing_white_paper_pdf_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: learning_page
     field: user_updated
     related_collection: directus_users
@@ -7598,6 +8167,48 @@ relations:
       foreign_key_table: mcQuiz
       foreign_key_column: id
       constraint_name: quiz_data_quiz_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: seo
+    field: user_updated
+    related_collection: directus_users
+    meta:
+      junction_field: null
+      many_collection: seo
+      many_field: user_updated
+      one_allowed_collections: null
+      one_collection: directus_users
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: seo
+      column: user_updated
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: seo_user_updated_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: seo
+    field: og_image
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: seo
+      many_field: og_image
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: seo
+      column: og_image
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: seo_og_image_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: survey

@@ -1,3 +1,6 @@
+# CMS
+Using Directus as a headless CMS.
+
 ## Export Schema
 https://docs.directus.io/self-hosted/cli.html#migrate-schema-to-a-different-environment
 

@@ -4,7 +4,6 @@
 	import Grainy from './Grainy.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import { marked } from 'marked';
-	import { Button } from '$lib/components/ui/button/index';
 	import CircleAlert from 'lucide-svelte/icons/circle-alert';
 	import * as Alert from '$lib/components/ui/alert/index';
 	import Footer from '$lib/components/Footer.svelte';
@@ -102,17 +101,17 @@
 	>
 		<section id="courses">
 			<div class="space-y-16">
-				<div class="space-y-4">
-					<h2 class="text-center text-3xl font-bold lg:text-5xl">
+				<div class="flex flex-col justify-center space-y-4">
+					<a
+						class="text-center text-3xl font-bold hover:text-primary dark:hover:text-blue-600 lg:text-5xl"
+						href={`${env.PUBLIC_WEB_URL}/courses`}
+					>
 						{data.landing?.courses_title ?? 'Courses'}
-					</h2>
+					</a>
 					<p class="text-center text-lg lg:text-base">
 						{data.landing?.courses_description ??
 							'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
 					</p>
-					<div class="flex justify-center">
-						<Button variant="link" href={`${env.PUBLIC_WEB_URL}/courses`}>Detailed Overview</Button>
-					</div>
 				</div>
 				<div
 					class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"

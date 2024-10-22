@@ -43,7 +43,7 @@
 		"tailwindcss": "^3.4.13",
 		"@tailwindcss/typography": "^0.5.15",
 		"vaul-svelte": "^0.3.2",
-		"vite": "^5.4.8",
+		"vite": "^5.4.9",
 		"zod": "^3.23.8",
 		"util": "^0.12.5"
 	},

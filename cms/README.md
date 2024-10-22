@@ -17,3 +17,5 @@ Useful when making changes to the schema and want to apply them to the productio
 sudo docker compose cp ~/snapshot.yaml cms:/directus/snapshot.yaml
 sudo docker compose exec -it cms npx directus schema snapshot apply --yes ./snapshot.yaml
 ```
+
+Note that the version of export and import should be the same.

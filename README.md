@@ -20,8 +20,8 @@ LACE is a web-based learning platform that offers courses on Privacy-Enhancing T
 * [X] 🛠️ **Content Management System Integration**: Integration with a content management system (Directus) for managing learning content.
 * [X] 👁️ **Preview Mode**: A preview mode that allows content managers to preview course content before enrolling.
 * [X] 📊 **Admin Dashboard**: An admin dashboard that allows content managers to manage courses and analytics.
-* [ ] 🔍 **Search Functionality**: A search functionality that allows users to search for specific courses or content.
 * [X] 📤 **Social Sharing**: A social sharing feature that allows users to share courses and certificates on social media platforms.
+* [ ] 🔍 **Search Functionality**: A search functionality that allows users to search for specific courses or content.
 * [ ] 🏆 **Gamification**: A gamification feature that includes badges, points, and leaderboards to motivate and engage learners.
 * [ ] 🔔 **Notifications**: A notifications feature that sends users reminders, updates, and announcements.
 * [ ] 🎨 **Customization**: A customization feature that allows users to personalize their learning experience. Large language models could be used for this purpose.
@@ -105,85 +105,20 @@ C4Container
     Person(contentCreator, "Content Creator", "Creates and uploads learning content")
 
     Container_Boundary(lace, "LACE Learning Platform") {
+        Container(nginx, "Nginx", "Reverse Proxy", "Handles incoming requests and forwards them")
         Container(webApp, "Web Application", "SvelteKit", "Delivers the front-end of the learning platform")
         Container(api, "API", "Directus", "Handles backend services and data management")
         ContainerDb(database, "Database", "PostgreSQL", "Stores learning content and analytics")
     }
 
-    Rel(contentCreator, api, "Uses")
-    Rel(learner, webApp, "Uses")
+    Rel(learner, nginx, "Uses")
+    Rel(contentCreator, nginx, "Uses")
+    Rel(nginx, webApp, "Forwards", "HTTP")
+    Rel(nginx, api, "Forwards", "HTTP")
     Rel(webApp, api, "Interacts with", "HTTP")
     Rel(api, database, "Reads from and writes to", "SQL")
 
     UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
-```
-
-#### Component
-
-```mermaid
-C4Component
-    title Component diagram for LACE Learning Platform - SvelteKit Application
-
-    Container(api, "API", "Directus", "Handles backend services and data management")
-    ContainerDb(database, "Database", "PostgreSQL", "Stores learning content and analytics")
-
-    Container_Boundary(api, "Web Application") {
-
-        Component(serviceProxy, "ProxyService", "TypeScript", "Handles proxy API integration")
-        Component(serviceDirectus, "DirectusService", "TypeScript", "Handles Directus API integration")
-        Component(serviceAnalytics, "AnalyticsService", "TypeScript", "Handles analytics API integration")
-        Component(servicePreview, "PreviewService", "TypeScript", "Handles preview API integration")
-        
-        Component(pageHome, "HomePage", "Svelte", "Displays the home page with general information", $tags="page")
-        Component(courseCardHome, "CourseCardHome", "Svelte", "Component to display individual courses on the home page")
-        Component(layoutHome, "HomeLayout", "Svelte", "Layout for the home page")
-        
-        Component(layoutCourses, "CoursesLayout", "Svelte", "Layout for the course and courses page")
-        Component(pageCourses, "CoursesPage", "Svelte", "Displays all available courses", $tags="page")
-        Component(courseCard, "CourseCard", "Svelte", "Component to display individual courses")
-        
-        Component(pageCourse, "CoursePage", "Svelte", "Displays course content to learners", $tags="page")
-        Component(chapterCard, "ChapterCard", "Svelte", "Component to display individual chapters")
-
-        Component(progressStore, "ProgressStore", "Svelte Store", "Manages user progress state")
-        
-        Component(pageLearning, "LearningPage", "Svelte", "Displays learning content to learners", $tags="page")
-        Component(chapterFinal, "ChapterFinal", "Svelte", "Component to display chapter final details")
-        Component(mcQuiz, "McQuiz", "Svelte", "Multiple choice quiz component")
-        Component(orderQuiz, "OrderQuiz", "Svelte", "Ordering quiz component")
-        Component(layoutLearning, "LearningLayout", "Svelte", "Layout for the learning page")
-        
-        Component(errorBoundary, "ErrorBoundary", "Svelte", "Error boundary component")
-        
-        
-        Rel(layoutHome, pageHome, "Renders")
-        Rel(layoutCourses, pageCourses, "Renders")
-        Rel(layoutCourses, pageCourse, "Renders")
-        Rel(layoutLearning, pageLearning, "Renders")
-        
-        Rel(pageHome, courseCardHome, "Renders")
-        Rel(pageCourses, courseCard, "Renders")
-        Rel(pageCourse, chapterCard, "Renders")
-        
-        Rel(pageLearning, chapterFinal, "Renders")
-        Rel(pageLearning, mcQuiz, "Renders")
-        Rel(pageLearning, orderQuiz, "Renders")
-        
-        Rel(pageLearning, progressStore, "Uses")
-        Rel(pageCourse, progressStore, "Uses")
-        
-        Rel(serviceDirectus, serviceProxy, "Uses")
-        Rel(serviceAnalytics, serviceDirectus, "Uses")
-        Rel(servicePreview, serviceDirectus, "Uses")
-    }
-    
-    Rel_Back(api, serviceProxy, "Uses")
-    
-    Rel(api, database, "Reads from and writes to", "SQL")
-    
-
-    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
-
 ```
 
 #### Database
@@ -372,20 +307,15 @@ sudo docker pull zaproxy/zap-stable
 sudo docker run -u zap -p 8080:8080 -p 8090:8090 -i zaproxy/zap-stable zap-webswing.sh
 ```
 
-### Quality
+## Deployment
+
+We use Docker Compose for developing and production deployment. The `docker-compose.yml` file defines the services and configurations for the LACE Learning Platform. The services include the web application, API, and database. The `Dockerfile` and `Dockerfile.dev` files define the build instructions for the web application container. Use `docker-compose.dev.yml` for development and `docker-compose.yml` for production deployment.
+
+Each of our services lives in a separate directory:
+* `web`: Contains the SvelteKit web application.
+* `cms`: Contains the Directus Schema
+* `reverse-proxy`: Contains the Nginx reverse proxy configuration.
 
 ```bash
-cd web
-sudo codeclimate analyze
-```
-
-#### Good example of SvelteKit code:
-- https://github.com/sveltejs/realworld
-
-#### Analyzing bundle size
-Need to remove the comment in the `vite.config.ts` file.
-```bash 
-cd web
-npm run build
-open ./svelte-kit/adapter-node/stats.html
+docker compose -f docker-compose.dev.yml up
 ```

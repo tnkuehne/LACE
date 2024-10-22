@@ -11,7 +11,6 @@
 
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 	import { env } from '$env/dynamic/public';
-	import CoverBack from './CoverBack.svelte';
 
 	export let data;
 
@@ -147,33 +146,28 @@
 					</p>
 				</div>
 				<div
-					class="flex flex-col justify-between space-y-8 rounded-3xl bg-white px-16 py-16 lg:flex-row lg:space-y-0"
+					class="flex flex-col justify-between space-y-8 rounded-3xl bg-white p-4 dark:bg-secondary lg:flex-row lg:space-y-0"
 				>
 					{#if data.landing?.white_paper_pdf && data.landing?.white_paper_pdf.length > 0}
-						<div class="order-2 flex flex-col items-center space-y-4 lg:order-1">
+						<div class="order-2 flex flex-col items-center space-y-4 p-12 py-16 lg:order-1">
 							<div class="prose-black prose dark:prose-invert">
 								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html parsedWhitePaper}
 							</div>
 							<Button
-								class="text-md size-fit px-6 py-3 font-bold text-secondary"
+								class="text-md size-fit font-bold text-secondary"
 								href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}?download`}
 								target="_blank"
 								download="WhitePaper.pdf"
 								on:click={handleDownloadClick}>{data.landing?.white_paper_button}</Button
 							>
 						</div>
-						<div class="relative order-1 flex justify-center pb-8 lg:order-2 lg:w-1/2 lg:pb-0">
-							<div
-								class="absolute left-0 top-0 z-0 h-full w-full origin-top-left scale-[0.3] transform lg:h-1/2 lg:w-1/2 lg:origin-top lg:scale-[0.55]"
-							>
-								<CoverBack />
-							</div>
-							<div class="relative z-10 w-full content-center p-4 lg:w-1/2">
+						<div class="relative order-1 flex justify-center lg:order-2 lg:w-1/2">
+							<div class="relative z-10 w-full content-center lg:w-4/5">
 								<img
 									src={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.cover}`}
 									alt="White Paper"
-									class="h-auto w-full shadow-xl"
+									class="h-auto w-full"
 									loading="lazy"
 								/>
 							</div>

@@ -1,5 +1,5 @@
 # CMS
-Using Directus as a headless CMS.
+Using [Directus](https://docs.directus.io/) as a headless CMS. The web server will interact with the CMS to get the data. The management interface is available at `/cms/admin` or locally on port `8055`.
 
 ## Export Schema
 https://docs.directus.io/self-hosted/cli.html#migrate-schema-to-a-different-environment

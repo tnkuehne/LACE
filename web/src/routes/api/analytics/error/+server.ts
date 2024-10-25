@@ -4,27 +4,49 @@ import { createItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 
 export const POST: RequestHandler = async ({ request, fetch }) => {
-	const { event, error, statusCode, stack, message } = await request.json();
-	console.log('Error logging:', event, error, statusCode, stack, message);
+	const {
+		event = 'not provided',
+		error = 'not provided',
+		statusCode = 'not provided',
+		stack = 'not provided',
+		message = 'not provided'
+	} = await request.json();
 
-	// if event and error is not json format, convert them to json
-	const eventString = typeof event === 'object' ? JSON.stringify(event) : event;
-	const errorString = typeof error === 'object' ? JSON.stringify(error) : error;
+	console.log('Error data:', { event, error, statusCode, stack, message });
+
+	let finalStack = stack;
+	const requestData = {
+		statusCode: statusCode,
+		stack: finalStack,
+		message: message,
+		event: undefined,
+		error: undefined
+	};
 
 	try {
-		await getDirectusInstance(fetch).request(
-			createItem('error', {
-				statusCode: statusCode,
-				stack: stack,
-				message: message,
-				event: eventString,
-				error: errorString
-			})
-		);
+		// Check if event is in JSON format
+		try {
+			JSON.parse(event);
+			requestData.event = event;
+		} catch {
+			finalStack += `\nEvent: ${event}`;
+		}
+
+		// Check if error is in JSON format
+		try {
+			JSON.parse(error);
+			requestData.error = error;
+		} catch {
+			finalStack += `\nError: ${error}`;
+		}
+
+		requestData.stack = finalStack;
+
+		await getDirectusInstance(fetch).request(createItem('error', requestData));
 
 		return json({ message: 'Error data saved' });
 	} catch (err) {
-		console.error('Error while saving error data:', err);
+		console.log('Error while saving error data:', err);
 		return json({ message: 'Error while saving error data' });
 	}
 };

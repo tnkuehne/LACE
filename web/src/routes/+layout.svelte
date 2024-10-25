@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { env } from '$env/dynamic/public';
+	import { logError } from '$lib/logError';
 
 	import { progressStore } from '$lib/stores/progressStore';
 	import { browser } from '$app/environment';
@@ -13,22 +14,10 @@
 
 	if (browser) {
 		window.onerror = function (message, source, lineno, colno, error) {
-			fetch('/api/analytics/error', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ message, stack: source, error })
-			});
+			logError(error, error?.stack, 500, message, source);
 		};
 		window.onunhandledrejection = function (event) {
-			fetch('/api/analytics/error', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ event, message: event.reason.message, stack: event.reason.stack })
-			});
+			logError(event, event.reason.stack, 500, event.reason.message, event.reason.stack);
 		};
 	}
 
@@ -60,8 +49,9 @@
 <ModeWatcher />
 {#if data.previewMode}
 	<div class="fixed bottom-0 right-0 z-20 w-full bg-black py-2 text-center text-white">
-		You are viewing the site in draft mode, <a href={`${env.PUBLIC_WEB_URL}/api/exit-preview`} class="underline"
-			>click here exit.</a
+		You are viewing the site in draft mode, <a
+			href={`${env.PUBLIC_WEB_URL}/api/exit-preview`}
+			class="underline">click here exit.</a
 		>
 	</div>
 {/if}

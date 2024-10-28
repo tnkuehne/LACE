@@ -20,7 +20,7 @@
 		"@sveltejs/adapter-node": "^5.2.9",
 		"@sveltejs/enhanced-img": "^0.3.10",
 		"@sveltejs/kit": "^2.7.3",
-		"@sveltejs/vite-plugin-svelte": "^3.1.2",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"bits-ui": "^0.21.16",
 		"clsx": "^2.1.1",
 		"embla-carousel-svelte": "^8.3.0",

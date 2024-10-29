@@ -5,6 +5,38 @@ This directory contains the web server for the project. The web server is a Svel
 ## Architecture
 Styling is done via [Tailwind](https://tailwindcss.com/), and the application is built using [SvelteKit](https://svelte.dev/).
 
+## Structure
+The structure is pretty standard for a SvelteKit application. Read more about [Here](https://svelte.dev/docs/kit/project-structure). 
+We added one folder `src/lib/stores` for our reactive [stores](https://svelte.dev/docs/svelte/stores) (Progress and FullScreen). 
+Another folder `src/lib/components` for our custom components. Components which are used only ones are kept in the same folder as the page.
+
+#### Routing follows this structure:
+```text
+web/src/routes/
+├── api
+│   ├── analytics
+│   │   ├── error # Log errors to the cms
+│   │   └── quiz # Log quiz answers to the cms
+│   ├── exit-preview # Exit preview mode of cms
+│   ├── preview # Activate Preview mode of cms
+│   └── progress # Set and get progress to the cms
+├── c
+│   └── [...path] # Connect device for syncing progress
+├── certification # generate certificate
+├── courses # List of courses
+│   └── [courseSlug] # Course page with details about chapters
+│       ├── chapters # just separator
+│       │   └── [chapterSlug] # Learning View
+│       └── survey # Form action for survey displayed in Learning View
+├── sitemap.xml # SEO stuff
+└── verify # Verify certificate validity
+```
+
+[Loading](https://svelte.dev/docs/kit/load) is done on the server for both layout and page to keep cms api private.
+
+#### Hooks
+We use [Hooks](https://svelte.dev/docs/kit/hooks) to log errors and check if preview mode is active.
+
 ## Developing
 
 Installed dependencies with `npm install`, start a development server:
@@ -37,6 +69,8 @@ You can preview the production build with `npm run preview`.
 
 ## Quality
 
+We have installed husky for formatting and linting before pushing. To ensure the most basic functionality we have implemented a test (`web/tests`) which checks if the webpage loads and displays LACE and some other elements.
+
 ```bash
 cd web
 sudo codeclimate analyze
@@ -53,3 +87,6 @@ cd web
 npm run build
 open ./svelte-kit/adapter-node/stats.html
 ```
+
+### Speed
+Check the speed of the website with [Lighthouse](https://developers.google.com/web/tools/lighthouse) or [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) from time to time to see if there are any improvements to be made.

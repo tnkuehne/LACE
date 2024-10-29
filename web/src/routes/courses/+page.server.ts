@@ -23,6 +23,6 @@ export const load: PageServerLoad = async ({ fetch, locals, url }) => {
 		chapters,
 		sync,
 		settings,
-		title: 'Courses'
+		title: 'Courses' // needed for layout with breadcrumbs
 	};
 };

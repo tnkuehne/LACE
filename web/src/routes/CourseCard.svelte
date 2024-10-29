@@ -12,6 +12,7 @@
 
 	let rgbaColor = hexToRGBA(color, 0.2);
 
+	// needed because the color selector in the CMS returns a hex value
 	function hexToRGBA(hex: string, alpha: number) {
 		let r = parseInt(hex.slice(1, 3), 16),
 			g = parseInt(hex.slice(3, 5), 16),

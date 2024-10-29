@@ -12,11 +12,10 @@
 	import Satellite from 'lucide-svelte/icons/satellite';
 	import { spring } from 'svelte/motion';
 	import CircleArrowDown from 'lucide-svelte/icons/circle-arrow-down';
-
-	const icons = [WandSparkles, Satellite, PartyPopper];
-
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 	import { env } from '$env/dynamic/public';
+
+	const icons = [WandSparkles, Satellite, PartyPopper];
 
 	export let data;
 
@@ -27,8 +26,8 @@
 
 	$: parsedHeading = marked(data.landing?.heading ?? defaultHeading);
 
+	// used for the bounce effect on the arrow suggesting to scroll down
 	let bounceStore = spring({ y: 0 }, { stiffness: 0.1, damping: 0.25 });
-
 	$: {
 		setInterval(() => {
 			bounceStore.set({ y: 10 });

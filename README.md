@@ -316,6 +316,12 @@ Each of our services lives in a separate directory:
 * `cms`: Contains the Directus Schema
 * `reverse-proxy`: Contains the Nginx reverse proxy configuration.
 
+If you are running the composition for the first time you will need to import the database schema. You can do this by running the following command:
+```bash
+sudo docker compose cp ~/cms/snapshot.yaml cms:/directus/snapshot.yaml
+sudo docker compose exec -it cms npx directus schema snapshot apply --yes ./snapshot.yaml
+```
+After this you need to fill in some initial data and create a user with the rights tp access the content. After this export the token of the user and replace the environment variable.
 ```bash
 docker compose -f docker-compose.dev.yml up
 ```

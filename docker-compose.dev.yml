@@ -1,3 +1,4 @@
+# As this is only for development we keep env variables here for simplicity
 services:
 
   database:

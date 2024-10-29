@@ -39,6 +39,7 @@
 		const referrer = document.referrer;
 		const path = $page.url.pathname;
 
+		// inspired by cloudflare analytics
 		if (!referrer || new URL(referrer).hostname !== new URL(location.href).hostname) {
 			trackPageView(path, referrer);
 		}

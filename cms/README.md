@@ -19,3 +19,14 @@ sudo docker compose exec -it cms npx directus schema snapshot apply --yes ./snap
 ```
 
 Note that the version of export and import should be the same.
+
+## Config
+
+The [configuration](https://docs.directus.io/self-hosted/config-options.html) is mostly done by environment variables.
+
+## Speed
+If the speed of the should ever be a bottleneck, try using Redis as a cache. 
+You need to set the environment variable and add a new redis service in docker compose.
+
+## Accounts
+This is set in the environment variables. Other accounts can be created in the admin interface.

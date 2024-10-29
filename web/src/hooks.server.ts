@@ -17,7 +17,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 export const handleError: HandleServerError = async ({ error, event, status, message }) => {
 	console.log('error logging:', error, event, status, message);
 	// only log errors if they are not 404s
-	if (status !== 404) logError(error, event, status, message, null);
+	if (status !== 404) await logError(error, event, status, message, null);
 
 	return {
 		status,

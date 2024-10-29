@@ -14,9 +14,10 @@ function sanitizeError(obj) {
 	});
 }
 
-export function logError(error, event, status, message, stack) {
+export async function logError(error, event, status, message, stack) {
 	try {
 		const url = envPublic.PUBLIC_WEB_URL ? `${envPublic.PUBLIC_WEB_URL}/api/analytics/error` : null;
+		console.log(url);
 		if (url) {
 			// Sanitize the objects before sending
 			const sanitizedPayload = {
@@ -27,7 +28,7 @@ export function logError(error, event, status, message, stack) {
 				error: error ? sanitizeError(error) : undefined
 			};
 
-			fetch(url, {
+			await fetch(url, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

@@ -59,6 +59,7 @@ services:
       - /var/lib/rbg-cert:/var/lib/rbg-cert:ro
       - /usr/local/cert.d/nginx:/usr/local/cert.d/nginx
       - ./.htpasswd:/etc/nginx/.htpasswd:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     ports:
       - "80:80"
       - "443:443"

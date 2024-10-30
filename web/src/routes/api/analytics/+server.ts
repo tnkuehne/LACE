@@ -31,6 +31,8 @@ function extractDeviceType(userAgent: string): string {
 	}
 }
 
+// This is the server-side route for saving page view data to Directus collection to not expose directus token to the client
+// needed track ip, browser, os, device, path, and referrer of the user visiting the page to analyze the traffic
 export const POST: RequestHandler = async ({ request, getClientAddress, fetch }) => {
 	const directus = getDirectusInstance(fetch);
 

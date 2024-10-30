@@ -2,6 +2,7 @@ import type { RequestHandler } from '../../../../.svelte-kit/types/src/routes';
 import { redirect } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
+// need to remove the preview cookie and redirect to the original URL
 export const GET: RequestHandler = async ({ request, cookies, url }) => {
 	const referer = request.headers.get('referer');
 

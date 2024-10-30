@@ -3,6 +3,7 @@ import { json } from '@sveltejs/kit';
 import { createItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 
+// This is the server-side route for saving error data to Directus collection to not expose directus token to the client
 export const POST: RequestHandler = async ({ request, fetch }) => {
 	const {
 		event = 'not provided',

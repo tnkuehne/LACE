@@ -1,5 +1,6 @@
 services:
 
+  # we use postgis instead of postgres because we need map functionality for directus
   database:
     image: postgis/postgis:16-master
     ports:

@@ -15,6 +15,7 @@ const mergeChapters = (currentChapters: { chapter: string }[], completedChapters
 	];
 };
 
+// needed to be server-side to avoid exposing the directus token to the client
 const updateProgress = async (
 	directus,
 	entryId: string,
@@ -42,6 +43,7 @@ const updateProgress = async (
 	);
 };
 
+// needed to be server-side to avoid exposing the directus token to the client
 const createProgress = async (
 	directus,
 	userId: string,
@@ -70,6 +72,7 @@ const getExistingEntries = async (directus, userId: string, course: string) => {
 	);
 };
 
+// This is the server-side route for updating user progress
 export const PATCH: RequestHandler = async ({ request, cookies, fetch }) => {
 	const directus = getDirectusInstance(fetch);
 	const userId = cookies.get('user');
@@ -108,6 +111,7 @@ export const PATCH: RequestHandler = async ({ request, cookies, fetch }) => {
 	}
 };
 
+// This is the server-side route for fetching user progress
 export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 	const directus = getDirectusInstance(fetch);
 
@@ -140,6 +144,7 @@ export const GET: RequestHandler = async ({ url, fetch, cookies }) => {
 	}
 };
 
+// This is the server-side route for setting a user cookie to track progress
 export const POST: RequestHandler = ({ cookies }) => {
 	// set user cookie with a unique id
 	const userId = crypto.randomUUID();

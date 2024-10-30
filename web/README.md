@@ -90,3 +90,7 @@ open ./svelte-kit/adapter-node/stats.html
 
 ### Speed
 Check the speed of the website with [Lighthouse](https://developers.google.com/web/tools/lighthouse) or [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) from time to time to see if there are any improvements to be made.
+
+### Dependencies
+Keep in mind to not introduce new dependencies without a good reason. The more dependencies we have the more maintenance we need to do and the more security issues we might have.
+Use web api's when possible.

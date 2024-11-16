@@ -14,10 +14,10 @@
 
 	if (browser) {
 		window.onerror = function (message, source, lineno, colno, error) {
-			logError(error, error?.stack, 500, message, source);
+			//logError(error, error?.stack, 500, message, source);
 		};
 		window.onunhandledrejection = function (event) {
-			logError(event, event.reason.stack, 500, event.reason.message, event.reason.stack);
+			//logError(event, event.reason.stack, 500, event.reason.message, event.reason.stack);
 		};
 	}
 

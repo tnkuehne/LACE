@@ -48,7 +48,7 @@
 		"util": "^0.12.5"
 	},
 	"devDependencies": {
-		"@eslint/eslintrc": "^3.1.0",
+		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.13.0",
 		"@playwright/test": "^1.48.2",
 		"@types/eslint": "^9.6.1",

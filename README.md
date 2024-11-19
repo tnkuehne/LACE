@@ -325,3 +325,8 @@ After this you need to fill in some initial data and create a user with the righ
 ```bash
 docker compose -f docker-compose.dev.yml up
 ```
+
+## Contact
+* Project Owner: [Alexandra Klymenko](https://www.linkedin.com/in/alexandra-klymenko) from [SEBIS Chair](https://wwwmatthes.in.tum.de/)
+* Design: [Anxhela Maloku](https://www.linkedin.com/in/anxhela-maloku/)
+* Software Engineering: [Timo Kühne](https://www.linkedin.com/in/timo-kuehne/)

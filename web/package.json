@@ -28,7 +28,7 @@
 		"formsnap": "^1.0.1",
 		"globals": "^15.11.0",
 		"lucide-svelte": "^0.453.0",
-		"marked": "^14.1.3",
+		"marked": "^15.0.4",
 		"mode-watcher": "^0.4.1",
 		"pdf-lib": "^1.17.1",
 		"postcss": "^8.4.47",

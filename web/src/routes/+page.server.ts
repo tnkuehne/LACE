@@ -9,6 +9,6 @@ export const load: PageServerLoad = async ({ fetch, url, locals }) => {
 
 	return {
 		courses: directus.request(readItems('Courses')).catch(() => json(500)),
-		landing: await directus.request(readSingleton('landing', { version, fields: ['*.*'] })).catch(() => {})
+		landing: await directus.request(readSingleton('landing', { version, fields: ['*', 'seo.*'] })).catch(() => {})
 	};
 };

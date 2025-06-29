@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 	import CourseCard from './CourseCard.svelte';
 	import ScrollText from 'lucide-svelte/icons/scroll-text';
 	import Grainy from './Grainy.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import { marked } from 'marked';
+	import { Button } from '$lib/components/ui/button/index';
 	import CircleAlert from 'lucide-svelte/icons/circle-alert';
 	import * as Alert from '$lib/components/ui/alert/index';
 	import Footer from '$lib/components/Footer.svelte';
@@ -25,6 +26,17 @@
 		'Support your organization in adapting  to Privacy Enhancing Technologies';
 
 	$: parsedHeading = marked(data.landing?.heading ?? defaultHeading);
+	$: parsedWhitePaper = marked(data.landing?.white_paper_abstract ?? '');
+
+	function handleDownloadClick() {
+		fetch('/api/analytics', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ path: '/download', referrer: '/' })
+		});
+	}
 
 	// used for the bounce effect on the arrow suggesting to scroll down
 	let bounceStore = spring({ y: 0 }, { stiffness: 0.1, damping: 0.25 });
@@ -140,6 +152,56 @@
 							</Alert.Description>
 						</Alert.Root>
 					{/await}
+				</div>
+			</div>
+		</section>
+		<section id="white-paper">
+			<div class="space-y-16">
+				<div class="space-y-4">
+					<h2 class="text-center text-3xl font-bold lg:text-5xl">
+						{data.landing?.white_paper_section_title ?? 'White Paper'}
+					</h2>
+					<p class="text-center text-lg lg:text-base">
+						{data.landing?.white_paper_section_description ??
+							'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
+					</p>
+				</div>
+				<div
+					class="flex flex-col justify-between space-y-8 rounded-3xl bg-white p-4 dark:bg-secondary lg:flex-row lg:space-y-0"
+				>
+					{#if data.landing?.white_paper_pdf && data.landing?.white_paper_pdf.length > 0}
+						<div class="order-2 flex flex-col items-center space-y-4 p-12 py-16 lg:order-1">
+							<div class="prose-black prose dark:prose-invert">
+								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+								{@html parsedWhitePaper}
+							</div>
+							<Button
+								class="text-md size-fit font-bold text-secondary"
+								href={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.white_paper_pdf}?download`}
+								target="_blank"
+								download="WhitePaper.pdf"
+								on:click={handleDownloadClick}>{data.landing?.white_paper_button}</Button
+							>
+						</div>
+						<div class="relative order-1 flex justify-center lg:order-2 lg:w-1/2">
+							<div class="relative z-10 w-full content-center lg:w-4/5">
+								<img
+									src={`${env.PUBLIC_CMS_URL}/assets/${data.landing?.cover}`}
+									alt="White Paper"
+									class="h-auto w-full"
+									loading="lazy"
+								/>
+							</div>
+						</div>
+					{:else}
+						<Alert.Root>
+							<CircleAlert class="h-4 w-4" />
+							<Alert.Title>White Paper Display Error</Alert.Title>
+							<Alert.Description>
+								We're currently unable to display our white paper. Please check back later.
+							</Alert.Description>
+						</Alert.Root>
+					{/if}
 				</div>
 			</div>
 		</section>

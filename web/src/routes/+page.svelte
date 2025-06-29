@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import CourseCard from './CourseCard.svelte';
 	import ScrollText from 'lucide-svelte/icons/scroll-text';
 	import Grainy from './Grainy.svelte';
@@ -36,6 +36,8 @@
 			},
 			body: JSON.stringify({ path: '/download', referrer: '/' })
 		});
+	}
+
 	// used for the bounce effect on the arrow suggesting to scroll down
 	let bounceStore = spring({ y: 0 }, { stiffness: 0.1, damping: 0.25 });
 	$: {

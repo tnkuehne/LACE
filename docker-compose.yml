@@ -1,5 +1,6 @@
 services:
 
+  # we use postgis instead of postgres because we need map functionality for directus
   database:
     image: postgis/postgis:16-master
     ports:
@@ -11,13 +12,13 @@ services:
       - custom-app-network
 
   cms:
-    image: directus/directus:10.12.1
+    image: directus/directus:11.1.1
     ports:
       - 8055:8055
     volumes:
       - ./directus/uploads:/directus/uploads
       - ./directus/extensions:/directus/extensions
-      - ./directus/database:/directus/database
+      - ./directus/database:/directus/database # was needed for sqlite in the past
     depends_on:
       - database
     env_file: ".env"
@@ -56,9 +57,10 @@ services:
     image: nginx:latest
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /var/lib/rbg-cert:/var/lib/rbg-cert:ro
+      - /var/lib/rbg-cert:/var/lib/rbg-cert:ro # Certificate for tum domain
       - /usr/local/cert.d/nginx:/usr/local/cert.d/nginx
-      - ./.htpasswd:/etc/nginx/.htpasswd:ro
+      - ./.htpasswd:/etc/nginx/.htpasswd:ro # Basic Auth for staging
+      - /etc/letsencrypt:/etc/letsencrypt:ro # Certificate of own domains
     ports:
       - "80:80"
       - "443:443"

@@ -3,32 +3,51 @@ import { json } from '@sveltejs/kit';
 import { createItem } from '@directus/sdk';
 import getDirectusInstance from '$lib/server/directus';
 
+// This is the server-side route for saving error data to Directus collection to not expose directus token to the client
 export const POST: RequestHandler = async ({ request, fetch }) => {
-	let { event, error } = await request.json();
-	const { statusCode, stack, message } = await request.json();
+	const {
+		event = 'not provided',
+		error = 'not provided',
+		statusCode = 'not provided',
+		stack = 'not provided',
+		message = 'not provided'
+	} = await request.json();
 
-	// if event and error is not json format, convert them to json
-	if (typeof event === 'object') {
-		event = JSON.stringify(event);
-	}
-	if (typeof error === 'object') {
-		error = JSON.stringify(error);
-	}
+	console.log('Error data:', { event, error, statusCode, stack, message });
+
+	let finalStack = stack;
+	const requestData = {
+		statusCode: statusCode,
+		stack: finalStack,
+		message: message,
+		event: undefined,
+		error: undefined
+	};
 
 	try {
-		await getDirectusInstance(fetch).request(
-			createItem('error', {
-				statusCode: statusCode,
-				stack: stack,
-				message: message,
-				event: event,
-				error: error
-			})
-		);
+		// Check if event is in JSON format
+		try {
+			JSON.parse(event);
+			requestData.event = event;
+		} catch {
+			finalStack += `\nEvent: ${event}`;
+		}
+
+		// Check if error is in JSON format
+		try {
+			JSON.parse(error);
+			requestData.error = error;
+		} catch {
+			finalStack += `\nError: ${error}`;
+		}
+
+		requestData.stack = finalStack;
+
+		await getDirectusInstance(fetch).request(createItem('error', requestData));
 
 		return json({ message: 'Error data saved' });
 	} catch (err) {
-		console.error('Error while saving error data:', err);
+		console.log('Error while saving error data:', err);
 		return json({ message: 'Error while saving error data' });
 	}
 };

@@ -2,6 +2,7 @@ import { error, redirect, type RequestHandler } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 
+// need to set a cookie with the preview secret and redirect to the original URL with the version parameter
 export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
 	const secret = url.searchParams.get('secret');
 	const slug = url.searchParams.get('slug');

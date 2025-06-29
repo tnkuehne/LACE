@@ -3,7 +3,7 @@
 [![Build](https://github.com/H3nkl3r/LACE/actions/workflows/build.yml/badge.svg)](https://github.com/H3nkl3r/LACE/actions/workflows/build.yml)
 [![Tests](https://github.com/H3nkl3r/LACE/actions/workflows/playwright.yml/badge.svg)](https://github.com/H3nkl3r/LACE/actions/workflows/playwright.yml)
 
-LACE is a web-based learning platform that offers courses on Privacy-Enhancing Technologies. The platform aims to provide high-quality educational content to non-technical practitioners, managers, and legal professionals interested in privacy-focused technologies. LACE offers a range of courses, including introductory courses, advanced courses, and specialized courses on various topics related to Privacy-Enhancing Technologies.
+LACE is a web-based learning platform that offers courses on Privacy-Enhancing Technologies. The platform aims to provide high-quality educational content to non-technical practitioners, managers, and legal professionals interested in privacy-focused technologies. LACE offers a range of courses, including introductory, advanced, and specialized courses on various topics related to Privacy-Enhancing Technologies.
 
 ## Features
 
@@ -19,11 +19,11 @@ LACE is a web-based learning platform that offers courses on Privacy-Enhancing T
 * [X] 🔄 **Device Switching**: A device switching feature that allows users to seamlessly switch between devices while learning.
 * [X] 🛠️ **Content Management System Integration**: Integration with a content management system (Directus) for managing learning content.
 * [X] 👁️ **Preview Mode**: A preview mode that allows content managers to preview course content before enrolling.
-* [X] 📊 **Admin Dashboard**: An admin dashboard that allows content managers to manage courses, and analytics.
+* [X] 📊 **Admin Dashboard**: An admin dashboard that allows content managers to manage courses and analytics.
+* [X] 📤 **Social Sharing**: A social sharing feature that allows users to share courses and certificates on social media platforms.
 * [ ] 🔍 **Search Functionality**: A search functionality that allows users to search for specific courses or content.
-* [ ] 📤 **Social Sharing**: A social sharing feature that allows users to share courses and certificates on social media platforms.
 * [ ] 🏆 **Gamification**: A gamification feature that includes badges, points, and leaderboards to motivate and engage learners.
-* [ ] 🔔 **Notifications**: A notifications feature that sends reminders, updates, and announcements to users.
+* [ ] 🔔 **Notifications**: A notifications feature that sends users reminders, updates, and announcements.
 * [ ] 🎨 **Customization**: A customization feature that allows users to personalize their learning experience. Large language models could be used for this purpose.
 
 ## Development
@@ -35,13 +35,13 @@ LACE is a web-based learning platform that offers courses on Privacy-Enhancing T
 The title is concise and action-oriented, clearly conveying the page's purpose. The header features a gradient background and the LACE logo, creating a modern, professional appearance and establishing brand identity. This creates a strong first impression and reinforces the brand's credibility.
 
 ##### Courses Section:
-Three courses target different user groups: non-technical practitioners, managers, and legal professionals. Each course is presented as a card with a title, short description, and a "Learn More" button, allowing easy scanning and quick access to relevant information. The card layout enhances user experience by facilitating quick scanning and easy interaction.
+Three courses target different user groups: non-technical practitioners, managers, and legal professionals. Each course is presented as a card with a title, a short description, and a "Learn More" button, allowing easy scanning and quick access to relevant information. The card layout enhances user experience by facilitating quick scanning and easy interaction.
 
 ##### Publications Section:
 Scientific publications are listed vertically with icons for easy identification, ensuring a simple and intuitive browsing experience. Listing key scientific publications provides access to credible sources, establishing trust and authority.
 
 ##### Footer Section:
-The footer includes branding, relevant links, sponsor information, and a copyright notice. The consistent color scheme and fonts ensure a cohesive look. Including branding and sponsor information adds legitimacy and transparency, while relevant links improve navigation and access to additional resources.
+The footer includes branding, relevant links, sponsor information, and a copyright notice. The consistent colour scheme and fonts ensure a cohesive look. Including branding and sponsor information adds legitimacy and transparency, while relevant links improve navigation and access to additional resources.
 
 #### Courses Overview
 
@@ -105,85 +105,20 @@ C4Container
     Person(contentCreator, "Content Creator", "Creates and uploads learning content")
 
     Container_Boundary(lace, "LACE Learning Platform") {
+        Container(nginx, "Nginx", "Reverse Proxy", "Handles incoming requests and forwards them")
         Container(webApp, "Web Application", "SvelteKit", "Delivers the front-end of the learning platform")
         Container(api, "API", "Directus", "Handles backend services and data management")
         ContainerDb(database, "Database", "PostgreSQL", "Stores learning content and analytics")
     }
 
-    Rel(contentCreator, api, "Uses")
-    Rel(learner, webApp, "Uses")
+    Rel(learner, nginx, "Uses")
+    Rel(contentCreator, nginx, "Uses")
+    Rel(nginx, webApp, "Forwards", "HTTP")
+    Rel(nginx, api, "Forwards", "HTTP")
     Rel(webApp, api, "Interacts with", "HTTP")
     Rel(api, database, "Reads from and writes to", "SQL")
 
     UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
-```
-
-#### Component
-
-```mermaid
-C4Component
-    title Component diagram for LACE Learning Platform - SvelteKit Application
-
-    Container(api, "API", "Directus", "Handles backend services and data management")
-    ContainerDb(database, "Database", "PostgreSQL", "Stores learning content and analytics")
-
-    Container_Boundary(api, "Web Application") {
-
-        Component(serviceProxy, "ProxyService", "TypeScript", "Handles proxy API integration")
-        Component(serviceDirectus, "DirectusService", "TypeScript", "Handles Directus API integration")
-        Component(serviceAnalytics, "AnalyticsService", "TypeScript", "Handles analytics API integration")
-        Component(servicePreview, "PreviewService", "TypeScript", "Handles preview API integration")
-        
-        Component(pageHome, "HomePage", "Svelte", "Displays the home page with general information", $tags="page")
-        Component(courseCardHome, "CourseCardHome", "Svelte", "Component to display individual courses on the home page")
-        Component(layoutHome, "HomeLayout", "Svelte", "Layout for the home page")
-        
-        Component(layoutCourses, "CoursesLayout", "Svelte", "Layout for the course and courses page")
-        Component(pageCourses, "CoursesPage", "Svelte", "Displays all available courses", $tags="page")
-        Component(courseCard, "CourseCard", "Svelte", "Component to display individual courses")
-        
-        Component(pageCourse, "CoursePage", "Svelte", "Displays course content to learners", $tags="page")
-        Component(chapterCard, "ChapterCard", "Svelte", "Component to display individual chapters")
-
-        Component(progressStore, "ProgressStore", "Svelte Store", "Manages user progress state")
-        
-        Component(pageLearning, "LearningPage", "Svelte", "Displays learning content to learners", $tags="page")
-        Component(chapterFinal, "ChapterFinal", "Svelte", "Component to display chapter final details")
-        Component(mcQuiz, "McQuiz", "Svelte", "Multiple choice quiz component")
-        Component(orderQuiz, "OrderQuiz", "Svelte", "Ordering quiz component")
-        Component(layoutLearning, "LearningLayout", "Svelte", "Layout for the learning page")
-        
-        Component(errorBoundary, "ErrorBoundary", "Svelte", "Error boundary component")
-        
-        
-        Rel(layoutHome, pageHome, "Renders")
-        Rel(layoutCourses, pageCourses, "Renders")
-        Rel(layoutCourses, pageCourse, "Renders")
-        Rel(layoutLearning, pageLearning, "Renders")
-        
-        Rel(pageHome, courseCardHome, "Renders")
-        Rel(pageCourses, courseCard, "Renders")
-        Rel(pageCourse, chapterCard, "Renders")
-        
-        Rel(pageLearning, chapterFinal, "Renders")
-        Rel(pageLearning, mcQuiz, "Renders")
-        Rel(pageLearning, orderQuiz, "Renders")
-        
-        Rel(pageLearning, progressStore, "Uses")
-        Rel(pageCourse, progressStore, "Uses")
-        
-        Rel(serviceDirectus, serviceProxy, "Uses")
-        Rel(serviceAnalytics, serviceDirectus, "Uses")
-        Rel(servicePreview, serviceDirectus, "Uses")
-    }
-    
-    Rel_Back(api, serviceProxy, "Uses")
-    
-    Rel(api, database, "Reads from and writes to", "SQL")
-    
-
-    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
-
 ```
 
 #### Database
@@ -367,20 +302,31 @@ erDiagram
 semgrep scan --config auto
 ```
 
-### Quality
-
 ```bash
-cd web
-sudo codeclimate analyze
+sudo docker pull zaproxy/zap-stable
+sudo docker run -u zap -p 8080:8080 -p 8090:8090 -i zaproxy/zap-stable zap-webswing.sh
 ```
 
-#### Good example of SvelteKit code:
-- https://github.com/sveltejs/realworld
+## Deployment
 
-#### Analyzing bundle size
-Need to remove the comment in the `vite.config.ts` file.
-```bash 
-cd web
-npm run build
-open ./svelte-kit/adapter-node/stats.html
+We use Docker Compose for developing and production deployment. The `docker-compose.yml` file defines the services and configurations for the LACE Learning Platform. The services include the web application, API, and database. The `Dockerfile` and `Dockerfile.dev` files define the build instructions for the web application container. Use `docker-compose.dev.yml` for development and `docker-compose.yml` for production deployment.
+
+Each of our services lives in a separate directory:
+* `web`: Contains the SvelteKit web application.
+* `cms`: Contains the Directus Schema
+* `reverse-proxy`: Contains the Nginx reverse proxy configuration.
+
+If you are running the composition for the first time you will need to import the database schema. You can do this by running the following command:
+```bash
+sudo docker compose cp ~/cms/snapshot.yaml cms:/directus/snapshot.yaml
+sudo docker compose exec -it cms npx directus schema snapshot apply --yes ./snapshot.yaml
 ```
+After this you need to fill in some initial data and create a user with the rights tp access the content. After this export the token of the user and replace the environment variable.
+```bash
+docker compose -f docker-compose.dev.yml up
+```
+
+## Contact
+* Project Owner: [Alexandra Klymenko](https://www.linkedin.com/in/alexandra-klymenko) from [SEBIS Chair](https://wwwmatthes.in.tum.de/)
+* Design: [Anxhela Maloku](https://www.linkedin.com/in/anxhela-maloku/)
+* Software Engineering: [Timo Kühne](https://www.linkedin.com/in/timo-kuehne/)

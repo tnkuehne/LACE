@@ -32,6 +32,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, locals }) => {
 
 	return {
 		chapters,
-		settings
+		settings,
+		title: chapters[0].kurs.Title
 	};
 };

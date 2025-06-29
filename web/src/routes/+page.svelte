@@ -8,9 +8,15 @@
 	import CircleAlert from 'lucide-svelte/icons/circle-alert';
 	import * as Alert from '$lib/components/ui/alert/index';
 	import Footer from '$lib/components/Footer.svelte';
-
+	import WandSparkles from 'lucide-svelte/icons/wand-sparkles';
+	import PartyPopper from 'lucide-svelte/icons/party-popper';
+	import Satellite from 'lucide-svelte/icons/satellite';
+	import { spring } from 'svelte/motion';
+	import CircleArrowDown from 'lucide-svelte/icons/circle-arrow-down';
 	import ThemeToggle from '$lib/components/ui/theme-toggle/ThemeToggle.svelte';
 	import { env } from '$env/dynamic/public';
+
+	const icons = [WandSparkles, Satellite, PartyPopper];
 
 	export let data;
 
@@ -30,6 +36,13 @@
 			},
 			body: JSON.stringify({ path: '/download', referrer: '/' })
 		});
+	// used for the bounce effect on the arrow suggesting to scroll down
+	let bounceStore = spring({ y: 0 }, { stiffness: 0.1, damping: 0.25 });
+	$: {
+		setInterval(() => {
+			bounceStore.set({ y: 10 });
+			setTimeout(() => bounceStore.set({ y: 0 }), 1000);
+		}, 5000);
 	}
 </script>
 
@@ -39,7 +52,7 @@
 	defaultDescription="Support your organization in adopting Privacy-Enhancing Technologies"
 />
 
-<div class="relative flex w-full flex-col overflow-x-hidden lg:flex-row">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden lg:flex-row">
 	<div class="absolute right-0 top-0">
 		<!-- Largest Circle -->
 		<div
@@ -67,7 +80,7 @@
 	<!-- Text Content within a centered max width container -->
 	<div class="relative flex w-full justify-center">
 		<div class="w-full max-w-screen-2xl space-y-12 p-4 pb-32 pt-8 md:space-y-32 lg:space-y-64">
-			<div class="space-y-64">
+			<div class="space-y-64 md:space-y-80">
 				<div class="flex flex-row justify-between">
 					<h1
 						class="font-sansation text-4xl font-bold uppercase lining-nums tabular-nums leading-none tracking-[0.12em] text-blue-800 dark:text-blue-600 md:text-6xl"
@@ -83,6 +96,11 @@
 					{@html parsedHeading}
 				</div>
 			</div>
+			<div class="absolute bottom-8 left-1/2 -translate-x-1/2 transform">
+				<a href="#courses" style="transform: translateY({$bounceStore.y}px);" class="inline-block">
+					<CircleArrowDown class="h-8 w-8" />
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -90,19 +108,19 @@
 	<div
 		class="mx-auto flex w-full max-w-screen-2xl flex-col items-center justify-center space-y-32 p-4 pt-32"
 	>
-		<section>
+		<section id="courses">
 			<div class="space-y-16">
-				<div class="space-y-4">
-					<h2 class="text-center text-3xl font-bold lg:text-5xl">
+				<div class="flex flex-col justify-center space-y-4">
+					<a
+						class="text-center text-3xl font-bold hover:text-primary dark:hover:text-blue-600 lg:text-5xl"
+						href={`${env.PUBLIC_WEB_URL}/courses`}
+					>
 						{data.landing?.courses_title ?? 'Courses'}
-					</h2>
+					</a>
 					<p class="text-center text-lg lg:text-base">
 						{data.landing?.courses_description ??
 							'Concise yet informative courses tailored to the specific needs of different practitioner groups'}
 					</p>
-					<div class="flex justify-center">
-						<Button variant="link" href={`${env.PUBLIC_WEB_URL}/courses`}>Detailed Overview</Button>
-					</div>
 				</div>
 				<div
 					class="-m-2 flex flex-col justify-center space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
@@ -110,7 +128,7 @@
 					{#await data.courses}
 						<!-- ToDo: Evaluate Skeleton -->
 					{:then courses}
-						{#each courses as course}
+						{#each courses as course, index}
 							<div class="w-full p-2">
 								<CourseCard
 									title={course.Title}
@@ -118,6 +136,7 @@
 									description={course.Description}
 									buttonText={data.landing?.courses_action_button_text ?? 'Learn More'}
 									color={course.color}
+									Icon={icons[index % icons.length]}
 								/>
 							</div>
 						{/each}

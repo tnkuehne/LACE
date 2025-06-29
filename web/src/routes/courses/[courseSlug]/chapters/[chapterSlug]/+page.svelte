@@ -23,8 +23,16 @@
 
 	$: chapter = data.chapter[0];
 
+	function getSlideIndexFromFragment() {
+		const fragment = window.location.hash.substring(1);
+		console.log('Fragment: ', fragment);
+		const index = parseInt(fragment, 10);
+		return isNaN(index) ? 0 : index;
+	}
+
 	$: if (api && data) {
-		api.scrollTo(0); // Scroll to the first slide
+		const initialSlideIndex = getSlideIndexFromFragment();
+		api.scrollTo(initialSlideIndex); // Scroll to the slide from the URL fragment
 		const currentChapterIndex = data.chapters.findIndex((_chapter) => _chapter.id === chapter.id);
 		if (currentChapterIndex !== -1 && currentChapterIndex < data.chapters.length - 1) {
 			const nextChapter = data.chapters[currentChapterIndex + 1];
@@ -34,11 +42,33 @@
 		}
 	}
 
+	function updateFragment(index: number, type: string) {
+		window.location.hash = `#${index}-${type}`;
+	}
+
 	$: if (api) {
 		count = api.scrollSnapList().length;
 		current = api.selectedScrollSnap() + 1;
 		api.on('select', () => {
 			current = api.selectedScrollSnap() + 1;
+			const content = chapter.content[current - 1];
+			let type = 'slide';
+
+			if (current < count) {
+				// Only update fragment if it's not the last slide
+				if (content) {
+					if (content.item && 'type' in content.item) {
+						if (content.item.type === 'mc' || content.item.type === 'order') {
+							type = 'quiz';
+						}
+					} else if (content.collection === 'directus_files') {
+						type = 'image';
+					}
+				} else if (chapter.references && current > chapter.content.length) {
+					type = 'reference';
+				}
+				updateFragment(current - 1, type);
+			}
 			console.log('slide: ', current, '/', count);
 		});
 	}
@@ -131,7 +161,7 @@
 				{#if chapter.references}
 					{#each chunkReferences(chapter.references) as referenceChunk}
 						<Carousel.Item class="flex items-center justify-center">
-							<References references={referenceChunk} />
+							<References references={referenceChunk} note={chapter.kurs.reference_note} />
 						</Carousel.Item>
 					{/each}
 				{/if}

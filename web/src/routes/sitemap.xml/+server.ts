@@ -8,6 +8,7 @@ interface Page {
 	updated: string;
 }
 
+// https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
 export const GET: RequestHandler = async ({ fetch }) => {
 	const directus = getDirectusInstance(fetch);
 

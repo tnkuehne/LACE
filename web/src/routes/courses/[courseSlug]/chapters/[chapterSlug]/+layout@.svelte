@@ -111,7 +111,7 @@
 			<ChapterList
 				chapters={data.chapters}
 				courseId={data.chapters[0].kurs.id}
-				currentChapterTitle={$page.data.chapter[0].title}
+				currentChapterTitle={$page.data.chapter?.[0]?.Title ?? ''}
 				isPageComponent={true}
 			/>
 		</div>

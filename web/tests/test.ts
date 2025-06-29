@@ -12,5 +12,5 @@ test('landing page shows text', async ({ page }) => {
 	).toBeVisible();
 
 	// Check the Courses section
-	await expect(page.locator('h2:has-text("Courses")')).toBeVisible();
+	await expect(page.locator('a:has-text("Courses")')).toBeVisible();
 });
